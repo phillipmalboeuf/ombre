@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model airtable_schema {
+  id          Int       @id @default(dbgenerated("nextval('_airtable_schema_id_seq'::regclass)"))
+  resource_id String    @db.Uuid
+  payload     Json
+  fingerprint String
+  inserted_at DateTime? @default(now()) @db.Timestamptz(6)
+
+  @@unique([resource_id, fingerprint], map: "idx_resource_id_fingerprint")
+  @@map("_airtable_schema")
+}
+
+model sync_meta {
+  id            Int                      @id
+  started_at    DateTime?                @db.Timestamptz(6)
+  completed_at  DateTime?                @db.Timestamptz(6)
+  duration_last Unsupported("interval")?
+
+  @@map("_sync_meta")
+}
+
+model client_orders {
+  id               String    @id(map: "tbl3Spwoc7qmQoszJ_pk")
+  bill_to          String[]
+  client           String[]
+  created_time     DateTime? @db.Timestamp(6)
+  fulfill_by       DateTime? @db.Date
+  invoice          String[]
+  name             String?
+  order_line_items String[]
+  items order_line_items[]
+  order_no         Decimal?  @db.Decimal
+  status           String?
+  total_order_cost String[]
+
+  @@index([client])
+  @@index([order_line_items])
+}
+
+model clients {
+  id              String    @id(map: "tblp9gAS6JtZTtwEt_pk")
+  billing_address String?
+  client_orders   String[]
+  created_time    DateTime? @db.Timestamp(6)
+  name            String?
+  photos_of_space String[]
+
+  @@index([client_orders])
+}
+
+model designers {
+  id           String    @id(map: "tblTqMrDR8XCqzKGb_pk")
+  bio          String?
+  created_time DateTime? @db.Timestamp(6)
+  furniture    String[]
+  name         String?
+  photo        String[]
+
+  @@index([furniture])
+}
+
+model furniture {
+  id               String    @id(map: "tblmogAUiEoYYrzBm_pk")
+  color            String[]
+  created_time     DateTime? @db.Timestamp(6)
+  description      String?
+  designer         String[]
+  gross_sales      String[]
+  images           String[]
+  in_stock         Boolean?
+  link             String?
+  materials        String[]
+  name             String?
+  notes            String?
+  orders           String[]
+  schematic        String[]
+  settings         String[]
+  size_wxlxh       String?
+  total_units_sold String[]
+  type             String?
+  unit_cost        Decimal?  @db.Decimal
+  vendor           String[]
+
+  @@index([designer])
+  @@index([orders])
+  @@index([vendor])
+}
+
+model order_line_items {
+  id               String    @id(map: "tblrg3BX3Ht3KyDsr_pk")
+  belongs_to_order String[]
+  orders client_orders @relation(fields: [belongs_to_order], references: [id])
+  created_time     DateTime? @db.Timestamp(6)
+  furniture_item   String[]
+  image            String[]
+  name             String?
+  price_per_unit   String[]
+  quantity         Decimal?  @db.Decimal
+  total_cost       String?
+
+  @@index([belongs_to_order])
+  @@index([furniture_item])
+}
+
+model vendor_contacts {
+  id           String    @id(map: "tblffgHgJ5TuMdaGy_pk")
+  created_time DateTime? @db.Timestamp(6)
+  email        String?
+  name         String?
+  phone_number String?
+  vendors      String[]
+
+  @@index([vendors])
+}
+
+model vendors {
+  id               String    @id(map: "tblqNmpopsLQdKlrw_pk")
+  catalog_link     String?
+  closest_showroom String?
+  created_time     DateTime? @db.Timestamp(6)
+  furniture        String[]
+  logo             String[]
+  name             String?
+  notes            String?
+  phone_number     String?
+  sales_contact    String[]
+
+  @@index([furniture])
+  @@index([sales_contact])
+}
