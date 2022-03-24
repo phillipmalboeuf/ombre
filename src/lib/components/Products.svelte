@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { furniture } from '@prisma/client'
-  export let products: furniture[]
+  import type { Product } from '@prisma/client'
+  export let products: Product[]
 </script>
 
 {#each products as product}
-  <a href="/ps/{product.id}">{product.name} {product.notes}</a><br>
+  <a href="/products/{product.id_}">{product.name} {product.id_}</a><br>
 {/each}

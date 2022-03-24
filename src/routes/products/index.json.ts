@@ -4,7 +4,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler<{ id: string }, {}> = async ({ request, params: { id } }) => {
 
-  const products = await prisma.furniture.findMany({
+  const products = await prisma.product.findMany({
   })
  
   return {

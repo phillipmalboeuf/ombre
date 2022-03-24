@@ -27,112 +27,56 @@ model sync_meta {
   @@map("_sync_meta")
 }
 
-model client_orders {
-  id               String    @id(map: "tbl3Spwoc7qmQoszJ_pk")
-  bill_to          String[]
-  client           String[]
-  created_time     DateTime? @db.Timestamp(6)
-  fulfill_by       DateTime? @db.Date
-  invoice          String[]
-  name             String?
-  order_line_items String[]
-  items order_line_items[]
-  order_no         Decimal?  @db.Decimal
-  status           String?
-  total_order_cost String[]
+model Collection {
+  @@map("collections")
 
-  @@index([client])
-  @@index([order_line_items])
-}
-
-model clients {
-  id              String    @id(map: "tblp9gAS6JtZTtwEt_pk")
-  billing_address String?
-  client_orders   String[]
-  created_time    DateTime? @db.Timestamp(6)
-  name            String?
-  photos_of_space String[]
-
-  @@index([client_orders])
-}
-
-model designers {
-  id           String    @id(map: "tblTqMrDR8XCqzKGb_pk")
-  bio          String?
+  id           String    @id(map: "tblawVLzLW1h2GCKc_pk")
+  assets       String[]
   created_time DateTime? @db.Timestamp(6)
-  furniture    String[]
+  introduction String?
   name         String?
-  photo        String[]
+  pages        String?
+  product_tags String[]
 
-  @@index([furniture])
+  @@index([pages])
 }
 
-model furniture {
-  id               String    @id(map: "tblmogAUiEoYYrzBm_pk")
-  color            String[]
-  created_time     DateTime? @db.Timestamp(6)
-  description      String?
-  designer         String[]
-  gross_sales      String[]
-  images           String[]
-  in_stock         Boolean?
-  link             String?
-  materials        String[]
-  name             String?
-  notes            String?
-  orders           String[]
-  schematic        String[]
-  settings         String[]
-  size_wxlxh       String?
-  total_units_sold String[]
-  type             String?
-  unit_cost        Decimal?  @db.Decimal
-  vendor           String[]
+model Navigation {
+  @@map("navigation")
 
-  @@index([designer])
-  @@index([orders])
-  @@index([vendor])
-}
-
-model order_line_items {
-  id               String    @id(map: "tblrg3BX3Ht3KyDsr_pk")
-  belongs_to_order String[]
-  orders client_orders @relation(fields: [belongs_to_order], references: [id])
-  created_time     DateTime? @db.Timestamp(6)
-  furniture_item   String[]
-  image            String[]
-  name             String?
-  price_per_unit   String[]
-  quantity         Decimal?  @db.Decimal
-  total_cost       String?
-
-  @@index([belongs_to_order])
-  @@index([furniture_item])
-}
-
-model vendor_contacts {
-  id           String    @id(map: "tblffgHgJ5TuMdaGy_pk")
+  id           String    @id(map: "tblaWzV5wTnlHywwq_pk")
   created_time DateTime? @db.Timestamp(6)
-  email        String?
+  external     Boolean?
+  link         String?
+  menu         String?
   name         String?
-  phone_number String?
-  vendors      String[]
-
-  @@index([vendors])
 }
 
-model vendors {
-  id               String    @id(map: "tblqNmpopsLQdKlrw_pk")
-  catalog_link     String?
-  closest_showroom String?
-  created_time     DateTime? @db.Timestamp(6)
-  furniture        String[]
-  logo             String[]
-  name             String?
-  notes            String?
-  phone_number     String?
-  sales_contact    String[]
+model Page {
+  @@map("pages")
 
-  @@index([furniture])
-  @@index([sales_contact])
+  id           String    @id(map: "tblZbtiuvhHzRO7ui_pk")
+  attachments  String[]
+  collection   String?
+  conclusion   String?
+  created_time DateTime? @db.Timestamp(6)
+  id_          String?
+  introduction String?
+  title        String?
+
+  @@index([collection])
+}
+
+model Product {
+  @@map("products")
+
+  id           String    @id(map: "tbl24INA50SYw16XL_pk")
+  assets       String[]
+  created_time DateTime? @db.Timestamp(6)
+  description  String?
+  id_          String?
+  name         String?
+  price        Decimal?  @db.Decimal
+  start_date   DateTime? @db.Date
+  tags         String[]
 }

@@ -4,9 +4,9 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler<{ id: string }, {}> = async ({ request, params: { id } }) => {
 
-  const product = await prisma.furniture.findUnique({
+  const product = await prisma.product.findFirst({
     where: {
-      id
+      id_: id
     }
   })
  

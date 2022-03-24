@@ -5,14 +5,14 @@
 	import type { Load } from '@sveltejs/kit'
   export const load: Load = async ({ fetch, params }) => {
 		return {
-			props: await (await fetch(`/ps/${params.id}.json`)).json()
+			props: await (await fetch(`/products/${params.id}.json`)).json()
 		}
 	}
 </script>
 
 <script lang="ts">
-	import type { furniture } from '@prisma/client'
-	export let product: furniture
+	import type { Product } from '@prisma/client'
+	export let product: Product
 </script>
 
 <svelte:head>
@@ -20,7 +20,7 @@
 </svelte:head>
 
 <section class="padded">
-	<h1>{product.id}</h1>
+	<h1>{product.name}</h1>
 </section>
 
 <style>
