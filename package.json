@@ -30,6 +30,7 @@
     "@lukeed/uuid": "^2.0.0",
     "@notionhq/client": "^1.0.3",
     "@prisma/client": "^3.11.0",
-    "cookie": "^0.4.1"
+    "cookie": "^0.4.1",
+    "stripe": "^8.211.0"
   }
 }

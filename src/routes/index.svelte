@@ -20,9 +20,12 @@
 	<title>Home</title>
 </svelte:head>
 
-<section class="padded">
-	<h1>Title</h1>
+<section class="padded ">
+	<h1 class="">Title</h1>
 	<Products {products} />
+	<form action="/manage" method="post">
+    <button type="submit">Manage</button>
+  </form>
 </section>
 
 <style>
