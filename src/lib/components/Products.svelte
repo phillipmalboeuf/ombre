@@ -6,11 +6,7 @@
 
 {#each products as product}
   <a href="/products/{product.id_}">{product.name} {product.id_}</a>
-  <form action="/checkout" method="post" use:enhance={{
-    result: async ({ response }) => {
-      console.log(await response.json())
-    }
-  }}>
+  <form action="/checkout" method="post">
     <input type="hidden" name="id" value="{product.id_}">
     <button type="submit">Checkout</button>
   </form>
