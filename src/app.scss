@@ -1,31 +1,59 @@
+@font-face {
+  font-family: "Really Sans Small";
+  src: url("ReallySansSmallStudent-Semibold.woff2") format("woff2"),
+    url("ReallySansSmallStudent-Semibold.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maison Neue Extended";
+  src: url("MaisonNeueExtendedWEB-Bold.woff2") format("woff2"),
+    url("MaisonNeueExtendedWEB-Bold.woff") format("woff");
+  font-display: swap;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Maison Neue Extended";
+  src: url("MaisonNeueExtendedWEB-Demi.woff2") format("woff2"),
+    url("MaisonNeueExtendedWEB-Demi.woff") format("woff");
+  font-display: swap;
+  font-weight: normal;
+}
+
+/* @link https://utopia.fyi/type/calculator?c=333,18,1.667,1666,24,1.667,4,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+
 :root {
+  --step--2: clamp(0.54rem, calc(0.37rem + 0.16vw), 0.41rem); // 8
+  --step--1: clamp(0.90rem, calc(0.62rem + 0.27vw), 0.68rem); // 14
+  --step-0: clamp(1.13rem, calc(1.03rem + 0.45vw), 1.50rem); // 24
+  --step-1: clamp(1.88rem, calc(1.72rem + 0.75vw), 2.50rem); // 40
+  --step-2: clamp(3.13rem, calc(2.87rem + 1.25vw), 4.17rem); // 66
+  --step-3: clamp(5.21rem, calc(4.78rem + 2.09vw), 6.95rem); // 111
+  --step-4: clamp(8.69rem, calc(7.96rem + 3.48vw), 11.58rem); // 185
+  --step-5: clamp(14.48rem, calc(13.28rem + 5.79vw), 19.31rem); // 309
+  --step-6: clamp(24.14rem, calc(22.13rem + 9.66vw), 32.19rem); // 515
+  --step-7: clamp(40.24rem, calc(36.89rem + 16.10vw), 53.66rem); // 858
+
   --width: 1680px;
 
-  --huge: max(5.5vw, 5.5vh);
-  --big: max(4vw, 4vh);
-  --medium: max(3vw, 3vh);
-  --small: max(1.66vw, 1.66vh);
-
-  --gutter: max(3vw, 3vh);
-
-  --dark: black;
-  --light: white;
+  --dark: #160809;
+  --light: #F9F9F9;
   --muted: rgba(0, 0, 0, 0.25);
-  --grey: #C2C2C2;
-  --highlight: currentColor;
+  --grey: #E5E5E5;
+  --highlight: #371013;
   
   --bleu: #2F73D9;
   --vert: #188507;
   --or: #B46E1C;
   --rouge: #E12E07;
 
-  --bodyfont: "Really Sans Small Student", sans-serif;
-  --altfont: "Maison Neue Extended TRIAL", sans-serif;
+  --bodyfont: "Really Sans Small", sans-serif;
+  --altfont: "Maison Neue Extended", sans-serif;
 }
 
 @media (max-width: 888px) {
   :root {
-    --small: max(2w, 2vh);
   }
 }
 
@@ -37,7 +65,7 @@
 html {
   font-family: var(--bodyfont);
   font-size: 16px;
-  line-height: 1.1875;
+  line-height: 1.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: var(--muted);
@@ -49,35 +77,21 @@ html.noscroll {
 }
 
 body {
+  font-size: var(--step-0);
+  color: var(--dark);
+  background-color: var(--light);
   margin: 0;
   padding: 0;
 }
 
 main {
+  padding-top: var(--step--1);
   min-height: 100vh;
 }
 
-@mixin text($size, $lh, $ls: 0) {
-  font-size: $size;
-  font-weight: normal;
-  line-height: $lh;
-  letter-spacing: $ls;
-}
-
-// .d1 {
-//   @include text(72px, 80px);
-//   font-weight: 300;
-//   text-transform: uppercase;
-// }
-
-// .d2 {
-//   @include text(60px, 72px);
-//   font-weight: 300;
-//   text-transform: uppercase;
-// }
-
-h1, h2, h3, h4, h5, h6 {
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   font-family: var(--altfont);
+  font-weight: normal;
 }
 
 h1, h2, h3, h4, h5, h6, p, figure {
@@ -86,47 +100,33 @@ h1, h2, h3, h4, h5, h6, p, figure {
 }
 
 h1, .h1 {
-  @include text(48px, 56px);
+  font-size: var(--step-2);
+  font-weight: bold;
 }
 
 h2, .h2 {
-  @include text(39px, 47px, -0.02em);
+  font-size: var(--step-2);
+  font-weight: bold;
 }
 
 h3, .h3 {
-  @include text(33px, 40px, -0.02em);
+  font-size: var(--step-1);
 }
 
 h4, .h4 {
-  @include text(28px, 34px, -0.02em);
+  font-size: var(--step-1);
 }
 
 h5, .h5 {
-  @include text(23px, 28px, -0.02em);
+  font-size: var(--step-0);
 }
 
 h6, .h6 {
-  @include text(18px, 23px, -0.02em);
-}
-
-.sh {
-  @include text(20px, 24px);
-}
-
-.p1 {
-  @include text(14px, 17px);
-}
-
-.p2 {
-  @include text(16px, 19px);
-}
-
-.p3 {
-  @include text(18px, 22px);
+  font-size: var(--step--1);
 }
 
 small, .small {
-  @include text(10px, 12px, 0.02em);
+  font-size: var(--step--1);
 }
 
 a {
@@ -140,6 +140,7 @@ a {
 
 button,
 a.button {
+  font-family: var(--altfont);
   display: inline-block;
   cursor: pointer;
   color: currentColor;
@@ -147,8 +148,50 @@ a.button {
   line-height: inherit;
   background: none;
   border: 1px solid;
-  border-radius: 2em;
-  padding: 0.5em 0.75em;
+  border-radius: var(--step--1);
+  padding: var(--step--1) var(--step-0);
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--step--1);
+
+  &.button--none {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  &.button--dark {
+    font-weight: bold;
+    color: var(--light);
+    border-color: transparent;
+    background-color: var(--highlight);
+  }
+}
+
+ol,
+ul {
+  padding-left: var(--step-0);
+
+  &.--nostyle {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: var(--step-1);
+  }
+}
+
+picture {
+  width: 100%;
+  
+
+  img {
+    display: block;
+    width: 100%;
+    border-radius: var(--step-0);
+  }
 }
 
 svg {
@@ -159,12 +202,12 @@ svg {
 }
 
 [id] {
-  scroll-margin-top: var(--gutter);
+  scroll-margin-top: var(--step-0);
 }
 
 .sticky {
   position: sticky;
-  top: var(--gutter);
+  top: var(--step-0);
 }
 
 .center {
@@ -173,8 +216,8 @@ svg {
 
 .grid {
   display: grid;
-  column-gap: var(--small);
-  row-gap: calc(var(--small) / 2);
+  column-gap: var(--step-0);
+  row-gap: var(--step-1);
   grid-template-columns: repeat(4, 1fr);
 
   &.grid--thirds {
@@ -184,16 +227,24 @@ svg {
   &.grid--halves {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  &.grid--full {
+    grid-template-columns: 1fr;
+  }
 }
 
 .flex {
   display: flex;
   flex-wrap: nowrap;
-  column-gap: var(--small);
-  row-gap: calc(var(--small) / 2);
+  column-gap: var(--step-0);
+  row-gap: var(--step-1);
 
   &.flex--nogap {
     gap: 0;
+  }
+
+  &.flex--tight {
+    gap: var(--step--1);
   }
 
   &.flex--middle {
@@ -214,5 +265,5 @@ svg {
 }
 
 .padded {
-  padding: var(--gutter);
+  padding: var(--step-0);
 }
