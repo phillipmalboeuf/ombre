@@ -1,0 +1,61 @@
+{
+  "title": "Rigole Ombrée",
+  "support": "Soutenir nos efforts",
+  "index": [
+    { 
+      "id": "intro",
+      "title": "Nous bâtissons une ferme régénérative en permaculture enracinée à Compton au Québec",
+      "text": ["Nos convictions sont que notre résilience alimentaire locale, la santé de nos écosystèmes et notre nutrition alimentaire sont en plein déclin. Nous apprenons donc à faire autrement."]
+    },
+    { 
+      "image": "/farm.png"
+    },
+    { 
+      "id": "start",
+      "title": "C'est un p'tit début",
+      "text": ["Fondé par Phil Malboeuf, programmeur et permaculteur, ça ne poussera pas vite. Mais nous sommes ici pour écouter, pour être différent, pour trouver un équilibre, et pour faire un paquet d'erreurs.", "Jeter un coup d'oeil à notre production potentielle et voir plus bas pour soutenir nos efforts."]
+    },
+    { 
+      "id": "products",
+      "title": "Produits en croissance",
+      "products": [
+        {
+          "image": "/apple.svg",
+          "title": "Fruits",
+          "text": "Pomme, Argousier, Mûres, Agrumes, Figues"
+        },
+        {
+          "image": "/mint.svg",
+          "title": "Herbes",
+          "text": "Vivantes, séchées pour tisanes"
+        },
+        {
+          "image": "/hazelnut.svg",
+          "title": "Noisette",
+          "text": "Beurre, huile, farine"
+        },
+        {
+          "image": "/duck.svg",
+          "title": "Canes",
+          "text": "Oeufs frais, viande conservée"
+        },
+        {
+          "image": "/shiitake.svg",
+          "title": "Champignons",
+          "text": "Frais, séchés, dans l'huile, kits de culture, levains"
+        },
+        {
+          "image": "/bee.svg",
+          "title": "Abeilles solitaires",
+          "text": "Mason, Leafcutter"
+        },
+        {
+          "image": "/bonsai.svg",
+          "title": "Arbres en pot",
+          "text": "Ornemental, boutures"
+        }
+      ]
+    }
+  ],
+  "close": "Fermer"
+}

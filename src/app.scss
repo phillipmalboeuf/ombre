@@ -239,8 +239,16 @@ svg {
   column-gap: var(--step-0);
   row-gap: var(--step-1);
 
+  &.flex--col {
+    flex-direction: column;
+  }
+
   &.flex--nogap {
     gap: 0;
+  }
+
+  &.flex--wrap {
+    flex-wrap: wrap;
   }
 
   &.flex--tight {

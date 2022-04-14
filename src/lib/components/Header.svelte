@@ -1,14 +1,26 @@
 <script lang="ts">
+  import { fade, fly } from 'svelte/transition'
   import Icon from './Icon.svelte'
 
+  let menu: boolean
 </script>
 
 <header class="padded flex flex--spaced flex--middle">
-  <button class="button--none"><Icon k='menu' /> Menu</button>
+  <button class="button--none" on:click={() => menu = true}><Icon k='menu' /> Menu</button>
+  {#if menu}
+  <nav class="menu padded" transition:fly={{ x: -111 }}>
+    <div class="grid grid--full">
+      <button class="button--none" on:click={() => menu = false}><Icon k='close' /> Close</button>
+      <a href="#intro" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 50 }}>Intro</a>
+      <a href="#products" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 100 }}>Products</a>
+      <a href="#support" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 150 }}>Support</a>
+    </div> 
+  </nav>
+  {/if}
   <nav class="flex flex--middle flex--tight">
-    <a href="/fr">Fr</a>
-    <a href="/account" aria-label="Account"><Icon k='account' /></a>
-    <a href="/account"><Icon k='cart' /></a>
+    <a href="https://rigoleombree.com">Fr</a>
+    <a href="/" aria-label="Account"><Icon k='account' /></a>
+    <a href="/"><Icon k='cart' /></a>
   </nav>
 </header>
 
@@ -22,5 +34,16 @@
     > nav {
       font-size: var(--step-1);
     }
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    right: auto;
+    width: 95vw;
+    max-width: var(--step-6);
+
+    color: var(--light);
+    background-color: var(--highlight);
   }
 </style>

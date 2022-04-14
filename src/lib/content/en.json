@@ -1,0 +1,61 @@
+{
+  "title": "Gloomy Creek",
+  "support": "Show your support",
+  "index": [
+    { 
+      "id": "intro",
+      "title": "We are making a regenerative permaculture farm rooted in Compton Québec",
+      "text": ["Our belief is that local food resilience, our ecosystems health, and our food nutrition is in steep decline. This is our way to learn to fight back."]
+    },
+    { 
+      "image": "/farm.png"
+    },
+    { 
+      "id": "start",
+      "title": "It’s a small start",
+      "text": ["Founded by Phil Malboeuf, programmer and permaculturist, it’ll be slow growing. But we’re here to listen, to be different, to find balance, and to make plenty of mistakes.", "Here’s a look at our potential production and keep scrolling to show your support."]
+    },
+    { 
+      "id": "products",
+      "title": "Products growing",
+      "products": [
+        {
+          "image": "/apple.svg",
+          "title": "Fruits",
+          "text": "Apple, Argousier, Blackberry, Citrus, Figs"
+        },
+        {
+          "image": "/mint.svg",
+          "title": "Herbs",
+          "text": "Fresh, dried for tea"
+        },
+        {
+          "image": "/hazelnut.svg",
+          "title": "Hazelnut",
+          "text": "Butter, oil, flour"
+        },
+        {
+          "image": "/duck.svg",
+          "title": "Ducks",
+          "text": "Fresh eggs, conserved meat"
+        },
+        {
+          "image": "/shiitake.svg",
+          "title": "Mushrooms",
+          "text": "Fresh, dried, in oil, growing kits, yeast starters"
+        },
+        {
+          "image": "/bee.svg",
+          "title": "Solitary bees",
+          "text": "Mason, Leafcutter"
+        },
+        {
+          "image": "/bonsai.svg",
+          "title": "Potted trees",
+          "text": "Ornamental, dwarf cuttings"
+        }
+      ]
+    }
+  ],
+  "close": "Close"
+}

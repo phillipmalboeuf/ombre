@@ -4,76 +4,63 @@
 
 	import type { Load } from '@sveltejs/kit'
   export const load: Load = async ({ fetch, params }) => {
+		const content = (await import("$lib/content/fr.json")).default
 		return {
-			props: await (await fetch('/products.json')).json()
+			// props: await (await fetch('/products.json')).json()
+			props: {
+				content
+			}
 		}
 	}
 </script>
 
 <script lang="ts">
 	import Form from '$lib/components/Form.svelte'
-	import Products from '$lib/components/Products.svelte'
-	
-	import type { Product } from '@prisma/client'
-	export let products: Product[]
+	// import Products from '$lib/components/Products.svelte'
+
+	// import type { Product } from '@prisma/client'
+	// export let products: Product[]
+	export let content
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>{content.title}</title>
 </svelte:head>
 
 <section class="padded grid grid--full">
-	<section>
-		<h1 class="h3">We are making a regenerative permaculture farm rooted in Compton Québec</h1>
-		<p>Our belief is that local food resilience, soil and ecosystem health, and our food nutrition is in steep decline. This is our way to learn to fight back.</p>
-	</section>
-	<figure>
-		<picture>
-			<img src="/farm.png" alt="">
-		</picture>
-	</figure>
-	<section>
-		<h3>It’s a small start</h3>
-		<p>Founded by Phil Malboeuf, programmer and permaculturist, it’ll be slow growing, but we’re here to listen, to be different, to find balance, and to make plenty of mistakes.</p>
-		<p>Here’s a look at our potential production and keep scrolling to show your support.</p>
-	</section>
-
-	<section>
-		<h3 class="h1">Products growing</h3>
+	{#each content.index as section, i}
+	<section id={section.id}>
+		{#if section.title}{#if i === 0}<h1 class="h3">{section.title}</h1>{:else}<h3 class={section.products && "h1"}>{section.title}</h3>{/if}{/if}
+		{#if section.image}
+		<figure>
+			<picture>
+				<img src={section.image} alt="">
+			</picture>
+		</figure>
+		{/if}
+		{#if section.text}
+		{#each section.text as text}<p>{text}</p>{/each}
+		{/if}
+		{#if section.products}
 		<ul class="--nostyle">
-			<li>
-				<h4>Fruits</h4>
-				<p>Apple, Argousier, Blackberry, Citrus, Figs</p>
+			{#each section.products as product}
+			<li class="flex">
+				<figure>
+					<img src={product.image} alt="">
+				</figure>
+				<div>
+					<h4>{product.title}</h4>
+					<p>{product.text}</p>
+				</div>
 			</li>
-			<li>
-				<h4>Herbs</h4>
-				<p>Fresh, dried for tea</p>
-			</li>
-			<li>
-				<h4>Hazelnut</h4>
-				<p>Butter, oil, flour</p>
-			</li>
-			<li>
-				<h4>Ducks</h4>
-				<p>Fresh eggs, conserved meat</p>
-			</li>
-			<li>
-				<h4>Mushrooms</h4>
-				<p>Fresh, dried, in oil, growing kits, yeast starters</p>
-			</li>
-			<li>
-				<h4>Solitary bees</h4>
-				<p>Mason, Leafcutter</p>
-			</li>
-			<li>
-				<h4>Potted trees</h4>
-				<p>Ornamental, dwarf cuttings</p>
-			</li>
+			{/each}
 		</ul>
+		{/if}
 	</section>
+	{/each}
 
-	<section>
-		<h3 class="h1">Show your support</h3>
+	<section id="support">
+		<h3 class="h1">{content.support}</h3>
 		
 		<Form />
 	</section>
@@ -83,10 +70,16 @@
   </form> -->
 </section>
 
-<style>
+<style lang="scss">
 	section {
 		width: 100%;
 		max-width: var(--step-7);
 		margin: 0 auto;
+	}
+
+	li {
+		img {
+			width: var(--step-1);
+		}
 	}
 </style>
