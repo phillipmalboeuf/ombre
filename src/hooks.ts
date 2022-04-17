@@ -1,24 +1,11 @@
-import cookie from 'cookie';
-import { v4 as uuid } from '@lukeed/uuid';
+// import cookie from 'cookie';
+// import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
 
-// export const handle: Handle = async ({ event, resolve }) => {
-// 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-// 	event.locals.userid = cookies.userid || uuid();
+export const handle: Handle = async ({ event, resolve }) => {
+	const response = await resolve(event)
 
-// 	const response = await resolve(event);
+	response.headers.set('Link', '<%svelte.assets%/ReallySansSmallStudent-Semibold.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous",<%svelte.assets%/MaisonNeueExtendedWEB-Bold.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous",<%svelte.assets%/MaisonNeueExtendedWEB-Demi.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous"')
 
-// 	if (!cookies.userid) {
-// 		// if this is the first time the user has visited this app,
-// 		// set a cookie so that we recognise them when they return
-// 		response.headers.set(
-// 			'set-cookie',
-// 			cookie.serialize('userid', event.locals.userid, {
-// 				path: '/',
-// 				httpOnly: true
-// 			})
-// 		);
-// 	}
-
-// 	return response;
-// };
+	return response
+}
