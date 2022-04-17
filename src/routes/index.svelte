@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export const prerender = true
+	// export const prerender = true
 </script>
 
 <script lang="ts">
@@ -8,7 +8,7 @@
 
 	// import type { Product } from '@prisma/client'
 	// export let products: Product[]
-	
+
 	import { getContext } from 'svelte'
   let content = getContext<any>('content')
 </script>
