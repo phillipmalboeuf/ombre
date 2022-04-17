@@ -1,8 +1,12 @@
 <script context="module" lang="ts">
 
 	import type { Load } from '@sveltejs/kit'
-  export const load: Load = async ({ fetch, params }) => {
-		const content = (await import("$lib/content/fr.json")).default
+  export const load: Load = async ({ fetch, params, url }) => {
+		console.log(url)
+		const content = url.hostname === 'gloomycreek.com'
+			? (await import("$lib/content/en.json")).default
+			: (await import("$lib/content/fr.json")).default
+
 		return {
 			props: {
 				content
