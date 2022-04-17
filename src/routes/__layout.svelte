@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 
-
 	import type { Load } from '@sveltejs/kit'
   export const load: Load = async ({ fetch, params }) => {
 		const content = (await import("$lib/content/fr.json")).default
@@ -16,8 +15,12 @@
 	import '../app.scss'
 	import Header from '$lib/components/Header.svelte'
 	import Footer from '$lib/components/Footer.svelte'
+	import Wip from '$lib/components/WIP.svelte'
+
+	import { setContext } from 'svelte'
 
 	export let content
+	setContext('content', content)
 </script>
 
 <Header />
@@ -28,6 +31,7 @@
 </main>
 
 <Footer />
+<Wip />
 
 <style lang="scss">
 	center {

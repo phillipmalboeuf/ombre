@@ -1,17 +1,5 @@
 <script context="module" lang="ts">
 	export const prerender = true
-
-
-	import type { Load } from '@sveltejs/kit'
-  export const load: Load = async ({ fetch, params }) => {
-		const content = (await import("$lib/content/fr.json")).default
-		return {
-			// props: await (await fetch('/products.json')).json()
-			props: {
-				content
-			}
-		}
-	}
 </script>
 
 <script lang="ts">
@@ -20,7 +8,9 @@
 
 	// import type { Product } from '@prisma/client'
 	// export let products: Product[]
-	export let content
+	
+	import { getContext } from 'svelte'
+  let content = getContext<any>('content')
 </script>
 
 <svelte:head>

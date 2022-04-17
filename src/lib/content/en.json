@@ -57,5 +57,14 @@
       ]
     }
   ],
-  "close": "Close"
+  "close": "Close",
+  "links": [
+    { "label": "Intro", "href": "#intro" },
+    { "label": "Products", "href": "#products" },
+    { "label": "Support", "href": "#support" }
+  ],
+  "dev": {
+    "title": "This site is in development",
+    "text": "Thank you for your interest. We're building this thing for you, so don't hesitate to <a href='mailto:phil@gloomycreek.com'>reach out</a> for any piece of feedback or question you might have."
+  }
 }

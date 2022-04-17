@@ -1,6 +1,10 @@
 <script lang="ts">
   import { fade, fly } from 'svelte/transition'
   import Icon from './Icon.svelte'
+  import { wip } from './WIP.svelte'
+
+  import { getContext } from 'svelte'
+  let content = getContext<any>('content')
 
   let menu: boolean
 </script>
@@ -10,17 +14,22 @@
   {#if menu}
   <nav class="menu padded" transition:fly={{ x: -111 }}>
     <div class="grid grid--full">
-      <button class="button--none" on:click={() => menu = false}><Icon k='close' /> Close</button>
-      <a href="#intro" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 50 }}>Intro</a>
+      <button class="button--none" on:click={() => menu = false}><Icon k='close' /> {content.close}</button>
+      {#each content.links as { href, label }, i}
+      <a {href} class="h1"
+        on:click={() => menu = false}
+        transition:fly={{ x: -40, delay: 50 * (i+1) }}>{label}</a>
+      {/each}
+      <!-- <a href="#intro" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 50 }}>Intro</a>
       <a href="#products" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 100 }}>Products</a>
-      <a href="#support" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 150 }}>Support</a>
+      <a href="#support" class="h1" on:click={() => menu = false} transition:fly={{ x: -40, delay: 150 }}>Support</a> -->
     </div> 
   </nav>
   {/if}
   <nav class="flex flex--middle flex--tight">
     <a href="https://rigoleombree.com">Fr</a>
-    <a href="/" aria-label="Account"><Icon k='account' /></a>
-    <a href="/"><Icon k='cart' /></a>
+    <a href="/" aria-label="Account" on:click|preventDefault={() => wip.set(true)}><Icon k='account' /></a>
+    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='cart' /></a>
   </nav>
 </header>
 

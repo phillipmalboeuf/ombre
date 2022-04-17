@@ -16,7 +16,7 @@
       "text": ["Fondé par Phil Malboeuf, programmeur et permaculteur, ça ne poussera pas vite. Mais nous sommes ici pour écouter, pour être différent, pour trouver un équilibre, et pour faire un paquet d'erreurs.", "Jeter un coup d'oeil à notre production potentielle et voir plus bas pour soutenir nos efforts."]
     },
     { 
-      "id": "products",
+      "id": "produits",
       "title": "Produits en croissance",
       "products": [
         {
@@ -57,5 +57,14 @@
       ]
     }
   ],
-  "close": "Fermer"
+  "close": "Fermer",
+  "links": [
+    { "label": "Intro", "href": "#intro" },
+    { "label": "Produits", "href": "#produits" },
+    { "label": "Soutenir", "href": "#support" }
+  ],
+  "dev": {
+    "title": "Ce site est en développement",
+    "text": "Merci pour votre intérêt envers notre projet. Nous le bâtissons pour vous, n'hésitez pas à <a href='mailto:phil@gloomycreek.com'>nous écrire</a> pour tout commentaires ou questions."
+  }
 }
