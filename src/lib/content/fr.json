@@ -63,6 +63,7 @@
     { "label": "Produits", "href": "#produits" },
     { "label": "Soutenir", "href": "#support" }
   ],
+  "locale": { "label": "En", "href": "https://gloomycreek.com" },
   "dev": {
     "title": "Ce site est en développement",
     "text": "Merci pour votre intérêt envers notre projet. Nous le bâtissons pour vous, n'hésitez pas à <a href='mailto:phil@gloomycreek.com'>nous écrire</a> pour tout commentaires ou questions."

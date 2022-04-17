@@ -27,7 +27,7 @@
   </nav>
   {/if}
   <nav class="flex flex--middle flex--tight">
-    <a href="https://rigoleombree.com">Fr</a>
+    <a href={content.locale.href}>{content.locale.label}</a>
     <a href="/" aria-label="Account" on:click|preventDefault={() => wip.set(true)}><Icon k='account' /></a>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='cart' /></a>
   </nav>
