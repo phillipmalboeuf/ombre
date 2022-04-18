@@ -32,5 +32,12 @@
 		max-width: var(--step-7);
 		margin: 0 auto;
     padding: var(--step-1);
+
+    h2 {
+      
+      @media (max-width: 888px) {
+        font-size: var(--step-1);
+      }
+    }
   }
 </style>

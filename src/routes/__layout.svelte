@@ -41,7 +41,7 @@
 		margin-bottom: var(--step-2);
 
 		@media (max-width: 888px) {
-			margin-bottom: var(--step--1);
+			margin: 0 var(--step--1) var(--step--1);
 		}
 
 		a {
