@@ -5,6 +5,11 @@
 <style lang="scss">
   svg {
     fill: none;
+
+    @media (max-width: 888px) {
+      height: 20px;
+      width: 20px;
+    }
   }
 
   path {

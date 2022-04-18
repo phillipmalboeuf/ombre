@@ -13,12 +13,16 @@
 </script>
 
 <Overlay bind:open={$wip}>
-  <div class="padded" transition:fly={{ y: -100 }}>
-    <h2>{content.dev.title}</h2>
-    <p>{@html content.dev.text}</p>
+  <div class="padded grid grid--full" transition:fly={{ y: -100 }}>
+    <section>
+      <h2>{content.dev.title}</h2>
+      <p>{@html content.dev.text}</p>
+    </section>
 
-    <h3>{content.support}</h3>
-    <Form />
+    <section>
+      <h3>{content.support}</h3>
+      <Form />
+    </section>
   </div>
 </Overlay>
 
@@ -27,5 +31,6 @@
     width: 100%;
 		max-width: var(--step-7);
 		margin: 0 auto;
+    padding: var(--step-1);
   }
 </style>

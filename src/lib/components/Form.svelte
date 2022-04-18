@@ -52,6 +52,7 @@
   }
 
   input {
+    width: 100%;
     border: 3px solid;
     font-family: var(--altfont);
     font-size: var(--step-0);

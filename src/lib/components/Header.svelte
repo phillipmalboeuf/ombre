@@ -39,9 +39,20 @@
     inset: 0;
     bottom: auto;
 
+    @media (max-width: 888px) {
+      z-index: 2;
+      background-color: rgba(251, 251, 251, 0.88);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
     > button,
     > nav {
       font-size: var(--step-1);
+
+      @media (max-width: 888px) {
+        font-size: var(--step-0);
+      }
     }
   }
 

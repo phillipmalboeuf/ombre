@@ -40,6 +40,10 @@
 	center {
 		margin-bottom: var(--step-2);
 
+		@media (max-width: 888px) {
+			margin-bottom: var(--step--1);
+		}
+
 		a {
 			position: relative;
 			z-index: 1;
