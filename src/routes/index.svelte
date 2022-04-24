@@ -71,5 +71,9 @@
 		img {
 			width: var(--step-1);
 		}
+
+		div > p {
+			margin-bottom: 0;
+		}
 	}
 </style>
