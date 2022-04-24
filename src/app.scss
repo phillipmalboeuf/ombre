@@ -17,13 +17,14 @@
   --dark: #160809;
   --light: #F9F9F9;
   --muted: rgba(0, 0, 0, 0.25);
-  --grey: #E5E5E5;
-  --highlight: #371D00;
+  --grey: #E2E2E2;
   
-  --bleu: #2F73D9;
-  --vert: #188507;
-  --or: #B46E1C;
-  --rouge: #E12E07;
+  --indigo: #00328A;
+  --raspberry: #82002C;
+  --chartreuse: #E5FFC3;
+  --brown: #371D00;
+  --green: #182600;
+
 
   --bodyfont: "Really Sans Small", sans-serif;
   --altfont: "Maison Neue Extended", sans-serif;
@@ -144,9 +145,9 @@ a.button {
 
   &.button--dark {
     font-weight: bold;
-    color: var(--light);
     border-color: transparent;
-    background-color: var(--highlight);
+    color: var(--light);
+    background-color: var(--dark);
   }
 }
 

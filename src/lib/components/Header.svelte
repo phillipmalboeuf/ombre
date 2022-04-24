@@ -63,7 +63,7 @@
     width: 95vw;
     max-width: var(--step-6);
 
-    color: var(--light);
-    background-color: var(--highlight);
+    color: var(--chartreuse);
+    background-color: var(--green);
   }
 </style>
