@@ -67,5 +67,11 @@
   "dev": {
     "title": "Ce site est en développement",
     "text": "Merci pour votre intérêt envers notre projet. Nous le bâtissons pour vous, n'hésitez pas à <a href='mailto:phil@gloomycreek.com'>nous écrire</a> pour tout commentaires ou questions."
-  }
+  },
+  "success": {
+    "title": "Merci pour votre soutien!",
+    "number": "Votre numéro de référence est le",
+    "receipt": "et une facture a été acheminée au"
+  },
+  "back": "Retour"
 }

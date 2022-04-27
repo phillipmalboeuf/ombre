@@ -16,15 +16,17 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
 
   console.log(url)
 
-  const stripeProduct = await stripe.products.retrieve('melisse-2022').catch(e => stripe.products.create({
-    id: 'melisse-2022',
-    name: 'Mélisse'
-  }))
+  const stripeProduct = await stripe.products.retrieve('melisse-2022')
+    .catch(e => stripe.products.create({
+      id: 'melisse-2022',
+      name: 'Mélisse'
+    }))
 
   const today = new Date()
+  const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
 
   const session = await stripe.checkout.sessions.create({
-    client_reference_id: `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`,
+    client_reference_id: id,
     // mode: 'subscription',
     // line_items: [
     //   {
@@ -46,6 +48,11 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
     allow_promotion_codes: true,
     automatic_tax: {
       enabled: true
+    },
+    payment_intent_data: {
+      metadata: {
+        id
+      },
     },
     // consent_collection: {
     //   promotions: 'auto'
@@ -93,7 +100,7 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
       }
     ],
     success_url: `${url.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${url.origin}/canceled`,
+    cancel_url: `${url.origin}/`,
   })
 
   console.log(session)

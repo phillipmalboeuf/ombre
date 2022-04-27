@@ -5,7 +5,7 @@
   let consent: string = 'never'
 </script>
 
-<form class="padded flex flex--middle flex--col flex--tight" action="">
+<form class="padded flex flex--middle flex--col flex--tight" action="/support" method="post">
   <div class="flex flex--tight">
     <input type="radio" name="amount" class="group" bind:group={amount} value="5" id="5">
     <label for="5">5$</label>
@@ -18,15 +18,15 @@
   <div>
     <input type="radio" name="interval" bind:group={interval} value="one-time" id="one-time">
     <label for="one-time">{#if interval === "one-time"}<Icon k="hand" />{/if} One-time</label>
-    <input type="radio" name="interval" bind:group={interval} value="monthly" id="monthly">
-    <label for="monthly">{#if interval === "monthly"}<Icon k="hand" />{/if} Monthly</label>
-    <input type="radio" name="interval" bind:group={interval} value="yearly" id="yearly">
-    <label for="yearly">{#if interval === "yearly"}<Icon k="hand" />{/if} Yearly</label>
+    <input type="radio" name="interval" bind:group={interval} value="month" id="month">
+    <label for="month">{#if interval === "month"}<Icon k="hand" />{/if} Monthly</label>
+    <input type="radio" name="interval" bind:group={interval} value="year" id="year">
+    <label for="year">{#if interval === "year"}<Icon k="hand" />{/if} Yearly</label>
   </div>
 
   <div class="flex flex--middle flex--tight">
     <label for="email" aria-label="Email address"><Icon k="at" /></label>
-    <input type="email" name="email" id="email" placeholder="your.email@address.com">
+    <input type="email" name="email" id="email" placeholder="your.email@address.com" required>
   </div>
 
   <div>consent to receive our newsletter:</div>

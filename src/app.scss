@@ -133,7 +133,7 @@ a.button {
   border-radius: var(--step--1);
   padding: var(--step--1) var(--step-0);
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   column-gap: var(--step--1);
 
@@ -163,6 +163,11 @@ ul {
   li {
     margin-bottom: var(--step-1);
   }
+}
+
+strong {
+  font-weight: bold;
+  font-family: var(--altfont);
 }
 
 picture {

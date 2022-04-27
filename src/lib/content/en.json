@@ -67,5 +67,11 @@
   "dev": {
     "title": "This site is in development",
     "text": "Thank you for your interest. We're building this thing for you, so don't hesitate to <a href='mailto:phil@gloomycreek.com'>reach out</a> for any piece of feedback or question you might have."
-  }
+  },
+  "success": {
+    "title": "Thank you for your support!",
+    "number": "Here's your reference number",
+    "receipt": "and a receipt was sent to"
+  },
+  "back": "Back"
 }
