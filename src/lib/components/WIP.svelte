@@ -20,7 +20,7 @@
     </section>
 
     <section>
-      <h3>{content.support}</h3>
+      <h3>{content.support.title}</h3>
       <Form />
     </section>
   </div>

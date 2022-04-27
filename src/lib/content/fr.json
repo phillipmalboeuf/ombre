@@ -1,6 +1,5 @@
 {
   "title": "Rigole Ombrée",
-  "support": "Soutenir nos efforts",
   "index": [
     { 
       "id": "intro",
@@ -67,6 +66,22 @@
   "dev": {
     "title": "Ce site est en développement",
     "text": "Merci pour votre intérêt envers notre projet. Nous le bâtissons pour vous, n'hésitez pas à <a href='mailto:phil@gloomycreek.com'>nous écrire</a> pour tout commentaires ou questions."
+  },
+  "support": {
+    "title": "Soutenir nos efforts",
+    "email": "votre.courriel@adresse.com",
+    "consent": "consentez à recevoir notre infolettre :",
+    "consent_interval": {
+      "never": "Jamais",
+      "week": "~ Une fois par semaine",
+      "month": "~ Une fois par mois"
+    },
+    "interval": {
+      "one_time": "Une fois",
+      "monthly": "Mensuellement",
+      "yearly": "Annuellement"
+    },
+    "cta": "Procédez au paiement"
   },
   "success": {
     "title": "Merci pour votre soutien!",

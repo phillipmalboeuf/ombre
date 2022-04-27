@@ -1,6 +1,5 @@
 {
   "title": "Gloomy Creek",
-  "support": "Show your support",
   "index": [
     { 
       "id": "intro",
@@ -67,6 +66,22 @@
   "dev": {
     "title": "This site is in development",
     "text": "Thank you for your interest. We're building this thing for you, so don't hesitate to <a href='mailto:phil@gloomycreek.com'>reach out</a> for any piece of feedback or question you might have."
+  },
+  "support": {
+    "title": "Show your support",
+    "email": "your.email@address.com",
+    "consent": "consent to receive our newsletter:",
+    "consent_interval": {
+      "never": "Never",
+      "week": "~ Once a week",
+      "month": "~ Once a month"
+    },
+    "interval": {
+      "one-time": "One-time",
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "cta": "Proceed to payment information"
   },
   "success": {
     "title": "Thank you for your support!",

@@ -50,7 +50,7 @@
 	{/each}
 
 	<section id="support">
-		<h3 class="h1">{content.support}</h3>
+		<h3 class="h1">{content.support.title}</h3>
 		
 		<Form />
 	</section>
