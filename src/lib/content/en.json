@@ -77,7 +77,7 @@
       "month": "~ Once a month"
     },
     "interval": {
-      "one-time": "One-time",
+      "one_time": "One-time",
       "monthly": "Monthly",
       "yearly": "Yearly"
     },
