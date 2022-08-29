@@ -1,4 +1,3 @@
-import { prisma } from '$lib/clients/prisma'
 import { stripe } from '$lib/clients/stripe'
 import type { RequestHandler } from '@sveltejs/kit'
 

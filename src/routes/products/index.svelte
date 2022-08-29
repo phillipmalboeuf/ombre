@@ -9,8 +9,7 @@
 
 <script lang="ts">
 	import Products from '$lib/components/Products.svelte'
-  import type { Product } from '@prisma/client'
-	export let products: Product[]
+	export let products: any[]
 </script>
 
 <svelte:head>

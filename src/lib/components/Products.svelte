@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Product } from '@prisma/client'
-  export let products: Product[]
+  export let products: any[]
   import { enhance } from '$lib/form'
 </script>
 

@@ -1,4 +1,3 @@
-import { prisma } from '$lib/clients/prisma'
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
 import { v4 as uuid } from '@lukeed/uuid'
@@ -7,12 +6,6 @@ import type { RequestHandler } from '@sveltejs/kit'
 export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
 
   const data = await request.formData()
-
-  const product = await prisma.product.findFirst({
-    where: {
-      id_: data.get('id') as string
-    }
-  })
 
   console.log(url)
 

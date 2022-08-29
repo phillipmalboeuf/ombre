@@ -8,8 +8,7 @@
 </script>
 
 <script lang="ts">
-	import type { Product } from '@prisma/client'
-	export let product: Product
+	export let product: any
 </script>
 
 <svelte:head>

@@ -1,4 +1,3 @@
-import { prisma } from '$lib/clients/prisma'
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
 import { v4 as uuid } from '@lukeed/uuid'

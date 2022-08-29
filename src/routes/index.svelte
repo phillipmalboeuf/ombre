@@ -6,8 +6,7 @@
 	import Form from '$lib/components/Form.svelte'
 	// import Products from '$lib/components/Products.svelte'
 
-	// import type { Product } from '@prisma/client'
-	// export let products: Product[]
+	// export let products: any[]
 
 	import { getContext } from 'svelte'
   let content = getContext<any>('content')
