@@ -8,7 +8,7 @@
   let content = getContext<any>('content')
 </script>
 
-<form class="padded flex flex--middle flex--col flex--tight" action="/support" method="post">
+<form class="padded flex flex--middle flex--col flex--tight" action="/stripe/support" method="post">
   <div class="flex flex--tight">
     <input type="radio" name="amount" class="group" bind:group={amount} value="5" id="5">
     <label for="5">5$</label>

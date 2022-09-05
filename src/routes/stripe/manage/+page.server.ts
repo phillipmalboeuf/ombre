@@ -1,9 +1,10 @@
 import { stripe } from '$lib/clients/stripe'
-import type { RequestHandler } from '@sveltejs/kit'
+// import { randomPassword } from '$lib/encryption'
+import type { Action } from '@sveltejs/kit'
 
-export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
+export const POST: Action = async ({ request, url }) => {
 
-  const data = await request.formData()
+  // const data = await request.formData()
 
   const session = await stripe.billingPortal.sessions.create({
     customer: 'cus_LNnGbjdscKHU4n',
@@ -12,10 +13,10 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
 
   console.log(session)
  
-  return {
-    status: 301,
-    headers: {
+  if (session.url) {
+    return {
       location: session.url
     }
   }
 }
+

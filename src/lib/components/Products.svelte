@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Product } from 'src/payload-types'
+  import type { Product } from '$lib/payload-types'
   export let products: Product[]
   import { enhance } from '$lib/form'
 </script>
 
 {#each products as product}
   <a href="/products/{product.id}">{product.title} {product.id}</a>
-  <form action="/checkout" method="post">
+  <form action="/stripe/checkout" method="post">
     <input type="hidden" name="id" value="{product.id}">
 
     {#each product.sizes as { id, size, title }}

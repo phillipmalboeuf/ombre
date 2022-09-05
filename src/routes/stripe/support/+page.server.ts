@@ -1,14 +1,13 @@
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
-import { v4 as uuid } from '@lukeed/uuid'
-import type { RequestHandler } from '@sveltejs/kit'
+import type { Action } from '@sveltejs/kit'
 
-export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
+export const POST: Action = async ({ request, url }) => {
 
   const formData = await request.formData()
 
   let data: any = {}
-  formData.forEach((d, k) => data[k] = d)
+  formData.forEach((d: any, k: string) => data[k] = d)
   const { amount, interval, email, consent } = data
 
   const stripeProduct = await stripe.products.retrieve('support').catch(e => stripe.products.create({
@@ -65,9 +64,8 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
 
   console.log(session)
  
-  return {
-    status: 301,
-    headers: {
+  if (session.url) {
+    return {
       location: session.url
     }
   }

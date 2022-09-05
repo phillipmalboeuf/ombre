@@ -1,7 +1,3 @@
-<script context="module" lang="ts">
-	// export const prerender = true
-</script>
-
 <script lang="ts">
 	import Form from '$lib/components/Form.svelte'
 	// import Products from '$lib/components/Products.svelte'
@@ -54,7 +50,7 @@
 		<Form />
 	</section>
 	<!-- <Products {products} />
-	<form action="/manage" method="post">
+	<form action="/stripe/manage" method="post">
     <button type="submit">Manage</button>
   </form> -->
 </section>

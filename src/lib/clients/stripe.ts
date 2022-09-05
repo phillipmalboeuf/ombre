@@ -1,3 +1,4 @@
-import Stripe from 'stripe';
+import { STRIPE_SK } from '$env/static/private'
+import Stripe from 'stripe'
 
-export const stripe = new Stripe(import.meta.env.VITE_STRIPE_SK as string, { apiVersion: '2020-08-27' })
+export const stripe = new Stripe(STRIPE_SK, { apiVersion: '2022-08-01' })

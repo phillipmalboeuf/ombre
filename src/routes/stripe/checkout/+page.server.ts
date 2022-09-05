@@ -1,9 +1,8 @@
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
-import { v4 as uuid } from '@lukeed/uuid'
-import type { RequestHandler } from '@sveltejs/kit'
+import type { Action } from '@sveltejs/kit'
 
-export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
+export const POST: Action = async ({ request, url }) => {
 
   const data = await request.formData()
 
@@ -98,10 +97,10 @@ export const post: RequestHandler<{}, {}> = async ({ request, url }) => {
 
   console.log(session)
  
-  return {
-    status: 301,
-    headers: {
+  if (session.url) {
+    return {
       location: session.url
     }
   }
 }
+

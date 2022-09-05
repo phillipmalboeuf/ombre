@@ -1,25 +1,14 @@
-<script context="module" lang="ts">
-  import type { Load } from '@sveltejs/kit'
-  export const load: Load = async ({ fetch, params }) => {
-		return {
-			props: {
-        page: await (await fetch(`${import.meta.env.VITE_API_URL}/content_pages/${params.page}?locale=fr`)).json()
-      }
-		}
-	}
-</script>
-
 <script lang="ts">
   import Rich from '$lib/components/Rich.svelte'
-  import type { ContentPage } from 'src/payload-types'
+  import type { PageData } from './$types'
 
-  export let page: ContentPage
+  export let data: PageData
 </script>
 
 <section>
-  <h1>{page.title}</h1>
+  <h1>{data.page.title}</h1>
 
-  {#each page.content as section, i}
+  {#each data.page.content as section, i}
 	<section id={section.id}>
 		{#if section.title}{#if i === 0}<h1 class="h3">{section.title}</h1>{:else}<h3>{section.title}</h3>{/if}{/if}
     {#if section.blockType === 'Text'}
