@@ -10,8 +10,8 @@
     <input type="hidden" name="id" value="{product.id}">
 
     {#each product.sizes as { id, size, title }}
-    <input type="radio" name="size" {id} value={size}>
-    <label for={id}>{title} <small>{size} {product.unit}</small></label><br>
+    <input type="radio" name="size" id={product.id+id} value={size}>
+    <label for={product.id+id}>{title} <small>{size} {product.unit}</small></label><br>
     {/each}
 
     <button type="submit">Add to Order</button>

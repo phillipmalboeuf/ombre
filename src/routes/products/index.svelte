@@ -1,18 +1,37 @@
 <script context="module" lang="ts">
+	import { query } from '$lib/clients/payload'
 	import type { Load } from '@sveltejs/kit'
   export const load: Load = async ({ fetch, params }) => {
 		return {
-			props: await (await fetch('/products.json')).json()
+			props: {
+				products: (await query(fetch, `
+					query {
+						Products {
+							docs {
+								id
+								title
+								price
+								unit
+								sizes {
+									id
+									size
+									title
+								}
+							}
+						}
+					}
+				`)).data.Products
+			}
 		}
 	}
 </script>
 
 <script lang="ts">
 	import Products from '$lib/components/Products.svelte'
-	import type { Product } from 'src/payload-types';
-	export let products: { docs: Product[] }
+	import type { Product } from 'src/payload-types'
 
-	console.log(products)
+	export let products: { docs: Product[] }
+	console.log(JSON.stringify(products, null, 2))
 </script>
 
 <svelte:head>
