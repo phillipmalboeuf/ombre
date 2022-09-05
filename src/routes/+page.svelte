@@ -56,11 +56,6 @@
 </section>
 
 <style lang="scss">
-	section {
-		width: 100%;
-		max-width: var(--step-7);
-		margin: 0 auto;
-	}
 
 	li {
 		img {

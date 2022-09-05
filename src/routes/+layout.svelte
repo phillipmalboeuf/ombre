@@ -13,8 +13,8 @@
 
 <Header />
 
+<center><a href="/" class="h1">{data.content.title}</a></center>
 <main>
-	<center><a href="/" class="h1">{data.content.title}</a></center>
 	<slot />
 </main>
 
@@ -22,10 +22,23 @@
 <Wip />
 
 <style lang="scss">
+	main {
+		min-height: 100vh;
+		width: 100%;
+		max-width: var(--step-7);
+		margin: 0 auto;
+
+		@media (max-width: 888px) {
+			
+		}
+	}
+
 	center {
+		padding-top: var(--step--1);
 		margin-bottom: var(--step-2);
 
 		@media (max-width: 888px) {
+			padding-top: var(--step-3);
 			margin: 0 var(--step--1) var(--step--1);
 		}
 

@@ -53,49 +53,4 @@
     background: var(--grey);
     border-radius: var(--step-0);
   }
-
-  input {
-    width: 100%;
-    border: 3px solid;
-    font-family: var(--altfont);
-    font-size: var(--step-0);
-    border-radius: var(--step--2);
-    padding: var(--step--2);
-    background-color: var(--light);
-
-    &::placeholder {
-      color: currentColor;
-    }
-  }
-
-  input[type="radio"] {
-    display: none;
-
-    & + label {
-      position: relative;
-      cursor: pointer;
-      display: block;
-      // width: 100%;
-    }
-
-    &:checked {
-      & + label > :global(svg) {
-        position: absolute;
-        right: calc(100% + var(--step--2));
-      }
-    }
-
-    &.group + label {
-      border: 3px solid;
-      background-color: var(--light);
-      border-radius: var(--step--2);
-      padding: var(--step--2);
-    }
-
-    &.group:checked + label {
-      color: var(--light);
-      background-color: var(--dark);
-      outline: 3px solid var(--dark);
-    }
-  }
 </style>

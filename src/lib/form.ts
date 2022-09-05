@@ -1,5 +1,12 @@
 import { invalidateAll } from '$app/navigation';
 
+export async function formData<T = { [k: string]: any }>(request: Request) {
+	const formData = await request.formData()
+	const data = {} as T
+  formData.forEach((d: any, k: string) => data[k] = d )
+  return data
+}
+
 // this action (https://svelte.dev/tutorial/actions) allows us to
 // progressively enhance a <form> that already works without JS
 export function enhance(

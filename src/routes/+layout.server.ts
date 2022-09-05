@@ -1,5 +1,3 @@
-export const prerender = true;
-
 import type { LayoutServerLoad } from '.svelte-kit/types/src/routes/$types'
 import { error } from '@sveltejs/kit'
 
