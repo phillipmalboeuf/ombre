@@ -7,6 +7,9 @@
 
 <section>
   <h4>{data.me.name}</h4>
+	<form action="/stripe/manage" method="post">
+		<button type="submit">Manage</button>
+	</form>
 	<a href="/account/logout" class="button">Logout</a>
 </section>
 

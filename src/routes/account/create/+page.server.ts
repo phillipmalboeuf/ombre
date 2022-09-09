@@ -1,4 +1,4 @@
-import type { PageLoad } from '.svelte-kit/types/src/routes/account/login/$types'
+import type { PageServerLoad } from '.svelte-kit/types/src/routes/account/create/$types'
 import { error, redirect } from '@sveltejs/kit'
 
 import { query } from '$lib/clients/payload'
