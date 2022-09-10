@@ -4,6 +4,7 @@
   import { wip } from './WIP.svelte'
 
   import { getContext } from 'svelte'
+import OrderBar from './OrderBar.svelte'
   let content = getContext<any>('content')
 
   let menu: boolean
@@ -29,7 +30,7 @@
   <nav class="flex flex--middle flex--tight">
     <a href={content.locale.href}>{content.locale.label}</a>
     <a href="/" aria-label="Account" on:click|preventDefault={() => wip.set(true)}><Icon k='account' /></a>
-    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='cart' /></a>
+    <OrderBar />
   </nav>
 </header>
 
@@ -38,9 +39,10 @@
     position: fixed;
     inset: 0;
     bottom: auto;
+    z-index: 2;
 
     @media (max-width: 888px) {
-      z-index: 2;
+      
       background-color: rgba(251, 251, 251, 0.88);
       -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);

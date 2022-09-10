@@ -4,6 +4,7 @@ export async function query<T = any>(f: typeof fetch, query: string, variables: 
   const res = await f(
     `${PUBLIC_API_URL}/graphql`, {
     method: 'POST',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
       ...token && { 'Authorization': `JWT ${token}` }

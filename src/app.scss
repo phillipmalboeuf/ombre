@@ -138,6 +138,11 @@ a.button {
     border-radius: 0;
   }
 
+  &.button--full {
+    justify-content: center;
+    width: 100%;
+  }
+
   &.button--dark {
     font-weight: bold;
     border-color: transparent;
@@ -300,6 +305,10 @@ svg {
 
   &.flex--center {
     justify-content: center;
+  }
+
+  .flex__end {
+    align-self: flex-end;
   }
 
   .flex__seventh {

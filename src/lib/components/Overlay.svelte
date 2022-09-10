@@ -4,10 +4,11 @@
   import Icon from './Icon.svelte'
 
   export let open = false
+  export let side = false
 </script>
 
 {#if open}
-<aside>
+<aside class:side>
   <button class="back" transition:fade on:click={() => open = false} area-label="Close" />
   <button class="close" transition:fade on:click={() => open = false} aria-label="Close">
     <Icon k="close" />
@@ -19,10 +20,13 @@
 <style lang="scss">
   aside {
     position: fixed;
-    inset: 0;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 15;
     overflow-y: auto;
-    
+
     > button.back {
       position: fixed;
       inset: 0;
@@ -38,11 +42,21 @@
     > button.close {
       position: fixed;
       z-index: 1;
-      top: var(--step--1);
-      right: var(--step--1);
+      top: var(--step--2);
+      right: var(--step--2);
 
       background: transparent;
       border: none;
+    }
+
+    &.side {
+      width: var(--step-6);
+      left: auto;
+      right: 0;
+
+      > button.back {
+        display: none;
+      }
     }
   }
 </style>
