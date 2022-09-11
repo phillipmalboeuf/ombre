@@ -1,14 +1,15 @@
 <script lang="ts">
   import { PUBLIC_API_URL } from '$env/static/public'
-  import { fade, fly } from 'svelte/transition'
+  import { crossfade, fade, fly } from 'svelte/transition'
   import { items, bar } from '$lib/stores'
   import { query } from '$lib/clients/payload'
   import type { Product } from '$lib/payload-types'
 
   import Icon from './Icon.svelte'
   import Overlay from './Overlay.svelte'
+  import Media from './Media.svelte'
 
-  let products = {}
+  let products: { [id: string]: Product } = {}
 
   async function product(id: string) {
     if (!products[id]) {
@@ -16,6 +17,10 @@
     }
     return products[id]
   }
+
+  items.subscribe(items => {
+    items.forEach(item => product(item.product))
+  })
 
   let interval: string = 'one-time'
 </script>
@@ -27,22 +32,33 @@
     <div>
       <h5>Votre commande</h5>
       <ul class="--nostyle">
-        {#each $items as item, i}
-        <li transition:fly={{ x: -33 }}>
-        {#await product(item.product) then product}
-          <strong>{product.title}{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
-          <small>{item.size} {product.unit}</small><br>
-          <button class="button--none" type="button" on:click={() => {
-            $items.splice(i, 1)
-            items.set($items)
-          }}><u>Enlever</u></button>
-          <button class="button--none" type="button" on:click={() => {
-            items.set([
-              ...$items,
-              item
-            ])
-          }}><u>Ajouter un de plus</u></button>
-        {/await}
+        {#each $items as item, i (item.id)}
+        <li class="flex flex--middle" transition:fly={{ x: -33 }}>
+          <figure>
+            {#if products[item.product]}
+            <Media media={products[item.product].thumbnail} ar={1} small eager noDescription />
+            {/if}
+          </figure>
+          <article>
+            {#if products[item.product]}
+            <strong>{products[item.product].title}{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
+            <small>{item.size} {products[item.product].unit}</small><br>
+            {:else}
+            <strong>...{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
+            <small>{item.size} ...</small><br>
+            {/if}
+            <button class="button--none" type="button" on:click={() => {
+              $items.splice(i, 1)
+              items.set($items)
+            }}><u>Enlever</u></button>
+            <button class="button--none" type="button" on:click={() => {
+              $items.splice(i + 1, 0, {
+                ...item,
+                id: Math.random().toString()
+              })
+              items.set($items)
+            }}><u>Ajouter un de plus</u></button>
+          </article>
         </li>
         {:else}
         <li><em>Votre commande est vide à l'instant.</em></li>
@@ -51,15 +67,15 @@
     </div>
     
     <div>
-      <div class="padded">
+      <fieldset>
         <input type="radio" name="interval" bind:group={interval} value="one-time" id="one-time">
         <label for="one-time">{#if interval === "one-time"}<Icon k="hand" />{/if} Commande une fois</label>
         <input type="radio" name="interval" bind:group={interval} value="week" id="week">
         <label for="week">{#if interval === "week"}<Icon k="hand" />{/if} Abonnement hebdomadaire</label>
         <input type="radio" name="interval" bind:group={interval} value="month" id="month">
         <label for="month">{#if interval === "month"}<Icon k="hand" />{/if} Abonnement mensuel</label>
-      </div>
-      <button class="button--full" type="submit">Procéder au paiement</button>
+      </fieldset>
+      <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>
     
   </form>
@@ -76,7 +92,16 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+  }
+
+  figure {
+    width: var(--step-2);
+  }
+
+  fieldset {
+    border: none;
+    padding: var(--step-0) var(--step-2);
   }
 
   ul {

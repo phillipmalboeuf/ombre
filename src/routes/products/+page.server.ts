@@ -13,6 +13,12 @@ export const load: PageServerLoad = async ({ locals, url }) => {
             title
             price
             unit
+            thumbnail {
+              title
+              caption 
+              url
+              mimeType
+            }
             sizes {
               id
               size

@@ -36,7 +36,7 @@ export interface Product {
     id?: string;
   }[];
   seasons?: (string | Season)[];
-  thumbnail?: string | Upload;
+  thumbnail?: Upload;
   description?: {
     [k: string]: unknown;
   }[];

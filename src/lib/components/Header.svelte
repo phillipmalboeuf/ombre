@@ -4,7 +4,7 @@
   import { wip } from './WIP.svelte'
 
   import { getContext } from 'svelte'
-import OrderBar from './OrderBar.svelte'
+  import OrderBar from './OrderBar.svelte'
   let content = getContext<any>('content')
 
   let menu: boolean
@@ -39,7 +39,6 @@ import OrderBar from './OrderBar.svelte'
     position: fixed;
     inset: 0;
     bottom: auto;
-    z-index: 2;
 
     @media (max-width: 888px) {
       
@@ -50,6 +49,8 @@ import OrderBar from './OrderBar.svelte'
 
     > button,
     > nav {
+      position: relative;
+      z-index: 2;
       font-size: var(--step-1);
 
       @media (max-width: 888px) {

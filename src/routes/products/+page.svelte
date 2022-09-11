@@ -3,15 +3,14 @@
   import type { PageData } from './$types'
 
 	export let data: PageData
-	console.log(JSON.stringify(data.products, null, 2))
 </script>
 
 <svelte:head>
-	<title>Products</title>
+	<title>Produits</title>
 </svelte:head>
 
 <section class="padded">
-	<h1>Products</h1>
+	<h2>Produits</h2>
   <Products products={data.products.docs} />
 </section>
 
