@@ -9,7 +9,7 @@
 
 {#if open}
 <aside class:side>
-  <button class="back" transition:fade on:click={() => open = false} area-label="Close" />
+  <button class="back" transition:fade on:click={() => open = false} aria-label="Close" />
   <button class="close" transition:fade on:click={() => open = false} aria-label="Close">
     <Icon k="close" />
   </button>

@@ -191,7 +191,9 @@ form {
   
 }
 
-input {
+input,
+select {
+  appearance: none;
   width: 100%;
   border: 3px solid;
   font-family: var(--altfont);
@@ -227,6 +229,12 @@ input[type="radio"] {
     & + label > svg {
       position: absolute;
       right: calc(100% + var(--step--2));
+    }
+
+    &.lonely {
+      & + label > svg {
+        display: none;
+      }
     }
   }
 

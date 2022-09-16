@@ -3,13 +3,17 @@
   import { crossfade, fade, fly } from 'svelte/transition'
   import { items, bar } from '$lib/stores'
   import { query } from '$lib/clients/payload'
+  import { DateTime } from 'luxon'
   import type { Product } from '$lib/payload-types'
 
   import Icon from './Icon.svelte'
   import Overlay from './Overlay.svelte'
   import Media from './Media.svelte'
+  import Price from './Price.svelte'
+  import Plans from './Plans.svelte'
 
   let products: { [id: string]: Product } = {}
+  let kiosks
 
   async function product(id: string) {
     if (!products[id]) {
@@ -18,8 +22,9 @@
     return products[id]
   }
 
-  items.subscribe(items => {
+  items.subscribe(async items => {
     items.forEach(item => product(item.product))
+    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks`)).json()
   })
 
   let interval: string = 'one-time'
@@ -42,7 +47,7 @@
           <article>
             {#if products[item.product]}
             <strong>{products[item.product].title}{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
-            <small>{item.size} {products[item.product].unit}</small><br>
+            <small>{item.size} {products[item.product].unit} <Price product={products[item.product]} size={item.size} /></small><br>
             {:else}
             <strong>...{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
             <small>{item.size} ...</small><br>
@@ -68,13 +73,14 @@
     
     <div>
       <fieldset>
-        <input type="radio" name="interval" bind:group={interval} value="one-time" id="one-time">
-        <label for="one-time">{#if interval === "one-time"}<Icon k="hand" />{/if} Commande une fois</label>
-        <input type="radio" name="interval" bind:group={interval} value="week" id="week">
-        <label for="week">{#if interval === "week"}<Icon k="hand" />{/if} Abonnement hebdomadaire</label>
-        <input type="radio" name="interval" bind:group={interval} value="month" id="month">
-        <label for="month">{#if interval === "month"}<Icon k="hand" />{/if} Abonnement mensuel</label>
+        <Plans />
       </fieldset>
+      <label for="kiosk">Disponible chez</label>
+      <select name="kiosk" id="kiosk">
+      {#each kiosks.docs as kiosk}
+      <option value={kiosk.id}>{kiosk.name} {DateTime.now().plus({ days: kiosk.minimum_order_days + 1 }).toRelative({ locale: 'fr' })}</option>
+      {/each}
+      </select>
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>
     

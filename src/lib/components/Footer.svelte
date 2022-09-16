@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { getContext } from 'svelte'
   import Icon from './Icon.svelte'
   import { wip } from './WIP.svelte'
+
+  let content = getContext<any>('content')
 </script>
 
 <footer class="padded flex flex--spaced flex--middle">
-  <copy>© La ferme de la rigole ombrée {new Date().getFullYear()}</copy>
+  <copy>{content.copyright} {new Date().getFullYear()}</copy>
   <nav>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='twitter' /></a>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='facebook' /></a>

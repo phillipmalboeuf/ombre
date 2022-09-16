@@ -22,6 +22,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
             sizes {
               id
               size
+              adjustment
               title
             }
           }

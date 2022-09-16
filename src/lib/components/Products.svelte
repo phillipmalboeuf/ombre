@@ -7,10 +7,14 @@
 
   import Icon from './Icon.svelte'
   import Media from './Media.svelte'
+  import Price from './Price.svelte'
+  import Plans from './Plans.svelte'
 
   let group: { [id: string]: number | undefined } = {}
   products.forEach(product => group[product.id] = product.sizes[0].size)
 </script>
+
+<Plans />
 
 <ul class="--nostyle grid grid--halves">
 {#each products as product}
@@ -35,12 +39,16 @@
     }}>
       <input type="hidden" name="id" value="{product.id}">
 
-      {#each product.sizes as { id, size, title }, i}
-      <input type="radio" name="size" bind:group={group[product.id]} id={product.id+id} value={size}>
-      <label for={product.id+id}>{#if group[product.id] === size}<Icon k="hand" />{/if} {title} <small>{size} {product.unit}</small></label>
+      {#each product.sizes as { id, size, adjustment, title }, i}
+      <input class:lonely={product.sizes.length === 1} type="radio" name="size" bind:group={group[product.id]} id={product.id+id} value={size}>
+      <label for={product.id+id}>
+        {#if group[product.id] === size}<Icon k="hand" />{/if}
+        {#if title}{title} <small>{size} {product.unit}</small>{:else}{size} {product.unit}{/if}
+        <Price {product} {size} />
+      </label>
       {/each}
 
-      <button type="submit">Ajouter à votre commande</button>
+      <button type="submit">Ajouter</button>
     </form>
   </li>
 {/each}
