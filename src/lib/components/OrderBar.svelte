@@ -3,7 +3,6 @@
   import { crossfade, fade, fly } from 'svelte/transition'
   import { items, bar } from '$lib/stores'
   import { query } from '$lib/clients/payload'
-  import { DateTime } from 'luxon'
   import type { Product } from '$lib/payload-types'
 
   import Icon from './Icon.svelte'
@@ -77,8 +76,9 @@
       </fieldset>
       <label for="kiosk">Disponible chez</label>
       <select name="kiosk" id="kiosk">
-      {#each kiosks.docs as kiosk}
-      <option value={kiosk.id}>{kiosk.name} {DateTime.now().plus({ days: kiosk.minimum_order_days + 1 }).toRelative({ locale: 'fr' })}</option>
+      {#each kiosks?.docs as kiosk}
+      <!-- <option value={kiosk.id}>{kiosk.name} {DateTime.now().plus({ days: kiosk.minimum_order_days + 1 }).toRelative({ locale: 'fr' })}</option> -->
+      <option value={kiosk.id}>{kiosk.name}</option>
       {/each}
       </select>
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>

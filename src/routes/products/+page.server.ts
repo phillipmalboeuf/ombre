@@ -19,6 +19,14 @@ export const load: PageServerLoad = async ({ locals, url }) => {
               url
               mimeType
             }
+            uploads {
+              upload {
+                title
+                caption 
+                url
+                mimeType
+              }
+            }
             sizes {
               id
               size

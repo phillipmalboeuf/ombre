@@ -15,6 +15,28 @@ export interface Season {
   id: string;
   start_date: string;
   end_date: string;
+  producer?: Producer;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "producers".
+ */
+export interface Producer {
+  id: string;
+  name?: string;
+  admin?: boolean;
+  phone?: string;
+  shipping_address?: string;
+  enableAPIKey?: boolean;
+  apiKey?: string;
+  apiKeyIndex?: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -25,22 +47,27 @@ export interface Season {
 export interface Product {
   title?: string;
   id: string;
-  publishedDate?: string;
   price: number;
   inventory?: number;
-  unit?: string;
+  unit: string;
   sizes: {
     title?: string;
-    size?: number;
-    adjustment?: number;
+    size: number;
+    adjustment: number;
     id?: string;
   }[];
-  seasons?: (string | Season)[];
+  seasons?: (Season)[];
   thumbnail?: Upload;
+  uploads: {
+    upload?: Upload;
+    id?: string;
+  }[];
   description?: {
     [k: string]: unknown;
   }[];
+  publishedDate?: string;
   status?: 'draft' | 'published' | 'archived';
+  producer?: Producer;
   createdAt: string;
   updatedAt: string;
 }
@@ -58,6 +85,8 @@ export interface Upload {
   filename?: string;
   mimeType?: string;
   filesize?: number;
+  width?: number;
+  height?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -73,7 +102,7 @@ export interface Customer {
   phone?: string;
   shipping_address?: string;
   status?: 'active' | 'archived';
-  perks?: (string | Perk)[];
+  perks?: (Perk)[];
   accepts_newsletter?: boolean;
   notes?: {
     [k: string]: unknown;
@@ -94,7 +123,18 @@ export interface Perk {
   title?: string;
   id: string;
   description?: string;
-  season?: string | Season;
+  all_customers?: boolean;
+  type?: 'subscription' | 'order_units';
+  unit: {
+    unit?: string;
+    unit_number?: number;
+  };
+  discount: {
+    amount?: number;
+    percentage?: boolean;
+  };
+  season?: Season;
+  producer?: Producer;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -102,27 +142,26 @@ export interface Perk {
  */
 export interface Order {
   id: string;
-  email?: string;
-  shipping_address?: string;
-  season?: string | Season;
+  season?: Season;
   placed_by?:
     | {
-        value: string | Customer;
+        value: Customer;
         relationTo: 'customers';
       }
     | {
-        value: string | Producer;
+        value: Producer;
         relationTo: 'producers';
       };
+  shipping_address?: string;
   line_items: {
     description?: string;
-    quantity?: number;
+    product?: Product;
     size?: number;
-    product?: string | Product;
+    quantity?: number;
     status?: 'processing' | 'cancelled' | 'fulfilled';
     id?: string;
   }[];
-  subscription?: string | Subscription;
+  subscription?: Subscription;
   notes?: {
     [k: string]: unknown;
   }[];
@@ -133,45 +172,34 @@ export interface Order {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "producers".
- */
-export interface Producer {
-  id: string;
-  name?: string;
-  phone?: string;
-  shipping_address?: string;
-  enableAPIKey?: boolean;
-  apiKey?: string;
-  apiKeyIndex?: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscriptions".
  */
 export interface Subscription {
   id: string;
+  season?: Season;
   placed_by?:
     | {
-        value: string | Customer;
+        value: Customer;
         relationTo: 'customers';
       }
     | {
-        value: string | Producer;
+        value: Producer;
         relationTo: 'producers';
       };
+  shipping_address?: string;
+  line_items: {
+    description?: string;
+    product?: Product;
+    size?: number;
+    quantity?: number;
+    id?: string;
+  }[];
   schedule: {
     start_date: string;
     end_date?: string;
-    interval?: string;
+    interval: 'week' | 'month' | 'year';
+    interval_count: number;
   };
-  season?: string | Season;
   notes?: {
     [k: string]: unknown;
   }[];
@@ -182,20 +210,39 @@ export interface Subscription {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "kiosks".
+ */
+export interface Kiosk {
+  name?: string;
+  id: string;
+  address?: string;
+  open_hours: {
+    description?: string;
+    weekdays?: ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[];
+    open_hour?: string;
+    close_hour?: string;
+    id?: string;
+  }[];
+  minimum_order_days?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "content_pages".
  */
 export interface ContentPage {
   title?: string;
   id: string;
-  author?: string | Producer;
+  author?: Producer;
   publishedDate?: string;
   index?: boolean;
-  seasons?: (string | Season)[];
+  seasons?: (Season)[];
   content: (
     | {
         title?: string;
         id?: string;
-        media?: string | Upload;
+        media?: Upload;
         text?: {
           [k: string]: unknown;
         }[];
@@ -205,7 +252,7 @@ export interface ContentPage {
     | {
         title?: string;
         id?: string;
-        products?: (string | Product)[];
+        products?: (Product)[];
         blockName?: string;
         blockType: 'ProductsList';
       }
@@ -223,9 +270,9 @@ export interface HistoryTask {
   description?: string;
   task: string;
   count?: number;
-  product?: string | Product;
+  product?: Product;
   date: string;
-  season?: string | Season;
+  season?: Season;
   notes?: {
     [k: string]: unknown;
   }[];

@@ -1,9 +1,38 @@
 <script lang="ts">
   import { money } from '$lib/formatters'
   import type { Product } from '$lib/payload-types'
+  import { perks, interval, items } from '$lib/stores'
 
   export let product: Product
   export let size: number
+
+  const original = product.price * size * product.sizes.find(s => size === s.size).adjustment
+  let discount: number
+
+  $ : {
+    if ($perks) {
+      discount = 0
+      if ($interval !== 'one-time') {
+        $perks.filter(perk => perk.type === 'subscription').forEach(perk => perk.discount.percentage
+        ? discount += original * perk.discount.amount
+        : discount += perk.discount.amount)
+      }
+
+      $perks.filter(perk => perk.type === 'order_units' && perk.unit.unit === product.unit).forEach(perk => {
+        if ($items.filter(item => item.unit === perk.unit.unit).reduce((total, item) => {
+          return total += item.size * item.quantity
+        }, 0) >= perk.unit.unit_number) {
+          perk.discount.percentage
+            ? discount += original * perk.discount.amount
+            : discount += perk.discount.amount
+        }
+      })
+    }
+  }
 </script>
 
-<strong>{money(product.price * size * product.sizes.find(s => size === s.size).adjustment)}</strong>
+{#if discount}
+<s>{money(original)}</s><strong>{money(original - discount)}</strong>
+{:else}
+<strong>{money(original)}</strong>
+{/if}
