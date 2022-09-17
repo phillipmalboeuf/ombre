@@ -5,10 +5,11 @@
 
   export let open = false
   export let side = false
+  export let full = false
 </script>
 
 {#if open}
-<aside class:side>
+<aside class:side class:full>
   <button class="back" transition:fade on:click={() => open = false} aria-label="Close" />
   <button class="close" transition:fade on:click={() => open = false} aria-label="Close">
     <Icon k="close" />
@@ -26,6 +27,7 @@
     height: 100vh;
     z-index: 15;
     overflow-y: auto;
+    transition: width 666ms;
 
     > button.back {
       position: fixed;
@@ -57,6 +59,10 @@
       > button.back {
         display: none;
       }
+    }
+
+    &.full {
+      width: 95vw;
     }
   }
 </style>

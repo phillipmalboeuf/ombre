@@ -39,6 +39,7 @@
     position: fixed;
     inset: 0;
     bottom: auto;
+    z-index: 15;
 
     @media (max-width: 888px) {
       

@@ -6,8 +6,8 @@
   export let product: Product
   export let size: number
 
-  const original = product.price * size * product.sizes.find(s => size === s.size).adjustment
-  let discount: number
+  export const original = product.price * size * product.sizes.find(s => size === s.size).adjustment
+  export let discount: number = undefined
 
   $ : {
     if ($perks) {
