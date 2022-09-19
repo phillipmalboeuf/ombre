@@ -7,7 +7,7 @@
   <label for="password">Password</label>
   <input type="password" name="password" id="password" value="gloomycreek">
 
-  <button type="submit">Login</button>
+  <button class="button--full button--dark" type="submit">Login</button>
 </form>
 
 <a href="/account/create">Create customer</a>

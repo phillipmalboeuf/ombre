@@ -3,41 +3,10 @@ import { error } from '@sveltejs/kit'
 
 import { query } from '$lib/clients/payload'
 import type { Product } from '$lib/payload-types'
+import { PUBLIC_API_URL } from '$env/static/public'
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-  const products = (await query<{ Products : { docs: Product[] } }>(fetch, `
-      query {
-        Products {
-          docs {
-            id
-            title
-            price
-            unit
-            thumbnail {
-              title
-              caption 
-              url
-              mimeType
-            }
-            uploads {
-              upload {
-                title
-                caption 
-                url
-                mimeType
-              }
-            }
-            sizes {
-              id
-              size
-              adjustment
-              title
-            }
-          }
-        }
-      }
-    `)).data.Products
-
+  const products = await (await fetch(`${PUBLIC_API_URL}/products`)).json()
   return {
     products
   }

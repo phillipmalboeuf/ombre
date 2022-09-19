@@ -26,18 +26,28 @@
   }
 </script>
 
-<form action="/checkout" class="grid grid--halves" method="post" transition:fly={{ x: 100 }}>
-  <div>
-    <button on:click={() => checkout = false} type="button" class="button--none"><u>Retour</u></button>
+<div class="grid grid--halves" method="post" transition:fly={{ x: 100 }}>
+  <main>
+    <button on:click={() => checkout = false} class="button--none"><u>Retour</u></button>
     <OrderItems compact bind:originals bind:discounts />
     <hr>
 
     <nav class="flex flex--middle flex--tight">
-      <button class="button--none" type="button">Profil</button>
-      <button class="button--none" type="button" disabled>Adresse</button>
-      <button class="button--none" type="button" disabled>Paiement</button>
+      <button class="button--none">Profil</button>
+      <button class="button--none" disabled>Adresse</button>
+      <button class="button--none" disabled>Paiement</button>
     </nav>
-  </div>
+
+    <form action="/checkout" method="post" transition:fly={{ x: 100 }}>
+      <label for="email">Email address</label>
+      <input type="email" name="email" id="email">
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password">
+
+      <button class="button--full button--dark" type="submit">Login</button>
+    </form>
+  </main>
 
   <aside>
     
@@ -55,10 +65,10 @@
       <li><h6>Total</h6> <strong>{money(total)}</strong></li>
     </ol>
   </aside>
-</form>
+</div>
 
 <style lang="scss">
-  form {
+  div {
     background-color: var(--light);
     border-left: 3px solid;
     font-size: var(--step-0);
@@ -68,16 +78,20 @@
     top: 0;
     width: 100%;
     min-height: 100%;
+  }
 
-    > div {
-      position: relative;
-      padding: var(--step-0);
+  main {
+    position: relative;
+    padding: var(--step-0);
 
-      > button {
-        position: absolute;
-        top: var(--step-0);
-        right: 0;
-      }
+    > button {
+      position: absolute;
+      top: var(--step-0);
+      right: 0;
+    }
+
+    > nav {
+      margin-bottom: var(--step-2);
     }
   }
 
