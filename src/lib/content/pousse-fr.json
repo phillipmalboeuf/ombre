@@ -1,6 +1,43 @@
 {
   "title": "Pousse Poulin",
   "index": [
+    { 
+      "id": "intro",
+      "title": "Un texte d'introduction ici",
+      "text": ["Un texte d'introduction ici, et comment est-ce que ça fonctionne en trois étapes. Un texte d'introduction ici, et comment est-ce que ça fonctionne en quatres étapes."]
+    },
+    { 
+      "image": "/farm.png"
+    },
+    { 
+      "id": "steps",
+      "title": "En 4 étapes",
+      "products": [
+        {
+          "title": "1. Choisir vos pousses",
+          "text": "Des choix"
+        },
+        {
+          "title": "2. Choisir de commander en abonnement ou une fois",
+          "text": "10% off si abonnement"
+        },
+        {
+          "title": "3. Choisir votre points de ramassage",
+          "text": "Disponible partout"
+        },
+        {
+          "title": "4. Entrer vos informations de paiements",
+          "text": "Et c'est tout!"
+        }
+      ]
+    },
+    { 
+      "id": "steps",
+      "button": {
+        "link": "/products",
+        "label": "Choisissez vos pousses!"
+      }
+    }
   ],
   "close": "Fermer",
   "links": [

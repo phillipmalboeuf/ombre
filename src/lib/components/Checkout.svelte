@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { PUBLIC_API_URL } from '$env/static/public'
+  import { enhance } from '$lib/form'
   import { money } from '$lib/formatters'
-  import { items } from '$lib/stores'
+  import { customer, items } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
   import OrderItems from './OrderItems.svelte'
 
@@ -37,16 +39,6 @@
       <button class="button--none" disabled>Adresse</button>
       <button class="button--none" disabled>Paiement</button>
     </nav>
-
-    <form action="/checkout" method="post" transition:fly={{ x: 100 }}>
-      <label for="email">Email address</label>
-      <input type="email" name="email" id="email">
-
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password">
-
-      <button class="button--full button--dark" type="submit">Login</button>
-    </form>
   </main>
 
   <aside>

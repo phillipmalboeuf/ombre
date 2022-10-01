@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { DateTime } from 'luxon'
   import { PUBLIC_API_URL } from '$env/static/public'
   import { crossfade, fade, fly } from 'svelte/transition'
   import { items, bar, interval } from '$lib/stores'
@@ -16,7 +17,7 @@
   let checkout = false
 
   onMount(async () => {
-    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks`)).json()
+    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks?sort=-name`)).json()
   })
 </script>
 
@@ -35,12 +36,13 @@
       <fieldset>
         <Plans />
       </fieldset>
-      <label for="kiosk">Disponible chez</label>
+      <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{DateTime.now().set({ weekday: 4 }).plus({ days: 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
       <select name="kiosk" id="kiosk">
-      {#each kiosks?.docs as kiosk}
-      <!-- <option value={kiosk.id}>{kiosk.name} {DateTime.now().plus({ days: kiosk.minimum_order_days + 1 }).toRelative({ locale: 'fr' })}</option> -->
+      {#if kiosks}
+      {#each kiosks.docs as kiosk}
       <option value={kiosk.id}>{kiosk.name}</option>
       {/each}
+      {/if}
       </select>
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>

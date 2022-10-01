@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Product } from '$lib/payload-types'
-  export let products: Product[]
+  import type { Bundle, Product } from '$lib/payload-types'
+  export let products: (Product | Bundle)[]
 
   import Icon from './Icon.svelte'
   import Media from './Media.svelte'
@@ -10,12 +10,10 @@
   import Slider from './Slider.svelte'
 </script>
 
-<Plans />
-
 <ul class="--nostyle grid grid--halves">
 {#each products as product}
   <li>
-    <Slider particlesToShow={1} arrows={false}>
+    <Slider particlesToShow={1} arrows={false} thumbnails={[product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []]}>
       {#each [product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []] as media}
       <figure>
         <Media {media} ar={1} />
@@ -30,8 +28,7 @@
 
 <style lang="scss">
   li :global(.embla) {
-    max-width: var(--step-4);
-    margin-bottom: var(--step-0);
+    max-width: var(--step-5);
   }
 
   h4 {

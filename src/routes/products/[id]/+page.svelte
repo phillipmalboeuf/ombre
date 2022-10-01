@@ -18,7 +18,7 @@
 </nav>
 <section class="padded grid grid--halves">
   <aside>
-    <Slider particlesToShow={1} arrows={false}>
+    <Slider particlesToShow={1} arrows={false} thumbnails={[product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []]}>
       {#each [product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []] as media}
       <figure>
         <Media {media} ar={1} />

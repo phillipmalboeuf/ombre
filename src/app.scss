@@ -13,6 +13,10 @@
   --step-7: clamp(40.24rem, calc(36.89rem + 16.10vw), 53.66rem); // 858
 
   --width: 1680px;
+  --vh: 100vh;
+  @supports (vh: 100dvh) {
+    --vh: 100dvh;
+  }
 
   --dark: #160809;
   --light: #F9F9F9;
@@ -164,6 +168,13 @@ a.button {
     color: var(--light);
     background-color: var(--dark);
   }
+
+  &.button--tight {
+    border: 2px solid;
+    font-weight: bold;
+    line-height: 1;
+    padding: var(--step--2) var(--step--1);
+  }
 }
 
 ol,
@@ -308,6 +319,10 @@ svg {
   &.grid--tight {
     gap: var(--step--2);
   }
+
+  .span__2 {
+    grid-column: span 2;
+  }
 }
 
 .flex {
@@ -334,6 +349,10 @@ svg {
 
   &.flex--middle {
     align-items: center;
+  }
+
+  &.flex--bottom {
+    align-items: flex-end;
   }
 
   &.flex--spaced {

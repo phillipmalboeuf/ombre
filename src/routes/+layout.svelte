@@ -4,7 +4,7 @@
 	import Footer from '$lib/components/Footer.svelte'
 	import Wip from '$lib/components/WIP.svelte'
 
-	import { setContext } from 'svelte'
+	import { onMount, setContext } from 'svelte'
 	import type { LayoutData } from '.svelte-kit/types/src/routes/$types'
 
 	export let data: LayoutData
@@ -13,7 +13,10 @@
 
 <Header />
 
-<center><a href="/" class="h1">{data.content.title}</a></center>
+<center>
+	<a href="/" class="flex flex--bottom flex--tight"><img src="https://gloomy.b-cdn.net/uploads/poussepoulin_logo-removebg-preview.png" alt="Logo"/> <h2>{data.content.title}</h2></a>
+</center>
+
 <main>
 	<slot />
 </main>
@@ -23,7 +26,7 @@
 
 <style lang="scss">
 	main {
-		min-height: 100vh;
+		min-height: calc(var(--vh) - var(--step-5) - var(--step--1));
 		width: 100%;
 		max-width: var(--step-7);
 		margin: 0 auto;
@@ -45,6 +48,18 @@
 		a {
 			position: relative;
 			z-index: 1;
+			max-width: var(--step-4);
+			text-transform: uppercase;
+			text-align: left;
+			line-height: 1;
+
+			h2 {
+				margin-bottom: 0;
+			}
+
+			img {
+				max-width: var(--step-2);
+			}
 		}
 	}
 </style>

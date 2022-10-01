@@ -2,7 +2,7 @@
   import type { Upload } from '$lib/payload-types'
   import Rich from './Rich.svelte'
 
-  export let media: Upload
+  export let media: string | Upload
   export let small = false
   export let noDescription = false
   export let ar: number = undefined
@@ -43,6 +43,7 @@
 </style>
 
 {#if media}
+{#if typeof media !== 'string'}
 {#if media.mimeType?.startsWith('video/')}
 <!-- svelte-ignore a11y-media-has-caption -->
 <video src="{cdn(media.url)}" controls bind:this={video} autoplay={eager} muted={eager} loop={eager} loading={"lazy"} />
@@ -55,15 +56,15 @@
 {:else}
 <picture>
   {#if small}
-  <source srcSet="{cdn(media.url)}?auto=compress,format&w=400{ar ? `&h=${Math.round(ar * 400)}&fit=fill` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.url)}?auto=compress,format&w=600{ar ? `&h=${Math.round(ar * 600)}&fit=fill` : ''}" media="(max-width: 1200px)" />
-  <img src="{cdn(media.url)}?auto=compress,format&w=800{ar ? `&h=${Math.round(ar * 800)}&fit=fill` : ''}"
+  <source srcSet="{cdn(media.url)}?width=400{ar ? `&aspect_ratio=400:${Math.round(ar * 400)}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.url)}?width=600{ar ? `&aspect_ratio=600:${Math.round(ar * 600)}` : ''}" media="(max-width: 1200px)" />
+  <img src="{cdn(media.url)}?width=800{ar ? `&aspect_ratio=800:${Math.round(ar * 800)}` : ''}"
     style={ar ? `aspect-ratio: 800 / ${Math.round(ar * 800)}` : ''}
     alt="{media.title}" loading={eager ? "eager" : "lazy"} />
-    {:else}
-  <source srcSet="{cdn(media.url)}?auto=compress,format&w=900{ar ? `&h=${Math.round(ar * 900)}&fit=fill` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.url)}?auto=compress,format&w=1200{ar ? `&h=${Math.round(ar * 1200)}&fit=fill` : ''}" media="(max-width: 1200px)" />
-  <img src="{cdn(media.url)}?auto=compress,format&w=1800{ar ? `&h=${Math.round(ar * 1800)}&fit=fill` : ''}"
+  {:else}
+  <source srcSet="{cdn(media.url)}?width=900{ar ? `&aspect_ratio=900:${Math.round(ar * 900)}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.url)}?width=1200{ar ? `&aspect_ratio=1200:${Math.round(ar * 1200)}` : ''}" media="(max-width: 1200px)" />
+  <img src="{cdn(media.url)}?width=1800{ar ? `&aspect_ratio=1800:${Math.round(ar * 1800)}` : ''}"
     style={ar ? `aspect-ratio: 1800 / ${Math.round(ar * 1800)}` : ''}
     alt="{media.title}" loading={eager ? "eager" : "lazy"} />
   {/if}
@@ -72,5 +73,12 @@
 {#if !noDescription && media.caption}
 <small><Rich text={media.caption} /></small>
 {/if}
+{/if}
+{:else}
+<picture>
+  <img src="{cdn(media)}?width=100{ar ? `&aspect_ratio=100:${Math.round(ar * 100)}` : ''}"
+    style={ar ? `aspect-ratio: 100 / ${Math.round(ar * 100)}` : ''}
+    alt="" loading={eager ? "eager" : "lazy"} />
+</picture>
 {/if}
 {/if}

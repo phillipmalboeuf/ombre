@@ -24,7 +24,7 @@
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    height: var(--vh);
     z-index: 15;
     overflow-y: auto;
     transition: width 666ms;

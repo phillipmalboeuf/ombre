@@ -3,9 +3,14 @@
   import emblaCarouselSvelte, { type EmblaCarouselType } from 'embla-carousel-svelte'
   import AutoHeight from 'embla-carousel-auto-height'
   import AutoPlay from 'embla-carousel-autoplay'
+  
+  import type { Upload } from '$lib/payload-types'
+  import Media from './Media.svelte'
+  
 
   export let autoplay = false
   export let arrows = true
+  export let thumbnails: (string | Upload)[] = undefined
   export let particlesToShow: number = undefined
 
   let embla: EmblaCarouselType 
@@ -16,6 +21,10 @@
 
   function next() {
     embla.scrollNext()
+  }
+
+  function go(i: number) {
+    embla.scrollTo(i, false)
   }
 
   // onMount(() => {
@@ -48,6 +57,16 @@
       Next
     </button>
   </center>
+  {/if}
+
+  {#if thumbnails}
+  <nav class="flex">
+    {#each thumbnails as thumbnail, i}
+    <button on:click={() => go(i)} class="button--none">
+      <Media media={thumbnail} ar={1} small />
+    </button>
+    {/each}
+  </nav>
   {/if}
 </article>
 
@@ -102,6 +121,15 @@
           transform: translateX(calc(var(--step-0) * -1));
         }
       }
+    }
+  }
+
+  nav {
+    margin: var(--step--1) 0;
+    gap: var(--step--2);
+    
+    button {
+      width: var(--step-1);
     }
   }
 </style>

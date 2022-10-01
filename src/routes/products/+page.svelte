@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Plans from '$lib/components/Plans.svelte'
 	import Products from '$lib/components/Products.svelte'
   import type { PageData } from './$types'
 
@@ -10,8 +11,13 @@
 </svelte:head>
 
 <section class="padded">
-	<h2>Produits</h2>
-  <Products products={data.products.docs} />
+	<Plans /><br>
+	{#each data.collections.docs as collection}
+	<h2>{collection.title}</h2>
+  <Products products={collection.products.map(product => typeof product.value === 'string'
+		? (data.products[product.value] || data.bundles[product.value])
+		: product.value)} />
+	{/each}
 </section>
 
 <style>

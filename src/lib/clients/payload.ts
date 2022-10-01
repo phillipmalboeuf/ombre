@@ -19,6 +19,6 @@ export async function query<T = any>(f: typeof fetch, query: string, variables: 
   })
 
   const json = await res.json()
-  console.log(json)
+  // console.log(json)
   return json
 }

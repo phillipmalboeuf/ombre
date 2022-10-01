@@ -28,8 +28,8 @@
   </nav>
   {/if}
   <nav class="flex flex--middle flex--tight">
-    <a href={content.locale.href}>{content.locale.label}</a>
-    <a href="/" aria-label="Account" on:click|preventDefault={() => wip.set(true)}><Icon k='account' /></a>
+    <!-- <a href={content.locale.href}>{content.locale.label}</a> -->
+    <a href="/account" aria-label="Account"><Icon k='account' /></a>
     <OrderBar />
   </nav>
 </header>
@@ -40,6 +40,7 @@
     inset: 0;
     bottom: auto;
     z-index: 15;
+    pointer-events: none;
 
     @media (max-width: 888px) {
       
@@ -50,6 +51,7 @@
 
     > button,
     > nav {
+      pointer-events: auto;
       position: relative;
       z-index: 2;
       font-size: var(--step-1);

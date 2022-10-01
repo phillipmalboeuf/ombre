@@ -8,13 +8,14 @@
 
 <footer class="padded flex flex--spaced flex--middle">
   <copy>{content.copyright} {new Date().getFullYear()}</copy>
-  <nav>
-    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='twitter' /></a>
+  <nav class="flex flex--tight flex--middle">
+    <!-- <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='twitter' /></a> -->
+    <a href="/" on:click|preventDefault={() => wip.set(true)}><u>Nous rejoindre</u></a>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='facebook' /></a>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='instagram' /></a>
-    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='tiktok' /></a>
+    <!-- <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='tiktok' /></a>
     <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='youtube' /></a>
-    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='twitch' /></a>
+    <a href="/" on:click|preventDefault={() => wip.set(true)}><Icon k='twitch' /></a> -->
   </nav>
 </footer>
 

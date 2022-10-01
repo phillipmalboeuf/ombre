@@ -1,13 +1,9 @@
+<script>
+  import Login from '$lib/components/Login.svelte'
+
+</script>
 <h1>Login</h1>
 
-<form method="post">
-  <label for="email">Email address</label>
-  <input type="email" name="email" id="email" value="phillip.malboeuf@gmail.com">
-
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password" value="gloomycreek">
-
-  <button class="button--full button--dark" type="submit">Login</button>
-</form>
+<Login />
 
 <a href="/account/create">Create customer</a>

@@ -2,13 +2,13 @@
 
 <form method="post">
   <label for="name">Name</label>
-  <input type="text" name="name" id="name" value="Phillip Malboeuf">
+  <input type="text" name="name" id="name">
 
   <label for="email">Email address</label>
-  <input type="email" name="email" id="email" value="phillip.malboeuf@gmail.com">
+  <input type="email" name="email" id="email">
 
   <label for="password">Password</label>
-  <input type="password" autocomplete="new-password" name="password" id="password" value="gloomycreek">
+  <input type="password" autocomplete="new-password" name="password" id="password">
 
   <button type="submit">Create</button>
 </form>

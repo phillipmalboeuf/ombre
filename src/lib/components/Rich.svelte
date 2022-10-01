@@ -4,7 +4,7 @@
   }[]
 </script>
 
-
+{#if text}
 {#each text as t}
 {#if t.children}
 {#if t.type}
@@ -46,3 +46,4 @@
 
 {/if}
 {/each}
+{/if}

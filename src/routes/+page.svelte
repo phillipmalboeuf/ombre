@@ -15,7 +15,7 @@
 <section class="padded grid grid--full">
 	{#each content.index as section, i}
 	<section id={section.id}>
-		{#if section.title}{#if i === 0}<h1 class="h3">{section.title}</h1>{:else}<h3 class={section.products && "h1"}>{section.title}</h3>{/if}{/if}
+		{#if section.title}{#if i === 0}<h1 class="h1">{section.title}</h1>{:else}<h3 class={section.products && "h3"}>{section.title}</h3>{/if}{/if}
 		{#if section.image}
 		<figure>
 			<picture>
@@ -30,9 +30,11 @@
 		<ul class="--nostyle">
 			{#each section.products as product}
 			<li class="flex">
+				{#if product.image}
 				<figure>
 					<img src={product.image} alt="">
 				</figure>
+				{/if}
 				<div>
 					<h4>{product.title}</h4>
 					<p>{product.text}</p>
@@ -41,14 +43,19 @@
 			{/each}
 		</ul>
 		{/if}
+		{#if section.button}
+		<center>
+			<a href={section.button.link} class="button button--dark">{section.button.label}</a>
+		</center>
+		{/if}
 	</section>
 	{/each}
 
-	<section id="support">
+	<!-- <section id="support">
 		<h3 class="h1">{content.support.title}</h3>
 		
 		<Form />
-	</section>
+	</section> -->
 	<!-- <Products {products} />
 	<form action="/stripe/manage" method="post">
     <button type="submit">Manage</button>
@@ -60,6 +67,7 @@
 	li {
 		img {
 			width: var(--step-1);
+			object-fit: cover;
 		}
 
 		div > p {

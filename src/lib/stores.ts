@@ -1,16 +1,36 @@
 import { PUBLIC_API_URL } from '$env/static/public'
 import { writable, readable } from 'svelte/store'
 import { query } from './clients/payload'
-import type { Perk } from './payload-types'
+import type { Customer, Perk } from './payload-types'
+
+export let customer = writable<Customer>(undefined, set => {
+  fetch(`${PUBLIC_API_URL}/customers/me`, {
+    credentials: 'same-origin'
+  }).then(async response => {
+    set((await response.json()))
+  })
+
+  return () => undefined
+})
 
 export let bar = writable<boolean>(false)
-export let items = writable<{
+export let items = writable<({
   id: string
   product: string
   unit: string
   size: number
   quantity: number
-}[]>([])
+} | {
+  id: string
+  bundle: string
+  quantity: number
+  products: {
+    product: string
+    unit: string
+    size: number
+    quantity: number
+  }[]
+})[]>([])
 
 export let interval = writable<string>('one-time')
 
