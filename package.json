@@ -1,6 +1,9 @@
 {
 	"name": "ombre.new",
 	"version": "0.0.1",
+	"engines": {
+		"node": "16.x"
+	},
 	"scripts": {
 		"dev": "vite dev --open",
 		"build": "vite build",
