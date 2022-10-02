@@ -53,9 +53,10 @@ export function enhance(
 		try {
 			const response = await fetch(form.action, {
 				method: form.method,
-				credentials: 'same-origin',
+				credentials: 'include',
 				headers: {
-					accept: 'application/json'
+					'Accept': 'application/json',
+					// 'Content-Type': 'application/json',
 				},
 				body: data
 			});

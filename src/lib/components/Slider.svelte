@@ -92,9 +92,9 @@
       flex: 0 0 var(--width);
       margin: 0 var(--step--1) var(--step-0);
       
-      @media (max-width: 799px) {
-        padding: var(--step--1);
-      }
+      // @media (max-width: 799px) {
+      //   padding: var(--step--1);
+      // }
     }
   }
 

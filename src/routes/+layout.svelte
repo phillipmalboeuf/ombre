@@ -48,7 +48,7 @@
 		a {
 			position: relative;
 			z-index: 1;
-			max-width: var(--step-4);
+			max-width: 180px;
 			text-transform: uppercase;
 			text-align: left;
 			line-height: 1;

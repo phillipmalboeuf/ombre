@@ -3,9 +3,9 @@ import { writable, readable } from 'svelte/store'
 import { query } from './clients/payload'
 import type { Customer, Perk } from './payload-types'
 
-export let customer = writable<Customer>(undefined, set => {
+export let me = writable<{ user: Customer }>(undefined, set => {
   fetch(`${PUBLIC_API_URL}/customers/me`, {
-    credentials: 'same-origin'
+    credentials: 'include'
   }).then(async response => {
     set((await response.json()))
   })

@@ -59,6 +59,10 @@
       > button.back {
         display: none;
       }
+
+      @media (max-width: 799px) {
+        width: 95vw;
+      }
     }
 
     &.full {

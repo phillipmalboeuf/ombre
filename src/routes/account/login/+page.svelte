@@ -1,9 +1,7 @@
 <script>
-  import Login from '$lib/components/Login.svelte'
+  import Login from '$lib/components/Account.svelte'
 
 </script>
 <h1>Login</h1>
 
 <Login />
-
-<a href="/account/create">Create customer</a>

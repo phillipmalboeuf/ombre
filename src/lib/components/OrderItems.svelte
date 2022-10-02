@@ -84,7 +84,8 @@
       <button class="button--tight" type="button" on:click={() => {
         $items.splice(i + 1, 0, {
           ...item,
-          id: Math.random().toString()
+          id: Math.random().toString(),
+          ...'products' in item && { products: item.products.map(p => ({ ...p, id: Math.random().toString() })) }
         })
         items.set($items)
       }}>+</button>

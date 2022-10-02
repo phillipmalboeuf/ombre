@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@stripe/stripe-js": "^1.38.1",
 		"cookie": "^0.4.1",
 		"stripe": "^10.7.0"
 	}
