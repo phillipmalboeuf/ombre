@@ -61,8 +61,8 @@
       <strong class="h5">{bundles[item.bundle].title}{#if item.quantity > 1} fois {item.quantity}{/if}</strong><br>
       {#each item.products as p, i}
       {#if products[p.product]}
-      <small><strong>{products[p.product].title}{#if item.quantity > 1} fois {item.quantity}{/if}</strong>
-      {p.size} {p.unit} <Price bind:discount={discounts[item.id]} bind:original={originals[item.id]} product={products[p.product]} size={p.size} /></small>
+      <small><strong>{products[p.product].title}{#if p.quantity > 1} fois {p.quantity}{/if}</strong>
+      {p.size} {p.unit} <Price bind:discount={discounts[p.id]} bind:original={originals[p.id]} product={products[p.product]} size={p.size} /></small>
       <br>
       {:else}
       <strong>...{#if item.quantity > 1} fois {item.quantity}{/if}</strong>

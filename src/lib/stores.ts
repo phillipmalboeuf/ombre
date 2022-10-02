@@ -25,6 +25,7 @@ export let items = writable<({
   bundle: string
   quantity: number
   products: {
+    id: string
     product: string
     unit: string
     size: number
