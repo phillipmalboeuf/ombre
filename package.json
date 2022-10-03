@@ -5,6 +5,7 @@
 		"node": "16.x"
 	},
 	"scripts": {
+		"start": "PORT=5000 node build/index.js",
 		"dev": "vite dev --open",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -15,6 +16,7 @@
 	"devDependencies": {
 		"@playwright/test": "^1.25.0",
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "^1.0.0-next.96",
 		"@sveltejs/kit": "next",
 		"@types/cookie": "^0.5.1",
 		"@types/luxon": "^3.0.1",
