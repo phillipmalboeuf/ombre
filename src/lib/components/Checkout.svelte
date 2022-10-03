@@ -56,7 +56,10 @@
         stripe = await loadStripe(PUBLIC_STRIPE_PK)
 
         elements = stripe.elements({
-          clientSecret: intent.client_secret
+          clientSecret: intent.client_secret,
+          appearance: {
+            theme: 'flat'
+          }
         })
         const paymentElement = elements.create('payment')
         paymentElement.mount(element)
