@@ -1,14 +1,17 @@
+import { browser } from '$app/environment'
 import { PUBLIC_API_URL } from '$env/static/public'
 import { writable, readable } from 'svelte/store'
 import { query } from './clients/payload'
 import type { Customer, Perk } from './payload-types'
 
-export let me = writable<{ user: Customer }>(undefined, set => {
-  fetch(`${PUBLIC_API_URL}/customers/me`, {
-    credentials: 'include'
-  }).then(async response => {
-    set((await response.json()))
-  })
+export let me = writable<Customer>(undefined, set => {
+  if (browser) {
+    fetch(`/account/me`, {
+      credentials: 'include'
+    }).then(async response => {
+      set((await response.json()))
+    })
+  }
 
   return () => undefined
 })

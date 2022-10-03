@@ -1,4 +1,4 @@
-import { error, redirect } from '@sveltejs/kit'
+import { error, redirect, type RequestHandler } from '@sveltejs/kit'
 
 import { query } from '$lib/clients/payload'
 import type { Customer, Product } from '$lib/payload-types'

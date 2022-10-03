@@ -4,7 +4,6 @@
   import { onMount } from 'svelte'
   import { PUBLIC_API_URL, PUBLIC_STRIPE_PK } from '$env/static/public'
 
-  import { enhance } from '$lib/form'
   import { money } from '$lib/formatters'
   import { me, items } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
@@ -103,7 +102,7 @@
     <nav class="flex flex--middle flex--tight">
       <button class="button--none" class:active={step === 'profile'} on:click={() => step = 'profile'}>Profil</button>
       <!-- <button class="button--none" class:active={step === 'address'}>Adresse</button> -->
-      <button class="button--none" class:active={step === 'payment'} disabled={!$me?.user} on:click={() => step = 'payment'}>Paiement</button>
+      <button class="button--none" class:active={step === 'payment'} disabled={!$me} on:click={() => step = 'payment'}>Paiement</button>
     </nav>
 
     {#if step === 'profile'}

@@ -4,4 +4,4 @@
 </script>
 <h1>Login</h1>
 
-<Login />
+<Login mode="login" />

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Bundle, Product } from '$lib/payload-types';
-  import { enhance } from '$lib/form'
+  import type { Bundle, Product } from '$lib/payload-types'
   import { bar, items } from '$lib/stores'
   
   import Price from './Price.svelte'

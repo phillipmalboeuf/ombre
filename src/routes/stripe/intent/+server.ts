@@ -5,7 +5,6 @@ import { json, type Action, type RequestHandler } from '@sveltejs/kit'
 export const POST: RequestHandler = async ({ request, url }) => {
 
   const data = await request.json()
-  console.log(data)
 
   const today = new Date()
   const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`

@@ -1,46 +1,42 @@
 <script lang="ts">
   import { PUBLIC_API_URL } from '$env/static/public'
-  import { enhance } from '$lib/form'
+  import { enhance } from '$app/forms'
   import { fly } from 'svelte/transition'
 
   import { me, items } from '$lib/stores'
 
   export let mode: "login" | "create" | "reset" = "create"
 </script>
-{#if $me?.user}
-<button class="button--full" on:click>Continuez avec le compte {$me.user.email}</button>
+{#if $me}
+<button class="button--full" on:click>Continuez avec le compte {$me.email}</button>
 <center>
   <button class="button--none" on:click={() => {
-    fetch(`${PUBLIC_API_URL}/customers/logout`, {
+    fetch(`/account?/logout`, {
+      credentials: 'include',
       method: 'POST',
-      credentials: 'include'
+      body: new FormData(),
+      headers: {
+        'x-sveltekit-action': 'true'
+      }
     }).then(async response => {
-      console.log(await response.json())
+      // console.log(response)
+      // console.log(await response.json())
       me.set(undefined)
     })
   }}>Inscrire un nouveau compte?</button>
 </center>
 {:else}
 {#if mode === "login"}
-<form action="{PUBLIC_API_URL}/customers/login" method="POST" use:enhance={{
-  error: () => {
-    // pending = undefined
-  },
-  pending: () => {
-    // pending = true
-  },
-  result: async ({ response }) => {
-    
-    const json = await response.json()
-    console.log(json)
-
-    fetch(`${PUBLIC_API_URL}/customers/me`, {
-      credentials: 'include'
-    }).then(async response => {
-      me.set((await response.json()))
-    })
-    // console.log(json)
-    // customer.set(json.user)
+<form action="/account?/login" method="POST" use:enhance={() => {
+  // me.set((await response.json()))
+  return async ({ result, update }) => {
+    if (result.type === 'success') {
+      fetch(`/account/me`, {
+        credentials: 'include'
+      }).then(async response => {
+        me.set((await response.json()))
+      })
+    }
   }
 }}>
   <label for="email">Adresse courriel</label>
@@ -58,27 +54,7 @@
 </center>
 
 {:else if mode === "create"}
-<form action="{PUBLIC_API_URL}/customers" method="POST" use:enhance={{
-  error: () => {
-    // pending = undefined
-  },
-  pending: () => {
-    // pending = true
-  },
-  result: async ({ response }) => {
-    
-    const json = await response.json()
-
-    fetch(`${PUBLIC_API_URL}/customers/me`, {
-      credentials: 'include'
-    }).then(async response => {
-      console.log(json)
-      me.set((await response.json()))
-    })
-    // console.log(json)
-    // customer.set(json.user)
-  }
-}}>
+<form action="/account?/create" method="POST" use:enhance>
   <label for="name">Name</label>
   <input type="text" name="name" id="name">
 
