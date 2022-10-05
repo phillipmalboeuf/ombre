@@ -31,7 +31,8 @@
 
 
   --bodyfont: "Really Sans Small", sans-serif;
-  --altfont: "Cocogoose Letterpress", sans-serif;
+  --altfont: "Maison Neue Extended", sans-serif;
+  --logofont: "Cocogoose Letterpress", sans-serif;
 }
 
 @media (max-width: 888px) {
@@ -84,6 +85,10 @@ h1, h2, h3, h4, h5, h6, p, figure {
   white-space: pre-line;
 }
 
+h1, .h1, h2, .h2 {
+  font-family: var(--logofont);
+}
+
 h1, .h1 {
   font-size: var(--step-2);
   font-weight: bold;
@@ -126,7 +131,7 @@ a {
 
 button,
 a.button {
-  font-family: var(--altfont);
+  font-family: var(--logofont);
   display: inline-block;
   cursor: pointer;
   color: currentColor;
@@ -193,7 +198,7 @@ ul {
 
 strong {
   font-weight: bold;
-  // font-family: var(--altfont);
+  font-family: var(--altfont);
 }
 
 picture {
