@@ -5,13 +5,13 @@
   import { PUBLIC_API_URL, PUBLIC_STRIPE_PK } from '$env/static/public'
 
   import { money } from '$lib/formatters'
-  import { me, items, kiosk } from '$lib/stores'
+  import { me, items, kiosk, interval } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
     
   import OrderItems from './OrderItems.svelte'
   import { browser } from '$app/environment'
   import Account from './Account.svelte'
-    import { DateTime } from 'luxon';
+  import { DateTime } from 'luxon'
 
   export let checkout: boolean = true
 
@@ -21,7 +21,7 @@
   let discountTotal: number
   let total: number
 
-  let intent: Stripe.PaymentIntent
+  let intent: Stripe.Order | Stripe.Subscription
   let stripe: StripeJS
   let elements: StripeElements
 
@@ -45,7 +45,12 @@
       
       fetch('/stripe/intent', {
         method: 'POST',
-        body: JSON.stringify({ total }),
+        body: JSON.stringify({
+          customer: $me.payment_provider_id,
+          interval: $interval,
+          items: $items.map(item => ({ ...item, total: originals[item.id] - discounts[item.id] })),
+          kiosk: $kiosk
+        }),
         headers: {
           'content-type': 'application/json'
         }
@@ -53,10 +58,13 @@
         intent = await response.json()
 
         const { loadStripe } = await import('@stripe/stripe-js/pure')
-        stripe = await loadStripe(PUBLIC_STRIPE_PK)
+        stripe = await loadStripe(PUBLIC_STRIPE_PK, {
+          betas: ['process_order_beta_1'],
+          apiVersion: "2022-08-01; orders_beta=v4"
+        })
 
         elements = stripe.elements({
-          clientSecret: intent.client_secret,
+          clientSecret: 'client_secret' in intent ? intent.client_secret : ((intent.latest_invoice as Stripe.Invoice).payment_intent as Stripe.PaymentIntent).client_secret,
           appearance: {
             theme: 'flat'
           }
@@ -76,13 +84,21 @@
   let message: HTMLDivElement
 
   async function submit() {
-    const {error} = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: window.location.origin+'/success',
-      },
-    })
+    const {error} = 'client_secret' in intent
+      ? await stripe.processOrder({
+        //`Elements` instance that was used to create the Payment Element
+        elements,
+        confirmParams: {
+          return_url: window.location.origin+'/success',
+        },
+      })
+      : await stripe.confirmPayment({
+        //`Elements` instance that was used to create the Payment Element
+        elements,
+        confirmParams: {
+          return_url: window.location.origin+'/success',
+        },
+      })
 
     if (error) {
       message.textContent = error.message
