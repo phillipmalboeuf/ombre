@@ -31,7 +31,7 @@
 
 
   --bodyfont: "Really Sans Small", sans-serif;
-  --altfont: "Maison Neue Extended", sans-serif;
+  --altfont: "Cocogoose Letterpress", sans-serif;
 }
 
 @media (max-width: 888px) {
@@ -193,7 +193,7 @@ ul {
 
 strong {
   font-weight: bold;
-  font-family: var(--altfont);
+  // font-family: var(--altfont);
 }
 
 picture {

@@ -56,7 +56,7 @@ export interface Product {
     adjustment: number;
     id?: string;
   }[];
-  seasons?: (string | Season)[];
+  seasons?: string[] | Season[];
   thumbnail?: string | Upload;
   uploads: {
     upload?: string | Upload;
@@ -104,7 +104,7 @@ export interface Bundle {
     quantity: number;
     id?: string;
   }[];
-  seasons?: (string | Season)[];
+  seasons?: string[] | Season[];
   thumbnail?: string | Upload;
   uploads: {
     upload?: string | Upload;
@@ -126,17 +126,28 @@ export interface Bundle {
 export interface Collection {
   title?: string;
   id: string;
-  products?: (
-    | {
-        value: string | Product;
-        relationTo: 'products';
-      }
-    | {
-        value: string | Bundle;
-        relationTo: 'bundles';
-      }
-  )[];
-  seasons?: (string | Season)[];
+  products?:
+    | (
+        | {
+            value: string;
+            relationTo: 'products';
+          }
+        | {
+            value: string;
+            relationTo: 'bundles';
+          }
+      )[]
+    | (
+        | {
+            value: Product;
+            relationTo: 'products';
+          }
+        | {
+            value: Bundle;
+            relationTo: 'bundles';
+          }
+      )[];
+  seasons?: string[] | Season[];
   thumbnail?: string | Upload;
   description?: {
     [k: string]: unknown;
@@ -159,7 +170,7 @@ export interface Customer {
   phone?: string;
   shipping_address?: string;
   status?: 'active' | 'archived';
-  perks?: (string | Perk)[];
+  perks?: string[] | Perk[];
   accepts_notices?: boolean;
   notes?: {
     [k: string]: unknown;
@@ -190,6 +201,7 @@ export interface Perk {
     amount?: number;
     percentage?: boolean;
   };
+  status?: 'draft' | 'published' | 'archived';
   season?: string | Season;
   producer?: string | Producer;
 }
@@ -281,6 +293,7 @@ export interface Kiosk {
     id?: string;
   }[];
   minimum_order_days?: number;
+  producer?: string | Producer;
   createdAt: string;
   updatedAt: string;
 }
@@ -294,7 +307,7 @@ export interface ContentPage {
   author?: string | Producer;
   publishedDate?: string;
   index?: boolean;
-  seasons?: (string | Season)[];
+  seasons?: string[] | Season[];
   content: (
     | {
         title?: string;
@@ -309,7 +322,7 @@ export interface ContentPage {
     | {
         title?: string;
         id?: string;
-        products?: (string | Product)[];
+        products?: string[] | Product[];
         blockName?: string;
         blockType: 'ProductsList';
       }
@@ -327,7 +340,7 @@ export interface Notice {
   id: string;
   event?: 'create-customers' | 'create-orders' | 'create-subscriptions';
   publishedDate?: string;
-  seasons?: (string | Season)[];
+  seasons?: string[] | Season[];
   subject?: string;
   content?: {
     [k: string]: unknown;

@@ -29,6 +29,7 @@
   {/if}
   <nav class="flex flex--middle flex--tight">
     <!-- <a href={content.locale.href}>{content.locale.label}</a> -->
+    <a href="https://www.facebook.com/profile.php?id=100085516862996" target="_blank"><Icon k='facebook' /></a>
     <a href="/account" aria-label="Account"><Icon k='account' /></a>
     <OrderBar />
   </nav>

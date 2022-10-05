@@ -42,7 +42,7 @@ export const actions: Actions = {
 
     const customer = await query<{ createCustomer: { email: string, password: string }}>(fetch, `
         mutation($id: String!, $name: String, $email: String!, $password: String!) {
-          createCustomer(data: { id: $id, email: $email, password: $password, name: $name }) {
+          createCustomer(data: { id: $id, email: $email, password: $password, name: $name, accepts_notices: true }) {
             id
             name
             email

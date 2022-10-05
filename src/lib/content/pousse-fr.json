@@ -7,6 +7,9 @@
       "text": ["Un texte d'introduction ici, et comment est-ce que ça fonctionne en trois étapes. Un texte d'introduction ici, et comment est-ce que ça fonctionne en quatres étapes."]
     },
     { 
+      "image": "/farm.png"
+    },
+    { 
       "id": "steps",
       "title": "En 4 étapes",
       "products": [
@@ -16,7 +19,7 @@
         },
         {
           "title": "2. Choisir de commander en abonnement ou une fois",
-          "text": "10% off si abonnement"
+          "text": "10% off si abonnement, "
         },
         {
           "title": "3. Choisir votre points de ramassage",

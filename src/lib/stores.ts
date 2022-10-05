@@ -39,7 +39,7 @@ export let items = writable<({
 export let interval = writable<string>('one-time')
 
 export let perks = readable<Perk[]>(undefined, set => {
-  fetch(`${PUBLIC_API_URL}/perks`).then(async response => {
+  fetch(`${PUBLIC_API_URL}/perks?where[status][equals]=published`).then(async response => {
     set((await response.json()).docs)
   })
 
