@@ -5,12 +5,13 @@
   import { PUBLIC_API_URL, PUBLIC_STRIPE_PK } from '$env/static/public'
 
   import { money } from '$lib/formatters'
-  import { me, items } from '$lib/stores'
+  import { me, items, kiosk } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
     
   import OrderItems from './OrderItems.svelte'
   import { browser } from '$app/environment'
   import Account from './Account.svelte'
+    import { DateTime } from 'luxon';
 
   export let checkout: boolean = true
 
@@ -119,20 +120,29 @@
   </main>
 
   <aside>
-    
-
-    <!-- <h5>Livraison</h5> -->
-    
-
-    <h5>Totaux</h5>
-    <ol class="--nostyle">
-      {#if discountTotal}
-      <li><h6>Sous-total</h6> <strong>{money(subTotal)}</strong></li>
-      <li><h6>Rabais</h6> <strong>{money(discountTotal)}</strong></li>
+    <div>
+      <h3>Détails</h3>
+    </div>
+    <div class="dark">
+      <h6>Livraison</h6>
+      {#if $kiosk}
+      <h5>{$kiosk.name}</h5>
+      <small>{DateTime.now().set({ weekday: 4 }).plus({ days: 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small><br>
+      <small><a href="https://www.google.ca/maps/place/{encodeURIComponent($kiosk.address)}" target="_blank"><u>{$kiosk.address}</u></a></small>
       {/if}
+    </div>
+    
+    <div>
+      <h5>Totaux</h5>
+      <ol class="--nostyle">
+        {#if discountTotal}
+        <li><h6>Sous-total</h6> <strong>{money(subTotal)}</strong></li>
+        <li><h6>Rabais</h6> <strong>{money(discountTotal)}</strong></li>
+        {/if}
 
-      <li><h6>Total</h6> <strong>{money(total)}</strong></li>
-    </ol>
+        <li><h6>Total</h6> <strong>{money(total)}</strong></li>
+      </ol>
+    </div>
   </aside>
 </section>
 
@@ -178,9 +188,22 @@
   }
 
   aside {
-    padding: var(--step-0);
     min-height: 100%;
     background-color: var(--grey);
+
+    > div {
+      padding: var(--step-0);
+
+      h3:last-child {
+        font-family: var(--logofont);
+        margin-bottom: 0;
+      }
+
+      &.dark {
+        color: var(--light);
+        background-color: var(--dark);
+      }
+    }
 
     ol {
       li {
