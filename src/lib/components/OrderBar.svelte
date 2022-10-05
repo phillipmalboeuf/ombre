@@ -12,13 +12,9 @@
   import Plans from './Plans.svelte'
   import OrderItems from './OrderItems.svelte'
   import Checkout from './Checkout.svelte'
+  import Kiosks from './Kiosks.svelte'
 
-  let kiosks: {docs: Kiosk[]}
   let checkout = false
-
-  onMount(async () => {
-    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks?sort=-name`)).json()
-  })
 </script>
 
 <a href="/order" on:click|preventDefault={() => bar.set(!$bar)}><Icon k='cart' /></a>
@@ -37,13 +33,7 @@
         <Plans />
       </fieldset>
       <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{DateTime.now().set({ weekday: 4 }).plus({ days: 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
-      <select name="kiosk" id="kiosk">
-      {#if kiosks}
-      {#each kiosks.docs as kiosk}
-      <option value={kiosk.id}>{kiosk.name}</option>
-      {/each}
-      {/if}
-      </select>
+      <Kiosks />
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>
     

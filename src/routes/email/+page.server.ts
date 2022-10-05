@@ -34,21 +34,21 @@ export const load: PageServerLoad = async ({ url, locals, request }) => {
 
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
-    const { name, email } = await formData(request)
+    const { kiosk, email, shipping_address } = await formData(request)
 
     const today = new Date()
     const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
     const password = randomPassword(6)
 
     const customer = await query<{ createCustomer: { email: string, password: string }}>(fetch, `
-        mutation($id: String!, $name: String, $email: String!, $password: String!) {
-          createCustomer(data: { id: $id, email: $email, password: $password, name: $name, accepts_notices: true }) {
+        mutation($id: String!, $email: String!, $password: String!, $kiosk: String!, $shipping_address: String!) {
+          createCustomer(data: { id: $id, email: $email, password: $password, accepts_notices: true, kiosk: $kiosk, shipping_address: $shipping_address }) {
             id
             name
             email
           }
         }
-      `, { id, name, email, password })
+      `, { id, email, password, kiosk, shipping_address })
       
     if (customer.errors) {
       throw error(403, customer.errors[0].message)
