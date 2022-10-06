@@ -29,7 +29,7 @@
   {/if}
   <nav class="flex flex--middle flex--tight">
     <!-- <a href={content.locale.href}>{content.locale.label}</a> -->
-    <a href="https://www.facebook.com/profile.php?id=100085516862996" target="_blank"><Icon k='facebook' /></a>
+    <a href="https://www.facebook.com/Poussepoulin-109121921972695" target="_blank"><Icon k='facebook' /></a>
     <a href="/account" aria-label="Account"><Icon k='account' /></a>
     <OrderBar />
   </nav>
@@ -65,9 +65,11 @@
 
   .menu {
     position: fixed;
+    z-index: 40;
     inset: 0;
     right: auto;
     width: 95vw;
+    height: var(--vh);
     max-width: var(--step-6);
 
     color: var(--chartreuse);
