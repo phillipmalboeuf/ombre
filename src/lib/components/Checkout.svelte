@@ -135,7 +135,7 @@
       <div id="payment-element" bind:this={element}>
         Un instant...
       </div><br>
-      <button class="button--dark" id="submit" disabled={!elements || waiting}>Placer la commande</button>
+      <button class="button--dark" id="submit" disabled={!elements || waiting}>{#if waiting}Un instant...{:else}Placer la commande{/if}</button>
       <div id="error-message" bind:this={message}>
       </div>
     </form>
