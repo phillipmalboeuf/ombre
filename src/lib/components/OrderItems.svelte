@@ -106,6 +106,10 @@
     li {
       font-size: var(--step--1);
       margin-bottom: var(--step--1);
+
+      @media (max-width: 888px) {
+        grid-column: span 2;
+      }
     }
 
     &.compact {

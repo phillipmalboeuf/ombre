@@ -181,6 +181,11 @@
     top: 0;
     width: 100%;
     min-height: 100%;
+
+    @media (max-width: 888px) {
+      // padding-top: var(--step-1);
+      grid-template-columns: 1fr;
+    }
   }
 
   main {
@@ -191,6 +196,10 @@
       position: absolute;
       top: var(--step-0);
       right: 0;
+
+      @media (max-width: 888px) {
+        right: var(--step-2);
+      }
     }
 
     > nav {

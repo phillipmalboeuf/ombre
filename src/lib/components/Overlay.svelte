@@ -49,6 +49,11 @@
 
       background: transparent;
       border: none;
+
+      @media (max-width: 799px) {
+        top: 0;
+        right: 0;
+      }
     }
 
     &.side {
@@ -61,7 +66,7 @@
       }
 
       @media (max-width: 799px) {
-        width: 95vw;
+        width: 96vw;
       }
     }
 

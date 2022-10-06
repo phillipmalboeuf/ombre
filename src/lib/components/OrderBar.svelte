@@ -59,6 +59,6 @@
 
   fieldset {
     border: none;
-    padding: var(--step-0) var(--step-2);
+    padding: var(--step-0) var(--step-1);
   }
 </style>
