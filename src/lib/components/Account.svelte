@@ -40,10 +40,10 @@
   }
 }}>
   <label for="email">Adresse courriel</label>
-  <input type="email" name="email" id="email" value="phil@phils.computer">
+  <input type="email" name="email" id="email">
 
   <label for="password">Mot de passe</label>
-  <input type="password" name="password" id="password" value="gloomycreek">
+  <input type="password" name="password" id="password">
 
   <button class="button--full button--dark" type="submit">Login</button>
 </form>

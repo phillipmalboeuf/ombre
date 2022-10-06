@@ -30,6 +30,8 @@
   let originals: { [id: string]: number } = {}
   let discounts: { [id: string]: number } = {}
 
+  let waiting = false
+
   $: {
     subTotal = Object.entries(originals).filter(([id, value]) => value).reduce((t, [id, value], i) => {
       return t + value
@@ -86,6 +88,8 @@
   let message: HTMLDivElement
 
   async function submit() {
+    waiting = true
+
     const {error} = 'client_secret' in intent
       ? await stripe.processOrder({
         //`Elements` instance that was used to create the Payment Element
@@ -101,6 +105,8 @@
           return_url: window.location.origin+'/success',
         },
       })
+
+    waiting = false
 
     if (error) {
       message.textContent = error.message
@@ -127,8 +133,9 @@
     {:else if step === 'payment'}
     <form bind:this={form} on:submit|preventDefault={submit} id="payment-form">
       <div id="payment-element" bind:this={element}>
+        Un instant...
       </div><br>
-      <button class="button--dark" id="submit">Placer la commande</button>
+      <button class="button--dark" id="submit" disabled={!elements || waiting}>Placer la commande</button>
       <div id="error-message" bind:this={message}>
       </div>
     </form>
