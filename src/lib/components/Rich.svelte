@@ -30,6 +30,8 @@
 <li><svelte:self text={t.children} /></li>
 {:else if t.type === 'a'}
 <a href={t.url}><svelte:self text={t.children} /></a>
+{:else if t.type === 'p'}
+<p><svelte:self text={t.children} /></p>
 {/if}
 {:else}
 <p><svelte:self text={t.children} /></p>

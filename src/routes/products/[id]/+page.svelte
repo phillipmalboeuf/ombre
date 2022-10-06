@@ -17,6 +17,12 @@
   <a href="/products"><u>Retour au produits</u></a>
 </nav>
 <section class="padded grid grid--halves">
+  <article>
+    <h2>{product.title}</h2>
+    <AddToOrder {product} />
+    <br>
+    <Rich text={product.description} />
+  </article>
   <aside>
     <Slider particlesToShow={1} arrows={false} thumbnails={[product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []]}>
       {#each [product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []] as media}
@@ -26,12 +32,7 @@
       {/each}
     </Slider>
   </aside>
-  <article>
-    <h2>{product.title}</h2>
-    <AddToOrder {product} />
-    <br>
-    <Rich text={product.description} />
-  </article>
+  
 </section>
 
 <style>
