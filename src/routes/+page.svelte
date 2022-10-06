@@ -17,7 +17,9 @@
 		{#if section.title}{#if i === 0}<h1 class="h1">{section.title}</h1>{:else}<h3>{section.title}</h3>{/if}{/if}
     {#if section.blockType === 'Text'}
 		{#if section.media}
-		<Media media={section.media} />
+		<figure>
+			<Media media={section.media} />
+		</figure>
 		{/if}
     <Rich text={section.text} />
 		{:else if section.blockType === 'Button'}
