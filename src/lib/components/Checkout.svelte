@@ -64,7 +64,8 @@
         const { loadStripe } = await import('@stripe/stripe-js/pure')
         stripe = await loadStripe(PUBLIC_STRIPE_PK, {
           betas: ['process_order_beta_1'],
-          apiVersion: "2022-08-01; orders_beta=v4"
+          apiVersion: "2022-08-01; orders_beta=v4",
+          stripeAccount: 'acct_1LpynD4IazTmFSzT'
         })
 
         elements = stripe.elements({

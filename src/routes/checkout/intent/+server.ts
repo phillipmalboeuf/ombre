@@ -52,6 +52,8 @@ export const POST: RequestHandler = async ({ request, url }) => {
           },
         }
       },
+    }, {
+      stripeAccount: 'acct_1LpynD4IazTmFSzT'
     })
 
     console.log(order)
@@ -74,10 +76,10 @@ export const POST: RequestHandler = async ({ request, url }) => {
             interval: split[0] as 'week',
             interval_count: parseInt(split[1])
           },
-          metadata: {
-            size,
-            unit: product.unit
-          },
+        },
+        metadata: {
+          size,
+          unit: product.unit
         },
         quantity
       }),
@@ -91,6 +93,9 @@ export const POST: RequestHandler = async ({ request, url }) => {
     expand: ['latest_invoice.payment_intent'],
     currency: 'CAD',
     payment_behavior: 'default_incomplete',
+    // transfer_data: {
+    //   destination: 'acct_1LpynD4IazTmFSzT'
+    // },
     payment_settings: {
       save_default_payment_method: 'on_subscription',
       payment_method_types: ['card', 'acss_debit'],
@@ -104,6 +109,8 @@ export const POST: RequestHandler = async ({ request, url }) => {
         },
       },
     },
+  }, {
+    stripeAccount: 'acct_1LpynD4IazTmFSzT'
   })
 
   console.log(subscription)
