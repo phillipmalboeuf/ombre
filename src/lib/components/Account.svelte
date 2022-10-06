@@ -6,6 +6,7 @@
   import { me, items } from '$lib/stores'
 
   export let mode: "login" | "create" | "reset" = "create"
+  let waiting = false
 </script>
 {#if $me}
 <button class="button--full" on:click>Continuez avec le compte {$me.email}</button>
@@ -28,12 +29,14 @@
 {:else}
 {#if mode === "login"}
 <form action="/account?/login" method="POST" use:enhance={() => {
+  waiting = true
   // me.set((await response.json()))
   return async ({ result, update }) => {
     if (result.type === 'success') {
       fetch(`/account/me`, {
         credentials: 'include'
       }).then(async response => {
+        waiting = false
         me.set((await response.json()))
       })
     }
@@ -45,7 +48,7 @@
   <label for="password">Mot de passe</label>
   <input type="password" name="password" id="password">
 
-  <button class="button--full button--dark" type="submit">Login</button>
+  <button class="button--full button--dark" type="submit" disabled={waiting}>Login</button>
 </form>
 
 <center>
@@ -54,17 +57,29 @@
 </center>
 
 {:else if mode === "create"}
-<form action="/account?/create" method="POST" use:enhance>
-  <label for="name">Name</label>
+<form action="/account?/create" method="POST" use:enhance={() => {
+  waiting = true
+  return async ({ result, update }) => {
+    if (result.type === 'success') {
+      fetch(`/account/me`, {
+        credentials: 'include'
+      }).then(async response => {
+        waiting = false
+        me.set((await response.json()))
+      })
+    }
+  }
+}}>
+  <label for="name">Nom complet</label>
   <input type="text" name="name" id="name">
 
-  <label for="email">Email address</label>
+  <label for="email">Adresse courriel</label>
   <input type="email" name="email" id="email">
 
-  <label for="password">Password</label>
+  <label for="password">Mot de passe</label>
   <input type="password" autocomplete="new-password" name="password" id="password">
 
-  <button class="button--full button--dark" type="submit">Créer votre compte</button>
+  <button class="button--full button--dark" type="submit" disabled={waiting}>Créer votre compte</button>
 </form>
 
 <center><a href="/account/login" on:click|preventDefault={() => mode = "login"}>Déjà inscrit?</a></center>
