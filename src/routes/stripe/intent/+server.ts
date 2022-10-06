@@ -22,18 +22,15 @@ export const POST: RequestHandler = async ({ request, url }) => {
       customer,
       line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() })))).map(({ size, total, quantity, product }) => 
         ({
-          product_data: { id: product.id, name: product.title },
-          price_data: { unit_amount: total * 100 },
-          quantity,
-          metadata: {
+          product_data: { id: product.id, name: product.title, metadata: {
             size,
             unit: product.unit
-          }
+          } },
+          price_data: { unit_amount: total * 100 },
+          quantity,
+          
         }),
       ),
-      billing_details: {
-
-      },
       metadata: {
         id,
         kiosk: kiosk.id,
@@ -87,7 +84,8 @@ export const POST: RequestHandler = async ({ request, url }) => {
     ),
     metadata: {
       id,
-      kiosk: kiosk.id
+      kiosk: kiosk.id,
+      deliver_at: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toISO()
     },
     // trial_end: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toUnixInteger(),
     expand: ['latest_invoice.payment_intent'],
