@@ -1,19 +1,34 @@
 <script lang="ts">
 	import Form from '$lib/components/Form.svelte'
-	// import Products from '$lib/components/Products.svelte'
+  import Media from '$lib/components/Media.svelte'
+  import Rich from '$lib/components/Rich.svelte'
+	import type { PageData } from './$types'
 
-	// export let products: any[]
-
-	import { getContext } from 'svelte'
-  let content = getContext<any>('content')
+  export let data: PageData
 </script>
 
 <svelte:head>
-	<title>{content.title}</title>
+	<title>{data.page.title}</title>
 </svelte:head>
 
 <section class="padded grid grid--full">
-	{#each content.index as section, i}
+	{#each data.page.content as section, i}
+	<section id={section.id}>
+		{#if section.title}{#if i === 0}<h1 class="h1">{section.title}</h1>{:else}<h3>{section.title}</h3>{/if}{/if}
+    {#if section.blockType === 'Text'}
+		{#if section.media}
+		<Media media={section.media} />
+		{/if}
+    <Rich text={section.text} />
+		{:else if section.blockType === 'Button'}
+		<center>
+			<a href={section.link} class="button button--dark">{section.label}</a>
+		</center>
+    {/if}
+  </section>
+	{/each}
+
+	<!-- {#each content.index as section, i}
 	<section id={section.id}>
 		{#if section.title}{#if i === 0}<h1 class="h1">{section.title}</h1>{:else}<h3 class={section.products && "h3"}>{section.title}</h3>{/if}{/if}
 		{#if section.image}
@@ -49,7 +64,7 @@
 		</center>
 		{/if}
 	</section>
-	{/each}
+	{/each} -->
 
 	<!-- <section id="support">
 		<h3 class="h1">{content.support.title}</h3>

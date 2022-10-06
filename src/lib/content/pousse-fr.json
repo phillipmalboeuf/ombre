@@ -3,8 +3,8 @@
   "index": [
     { 
       "id": "intro",
-      "title": "Un texte d'introduction ici",
-      "text": ["Un texte d'introduction ici, et comment est-ce que ça fonctionne en trois étapes. Un texte d'introduction ici, et comment est-ce que ça fonctionne en quatres étapes."]
+      "title": "Manger mieux avec moins",
+      "text": ["La pousse contient entre 4 à 40 fois plus de vitamines et antioxydants que son homologue mature.", "Des micropousses vivantes qui se digèrent et s'assimilent plus facilement que les légumes verts.\nFraîches du jour et qui se conservent longtemps à l'air libre grâce au terreau et à une barquette compostable.\nSemences certifiées biologiques et cultivées de façon responsable.\nLivrées dans un point de chute près de chez vous."]
     },
     { 
       "image": "https://gloomy.b-cdn.net/uploads/PHOTO-2022-10-05-19-37-47.jpg"
@@ -26,8 +26,8 @@
           "text": "Disponible partout"
         },
         {
-          "title": "4. Entrer vos informations de paiements",
-          "text": "Et c'est tout!"
+          "title": "4. Procédé à la création de compte et au paiement",
+          "text": "Merci !"
         }
       ]
     },
