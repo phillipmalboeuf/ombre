@@ -73,11 +73,11 @@ export const POST: RequestHandler = async ({ request, url }) => {
           recurring: {
             interval: split[0] as 'week',
             interval_count: parseInt(split[1])
-          }
-        },
-        metadata: {
-          size,
-          unit: product.unit
+          },
+          metadata: {
+            size,
+            unit: product.unit
+          },
         },
         quantity
       }),
