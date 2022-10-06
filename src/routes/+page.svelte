@@ -22,7 +22,7 @@
     <Rich text={section.text} />
 		{:else if section.blockType === 'Button'}
 		<center>
-			<a href={section.link} class="button button--dark">{section.label}</a>
+			<a href={section.link} class="button button--dark">{section.cta}</a>
 		</center>
     {/if}
   </section>
