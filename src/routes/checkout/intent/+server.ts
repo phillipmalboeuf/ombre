@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
             size,
             unit: product.unit
           } },
-          price_data: { unit_amount: total * 100 },
+          price_data: { unit_amount: Math.round(total * 100) },
           quantity,
           
         }),
@@ -70,7 +70,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
       ({
         price_data: {
           product: product.id,
-          unit_amount: total * 100,
+          unit_amount: Math.round(total * 100),
           currency: 'CAD',
           recurring: {
             interval: split[0] as 'week',
