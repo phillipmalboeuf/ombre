@@ -27,6 +27,8 @@ export interface Producer {
   id: string;
   name?: string;
   admin?: boolean;
+  payment_provider_id?: string;
+  website?: string;
   phone?: string;
   shipping_address?: string;
   enableAPIKey?: boolean;
@@ -164,22 +166,43 @@ export interface Collection {
  */
 export interface Customer {
   payment_provider_id?: string;
-  payment_methods?: string;
   id: string;
   name?: string;
   phone?: string;
   shipping_address?: string;
+  kiosk?: string | Kiosk;
   status?: 'active' | 'archived';
   perks?: string[] | Perk[];
-  accepts_notices?: boolean;
+  accepts_notices?: 'never' | 'week' | 'month';
   notes?: {
     [k: string]: unknown;
   }[];
+  producer?: string | Producer;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
   loginAttempts?: number;
   lockUntil?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "kiosks".
+ */
+export interface Kiosk {
+  name?: string;
+  id: string;
+  address?: string;
+  open_hours: {
+    description?: string;
+    weekdays?: ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[];
+    open_hour?: string;
+    close_hour?: string;
+    id?: string;
+  }[];
+  minimum_order_days?: number;
+  producer?: string | Producer;
   createdAt: string;
   updatedAt: string;
 }
@@ -211,6 +234,7 @@ export interface Perk {
  */
 export interface Order {
   id: string;
+  payment_provider_id?: string;
   season?: string | Season;
   placed_by?:
     | {
@@ -222,12 +246,15 @@ export interface Order {
         relationTo: 'producers';
       };
   shipping_address?: string;
+  kiosk?: string | Kiosk;
+  deliver_at?: string;
   line_items: {
     description?: string;
     product?: string | Product;
     size?: number;
+    unit?: string;
     quantity?: number;
-    status?: 'processing' | 'cancelled' | 'fulfilled';
+    total?: number;
     id?: string;
   }[];
   subscription?: string | Subscription;
@@ -245,6 +272,7 @@ export interface Order {
  */
 export interface Subscription {
   id: string;
+  payment_provider_id?: string;
   season?: string | Season;
   placed_by?:
     | {
@@ -279,32 +307,11 @@ export interface Subscription {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "kiosks".
- */
-export interface Kiosk {
-  name?: string;
-  id: string;
-  address?: string;
-  open_hours: {
-    description?: string;
-    weekdays?: ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[];
-    open_hour?: string;
-    close_hour?: string;
-    id?: string;
-  }[];
-  minimum_order_days?: number;
-  producer?: string | Producer;
-  createdAt: string;
-  updatedAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "content_pages".
  */
 export interface ContentPage {
   title?: string;
   id: string;
-  author?: string | Producer;
   publishedDate?: string;
   index?: boolean;
   seasons?: string[] | Season[];
@@ -320,14 +327,14 @@ export interface ContentPage {
         blockType: 'Text';
       }
     | {
-        title?: string;
+        cta?: string;
+        link?: string;
         id?: string;
-        products?: string[] | Product[];
         blockName?: string;
-        blockType: 'ProductsList';
+        blockType: 'Button';
       }
   )[];
-  status?: 'draft' | 'published' | 'archived';
+  producer?: string | Producer;
   createdAt: string;
   updatedAt: string;
 }

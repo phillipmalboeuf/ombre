@@ -1,10 +1,13 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
+  import Icon from '$lib/components/Icon.svelte'
   import Kiosks from '$lib/components/Kiosks.svelte'
   import type { PageServerData } from './$types'
 
   // export let data: PageServerData
 	let success = false
+  let waiting = false
+  let consent = "never"
 </script>
 
 {#if success}
@@ -12,7 +15,9 @@
 <button class="button--full" on:click={() => success = false}>Inscrire un nouveau client</button>
 {:else}
 <form method="POST" use:enhance={() => {
+  waiting = true
   return async ({ result, update }) => {
+    waiting = false
     if (result.type === 'success') {
       success = true
     }
@@ -29,15 +34,23 @@
 
   <label for="shipping_address">Ou, votre code postal</label>
   <input type="text" name="shipping_address" id="shipping_address">
+
+  <label for="">Consentir à recevoir notre infolettre :</label>
+  <div>
+    <input type="radio" name="accepts_notices" bind:group={consent} value="never" id="never">
+    <label for="never">{#if consent === "never"}<Icon k="hand" />{/if} Jamais</label>
+    <input type="radio" name="accepts_notices" bind:group={consent} value="month" id="month">
+    <label for="month">{#if consent === "month"}<Icon k="hand" />{/if} À chaque mois ou deux</label>
+  </div>
   
-  <button class="button--full button--dark" type="submit">S'inscrire</button>
+  <button class="button--full button--dark" type="submit" disabled={waiting}>{#if waiting}Un instant...{:else}S'inscrire{/if}</button>
 </form>
 {/if}
 
 <style lang="scss">
-	// section {
-	// 	width: 100%;
-	// 	max-width: var(--step-7);
-	// 	margin: 0 auto;
-	// }
+  form {
+    div {
+      padding: var(--step-0);
+    }
+  }
 </style>

@@ -5,7 +5,7 @@
 
   import { me, items } from '$lib/stores'
 
-  export let mode: "login" | "create" | "reset" = "create"
+  export let mode: "login" | "create" | "reset" = "login"
   let waiting = false
 </script>
 {#if $me}
