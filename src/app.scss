@@ -157,6 +157,7 @@ a.button {
   }
 
   &.button--none {
+    font-family: var(--bodyfont);
     padding: 0;
     border: none;
     border-radius: 0;

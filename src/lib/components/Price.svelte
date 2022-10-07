@@ -1,7 +1,7 @@
 <script lang="ts">
   import { money } from '$lib/formatters'
   import type { Product, Season } from '$lib/payload-types'
-  import { perks, interval, items } from '$lib/stores'
+  import { perks, perk, interval, items } from '$lib/stores'
 
   export let product: Product
   export let size: number
@@ -21,7 +21,7 @@
       discount = 0
       if ($interval !== 'one-time') {
         $perks.filter(perk => (product.seasons as Season[]).find(s => s == perk.season) && perk.type === 'subscription').forEach(perk => perk.discount.percentage
-        ? discount += original * perk.discount.amount
+        ? discount += original * (perk.discount.amount/100)
         : discount += perk.discount.amount)
       }
 
@@ -30,9 +30,15 @@
           return total += item.size * item.quantity
         }, 0) >= perk.unit.unit_number) {
           perk.discount.percentage
-            ? discount += original * perk.discount.amount
+            ? discount += original * (perk.discount.amount/100)
             : discount += perk.discount.amount
         }
+      })
+
+      $perks.filter(p => p.type === 'code' && $perk === p.id).forEach(p => {
+        p.discount.percentage
+          ? discount += original * (p.discount.amount/100)
+          : discount += p.discount.amount
       })
     }
   }

@@ -7,7 +7,7 @@
   import { PUBLIC_API_URL, PUBLIC_STRIPE_PK } from '$env/static/public'
 
   import { money } from '$lib/formatters'
-  import { me, items, kiosk, interval } from '$lib/stores'
+  import { me, items, kiosk, interval, perk } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
     
   import OrderItems from './OrderItems.svelte'
@@ -161,6 +161,9 @@
       <ol class="--nostyle">
         {#if discountTotal}
         <li><h6>Sous-total</h6> <strong>{money(subTotal)}</strong></li>
+        {#if $perk}
+        <li><h6>Code</h6> <strong>{$perk}</strong></li>
+        {/if}
         <li><h6>Rabais</h6> <strong>{money(discountTotal)}</strong></li>
         {/if}
 

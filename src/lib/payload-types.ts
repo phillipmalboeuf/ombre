@@ -215,7 +215,7 @@ export interface Perk {
   id: string;
   description?: string;
   all_customers?: boolean;
-  type?: 'subscription' | 'order_units';
+  type?: 'subscription' | 'order_units' | 'code';
   unit: {
     unit?: string;
     unit_number?: number;
