@@ -4,7 +4,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 const config: UserConfig = {
 	server: {
-		https: true,
+		https: false,
 	},
 	plugins: [sveltekit(), basicSsl()]
 };

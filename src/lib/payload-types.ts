@@ -283,6 +283,7 @@ export interface Subscription {
         value: string | Producer;
         relationTo: 'producers';
       };
+  kiosk?: string | Kiosk;
   shipping_address?: string;
   line_items: {
     description?: string;

@@ -20,9 +20,9 @@ export const load: PageServerLoad = async ({ url, locals, request }) => {
   //     }
   //   `, {}, locals.token)).data.meCustomer
 
-  if (!locals.token) {
-    throw redirect(307, '/account/login')
-  }
+  // if (!locals.token) {
+  //   throw redirect(307, '/account')
+  // }
 
   // const me = JSON.parse(Buffer.from(locals.token.split('.')[1], 'base64').toString())
   // console.log(me)

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
   import Account from '$lib/components/Account.svelte'
   import type { PageServerData } from '.svelte-kit/types/src/routes/account/$types'
 
@@ -6,7 +7,7 @@
 </script>
 
 
-<Account />
+<Account on:click={() => goto('/account/manage')} />
 
 <!-- <section>
   <h4>{data.me.name}</h4>

@@ -7,6 +7,7 @@
 
   export let mode: "login" | "create" | "reset" = "login"
   let waiting = false
+  let error: string
 </script>
 {#if $me}
 <button class="button--full" on:click>Continuez avec le compte {$me.email}</button>
@@ -30,16 +31,18 @@
 {#if mode === "login"}
 <form action="/account?/login" method="POST" use:enhance={() => {
   waiting = true
-  // me.set((await response.json()))
   return async ({ result, update }) => {
     if (result.type === 'success') {
       fetch(`/account/me`, {
         credentials: 'include'
       }).then(async response => {
-        waiting = false
         me.set((await response.json()))
       })
+    } else if (result.type === 'error') {
+      error = result.error.message
     }
+
+    waiting = false
   }
 }}>
   <label for="email">Adresse courriel</label>
@@ -64,10 +67,11 @@
       fetch(`/account/me`, {
         credentials: 'include'
       }).then(async response => {
-        waiting = false
         me.set((await response.json()))
       })
     }
+
+    waiting = false
   }
 }}>
   <label for="name">Nom complet</label>
@@ -85,6 +89,9 @@
 <center><a href="/account/login" on:click|preventDefault={() => mode = "login"}>Déjà inscrit?</a></center>
 {:else if mode === "reset"}
 
+{/if}
+{#if error}
+<aside>{error}</aside>
 {/if}
 {/if}
 

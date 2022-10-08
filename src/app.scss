@@ -213,6 +213,43 @@ picture {
   }
 }
 
+table {
+  // table-layout: fixed;
+  width: 100%;
+  text-align: left;
+  margin: var(--step-0) 0;
+
+  @media (max-width: 799px) {
+    width: calc(100% + calc(var(--step-2) * 2));
+    margin: var(--step-0) calc(var(--step-2) * -1);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  tbody {
+    td, th {
+      border-top: 1px solid;
+      padding: var(--step--2);
+    }
+
+    th {
+      p {
+        font-size: var(--step-1);
+        font-family: var(--altfont);
+        text-transform: uppercase;
+      }
+    }
+
+    tr:last-child {
+      td, th {
+        border-bottom: 1px solid;
+      }
+    }
+  }
+}
+
 form {
   
 }
