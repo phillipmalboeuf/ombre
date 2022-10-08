@@ -35,6 +35,9 @@
         {/each}
       </tbody>
     </table>
+    <form method="POST">
+      <button>Modifier vos abonnements</button>
+    </form>
   </main>
   <aside>
     <!-- <h4>Commande en cours</h4> -->
