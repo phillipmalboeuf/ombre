@@ -4,10 +4,12 @@
   import { fly } from 'svelte/transition'
 
   import { me, items } from '$lib/stores'
+  import Icon from './Icon.svelte'
 
   export let mode: "login" | "create" | "reset" = "login"
   let waiting = false
   let error: string
+  let consent = "never"
 </script>
 {#if $me}
 <button class="button--full" on:click>Continuez avec le compte {$me.email}</button>
@@ -83,6 +85,14 @@
   <label for="password">Mot de passe</label>
   <input type="password" autocomplete="new-password" name="password" id="password">
 
+  <label for="">Consentir à recevoir notre infolettre :</label>
+  <div>
+    <input type="radio" name="accepts_notices" bind:group={consent} value="never" id="never">
+    <label for="never">{#if consent === "never"}<Icon k="hand" />{/if} Jamais</label>
+    <input type="radio" name="accepts_notices" bind:group={consent} value="month" id="month">
+    <label for="month">{#if consent === "month"}<Icon k="hand" />{/if} À chaque mois ou deux</label>
+  </div>
+
   <button class="button--full button--dark" type="submit" disabled={waiting}>Créer votre compte</button>
 </form>
 
@@ -102,6 +112,12 @@
     a:hover,
     a:focus {
       text-decoration: underline;
+    }
+  }
+
+  form {
+    div {
+      padding: var(--step--1) var(--step-0);
     }
   }
 </style>

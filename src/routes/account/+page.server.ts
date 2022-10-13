@@ -72,20 +72,20 @@ export const actions: Actions = {
   },
   create: async ({ request, cookies }) => {
 
-    const { email, password, name } = await formData(request)
+    const { email, password, name, accepts_notices } = await formData(request)
 
     const today = new Date()
     const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
 
     const customer = await query<{ createCustomer: { email: string, password: string }}>(fetch, `
-        mutation($id: String!, $name: String, $email: String!, $password: String!) {
-          createCustomer(data: { id: $id, email: $email, password: $password, name: $name }) {
+        mutation($id: String!, $name: String, $email: String!, $password: String!, $accepts_notices: String!) {
+          createCustomer(data: { id: $id, email: $email, password: $password, accepts_notices: $accepts_notices, name: $name }) {
             id
             name
             email
           }
         }
-      `, { id, name, email, password })
+      `, { id, name, email, password, accepts_notices })
       
     if (customer.errors) {
       throw error(403, customer.errors[0].message)
