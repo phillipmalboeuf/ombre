@@ -16,6 +16,7 @@ export interface Season {
   start_date: string;
   end_date: string;
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -67,9 +68,8 @@ export interface Product {
   description?: {
     [k: string]: unknown;
   }[];
-  publishedDate?: string;
-  status?: 'draft' | 'published' | 'archived';
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -115,9 +115,8 @@ export interface Bundle {
   description?: {
     [k: string]: unknown;
   }[];
-  publishedDate?: string;
-  status?: 'draft' | 'published' | 'archived';
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -154,9 +153,8 @@ export interface Collection {
   description?: {
     [k: string]: unknown;
   }[];
-  publishedDate?: string;
-  status?: 'draft' | 'published' | 'archived';
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -224,9 +222,11 @@ export interface Perk {
     amount?: number;
     percentage?: boolean;
   };
-  status?: 'draft' | 'published' | 'archived';
   season?: string | Season;
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
+  createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -313,7 +313,6 @@ export interface Subscription {
 export interface ContentPage {
   title?: string;
   id: string;
-  publishedDate?: string;
   index?: boolean;
   seasons?: string[] | Season[];
   content: (
@@ -336,6 +335,7 @@ export interface ContentPage {
       }
   )[];
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -347,14 +347,13 @@ export interface Notice {
   title?: string;
   id: string;
   event?: 'create-customers' | 'create-orders' | 'create-subscriptions';
-  publishedDate?: string;
   seasons?: string[] | Season[];
   subject?: string;
   content?: {
     [k: string]: unknown;
   }[];
-  status?: 'draft' | 'published' | 'archived';
   producer?: string | Producer;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
