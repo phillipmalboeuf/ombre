@@ -52,8 +52,9 @@
         body: JSON.stringify({
           customer: $me.payment_provider_id,
           interval: $interval,
-          items: $items.map(item => ({ ...item, total: originals[item.id] - discounts[item.id] })),
-          kiosk: $kiosk
+          items: $items.map(item => ({ ...item })),
+          kiosk: $kiosk,
+          coupon: $perk
         }),
         headers: {
           'content-type': 'application/json'

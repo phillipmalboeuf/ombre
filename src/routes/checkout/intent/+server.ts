@@ -7,12 +7,11 @@ import { DateTime } from 'luxon'
 
 export const POST: RequestHandler = async ({ request, url }) => {
 
-  const { customer, items, kiosk, interval } = await request.json() as { customer: string, kiosk: Kiosk, interval: string, items: {
+  const { customer, items, kiosk, interval, coupon } = await request.json() as { customer: string, kiosk: Kiosk, interval: string, items: {
     product: string
     size: number
-    total: number
     quantity: number
-  }[] }
+  }[], coupon?: string }
 
   const today = new Date()
   const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
@@ -20,13 +19,14 @@ export const POST: RequestHandler = async ({ request, url }) => {
   if (interval === 'one-time') {
     const order = await stripe.orders.create({
       customer,
-      line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() })))).map(({ size, total, quantity, product }) => 
+      discounts: coupon ? [{ coupon }] : [],
+      line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
         ({
           product_data: { id: product.id, name: product.title, metadata: {
             size,
             unit: product.unit
           } },
-          price_data: { unit_amount: Math.round(total * 100) },
+          price_data: { unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100) },
           quantity,
           
         }),
@@ -66,11 +66,12 @@ export const POST: RequestHandler = async ({ request, url }) => {
   const split = interval.split('-')
   const subscription = await stripe.subscriptions.create({
     customer,
-    items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() })))).map(({ size, total, quantity, product }) => 
+    coupon,
+    items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
       ({
         price_data: {
           product: product.id,
-          unit_amount: Math.round(total * 100),
+          unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100),
           currency: 'CAD',
           recurring: {
             interval: split[0] as 'week',
