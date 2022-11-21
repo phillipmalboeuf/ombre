@@ -16,6 +16,7 @@ export interface Season {
   start_date: string;
   end_date: string;
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -32,6 +33,7 @@ export interface Producer {
   website?: string;
   phone?: string;
   shipping_address?: string;
+  logged_at?: string;
   enableAPIKey?: boolean;
   apiKey?: string;
   apiKeyIndex?: string;
@@ -69,6 +71,7 @@ export interface Product {
     [k: string]: unknown;
   }[];
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -83,6 +86,7 @@ export interface Upload {
   caption?: {
     [k: string]: unknown;
   }[];
+  logged_at?: string;
   url?: string;
   filename?: string;
   mimeType?: string;
@@ -116,6 +120,7 @@ export interface Bundle {
     [k: string]: unknown;
   }[];
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -154,6 +159,7 @@ export interface Collection {
     [k: string]: unknown;
   }[];
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -176,6 +182,7 @@ export interface Customer {
     [k: string]: unknown;
   }[];
   producer?: string | Producer;
+  logged_at?: string;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
@@ -201,6 +208,7 @@ export interface Kiosk {
   }[];
   minimum_order_days?: number;
   producer?: string | Producer;
+  logged_at?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -223,7 +231,9 @@ export interface Perk {
     percentage?: boolean;
   };
   season?: string | Season;
+  payment_provider_id?: string;
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -246,11 +256,11 @@ export interface Order {
         relationTo: 'producers';
       };
   shipping_address?: string;
-  kiosk?: string | Kiosk;
+  kiosk?: Kiosk;
   deliver_at?: string;
   line_items: {
     description?: string;
-    product?: string | Product;
+    product?: Product;
     size?: number;
     unit?: string;
     quantity?: number;
@@ -263,6 +273,7 @@ export interface Order {
   }[];
   status?: 'processing' | 'cancelled' | 'fulfilled';
   total?: number;
+  logged_at?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -283,11 +294,11 @@ export interface Subscription {
         value: string | Producer;
         relationTo: 'producers';
       };
-  kiosk?: string | Kiosk;
+  kiosk?: Kiosk;
   shipping_address?: string;
   line_items: {
     description?: string;
-    product?: string | Product;
+    product?: Product;
     size?: number;
     quantity?: number;
     id?: string;
@@ -298,11 +309,13 @@ export interface Subscription {
     interval: 'week' | 'month' | 'year';
     interval_count: number;
   };
+  next_deliver_at?: string;
   notes?: {
     [k: string]: unknown;
   }[];
   status?: 'active' | 'cancelled';
   total?: number;
+  logged_at?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -335,6 +348,7 @@ export interface ContentPage {
       }
   )[];
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -346,13 +360,16 @@ export interface ContentPage {
 export interface Notice {
   title?: string;
   id: string;
-  event?: 'create-customers' | 'create-orders' | 'create-subscriptions';
+  event?: 'create-customers' | 'create-orders' | 'create-subscriptions' | 'update-orders-status-fulfilled' | 'date';
+  date?: string;
+  accepts_notices_customers?: 'week' | 'month';
   seasons?: string[] | Season[];
   subject?: string;
   content?: {
     [k: string]: unknown;
   }[];
   producer?: string | Producer;
+  logged_at?: string;
   _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
@@ -372,6 +389,7 @@ export interface HistoryTask {
   notes?: {
     [k: string]: unknown;
   }[];
+  logged_at?: string;
   createdAt: string;
   updatedAt: string;
 }

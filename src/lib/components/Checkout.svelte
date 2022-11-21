@@ -23,7 +23,7 @@
   let discountTotal: number
   let total: number
 
-  let intent: Stripe.Order | Stripe.Subscription
+  let intent: Stripe.Invoice | Stripe.Subscription
   let stripe: StripeJS
   let elements: StripeElements
 
@@ -70,7 +70,7 @@
         })
 
         elements = stripe.elements({
-          clientSecret: 'client_secret' in intent ? intent.client_secret : ((intent.latest_invoice as Stripe.Invoice).payment_intent as Stripe.PaymentIntent).client_secret,
+          clientSecret: 'payment_intent' in intent ? (intent.payment_intent as Stripe.PaymentIntent).client_secret : ((intent.latest_invoice as Stripe.Invoice).payment_intent as Stripe.PaymentIntent).client_secret,
           appearance: {
             theme: 'flat'
           }

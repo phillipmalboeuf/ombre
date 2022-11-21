@@ -29,9 +29,9 @@
     <h3>Vos abonnements</h3>
     <table>
       <tbody>
-        <tr><th>Id</th><th>Livraison</th><th>Items</th><th>Total</th></tr>
+        <tr><th>Id</th><th>Livraison</th><th>Items</th></tr>
         {#each data.subscriptions as subscription}
-        <tr><td>{subscription.id}</td><td>{subscription.schedule.interval} {subscription.schedule.interval_count}<br>{subscription.kiosk?.name}</td><td>{#each subscription.line_items as item}{item.quantity} fois {item.product.title}{/each}</td><td>{money(subscription.total)}</td></tr>
+        <tr><td>{subscription.id}</td><td>{date(subscription.next_deliver_at)}<br>{subscription.kiosk?.name}</td><td>{#each subscription.line_items as item}{item.quantity} fois {item.product.title}{/each}</td></tr>
         {/each}
       </tbody>
     </table>
@@ -40,7 +40,7 @@
     </form>
   </main>
   <aside>
-    <!-- <h4>Commande en cours</h4> -->
+    <!-- <h4>Calendrier</h4> -->
 
     <h4>Détails du compte</h4>
     <strong>Id:</strong> {data.me.id}

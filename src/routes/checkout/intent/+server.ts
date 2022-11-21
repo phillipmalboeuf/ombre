@@ -17,49 +17,72 @@ export const POST: RequestHandler = async ({ request, url }) => {
   const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
 
   if (interval === 'one-time') {
-    const order = await stripe.orders.create({
+    let invoice = await stripe.invoices.create({
       customer,
+      auto_advance: false,
       discounts: coupon ? [{ coupon }] : [],
-      line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
-        ({
-          product_data: { id: product.id, name: product.title, metadata: {
-            size,
-            unit: product.unit
-          } },
-          price_data: { unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100) },
-          quantity,
+      // line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
+      //   ({
+      //     product_data: { id: product.id, name: product.title, metadata: {
+      //       size,
+      //       unit: product.unit
+      //     } },
+      //     price_data: { unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100) },
+      //     quantity,
           
-        }),
-      ),
+      //   }),
+      // ),
       metadata: {
         id,
         kiosk: kiosk.id,
         deliver_at: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toISO()
       },
-      expand: ['line_items'],
+      expand: ['payment_intent'],
       currency: 'CAD',
-      payment: {
-        settings: {
-          payment_method_types: ['card', 'acss_debit'],
-          payment_method_options: {
-            acss_debit: {
-              mandate_options: {
-                payment_schedule: 'combined',
-                interval_description: 'when any invoice becomes due',
-                transaction_type: 'personal',
-              },
+      collection_method: 'charge_automatically',
+      payment_settings: {
+        payment_method_types: ['card', 'acss_debit'],
+        payment_method_options: {
+          acss_debit: {
+            mandate_options: {
+              // payment_schedule: 'combined',
+              // interval_description: 'when any invoice becomes due',
+              transaction_type: 'personal',
             },
           },
-        }
+        },
       },
     }, {
       stripeAccount: 'acct_1LpynD4IazTmFSzT'
     })
 
-    console.log(order)
+    for (let index = 0; index < items.length; index++) {
+      const { product, size, quantity } = items[index]
+      const p = await (await fetch(`${PUBLIC_API_URL}/products/${product}`)).json() as Product
+      await stripe.invoiceItems.create({
+        invoice: invoice.id,
+        customer,
+        price_data: {
+          product: p.id,
+          currency: 'CAD',
+          unit_amount: Math.round(p.price * size * p.sizes.find(s => size === s.size).adjustment * 100)
+        },
+        quantity,
+      }, {
+        stripeAccount: 'acct_1LpynD4IazTmFSzT'
+      })
+    }
+
+    invoice = await stripe.invoices.finalizeInvoice(invoice.id, {
+      auto_advance: false,
+      expand: ['payment_intent'],
+    }, {
+      stripeAccount: 'acct_1LpynD4IazTmFSzT'
+    })
+    console.log(invoice)
   
-    if (order) {
-      return json(order)
+    if (invoice) {
+      return json(invoice)
     }
   }
 
