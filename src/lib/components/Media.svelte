@@ -54,6 +54,7 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <audio src="{cdn(media.url)}" controls />
 {:else}
+<!-- {JSON.stringify(media, null, 2)} -->
 <picture>
   {#if small}
   <source srcSet="{cdn(media.url)}?width=400{ar ? `&aspect_ratio=400:${Math.round(ar * 400)}` : ''}" media="(max-width: 900px)" />

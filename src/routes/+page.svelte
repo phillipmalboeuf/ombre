@@ -2,6 +2,7 @@
 	import Form from '$lib/components/Form.svelte'
   import Media from '$lib/components/Media.svelte'
   import Rich from '$lib/components/Rich.svelte'
+  import Slider from '$lib/components/Slider.svelte'
 	import type { PageData } from './$types'
 
   export let data: PageData
@@ -26,6 +27,15 @@
 		<center>
 			<a href={section.link} class="button button--dark">{section.cta}</a>
 		</center>
+		{:else if section.blockType === 'Slider'}
+		<Slider particlesToShow={1} arrows={false} autoplay>
+      {#each section.slides as slide}
+      <figure>
+				<!-- {JSON.stringify(slide, null, 2)} -->
+        <Media media={slide.upload} ar={0.66} />
+      </figure>
+      {/each}
+    </Slider>
     {/if}
   </section>
 	{/each}

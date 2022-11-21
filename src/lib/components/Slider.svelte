@@ -38,7 +38,7 @@
         loop: true,
         slidesToScroll: particlesToShow > 1 ? 2 : 1
       },
-      plugins: [AutoHeight(), AutoPlay({ stopOnMouseEnter: true, playOnInit: autoplay })]
+      plugins: [AutoHeight(), AutoPlay({ playOnInit: autoplay })]
     }}
     on:init={event => embla = event.detail}
     style="--width: {100/particlesToShow}%;"
