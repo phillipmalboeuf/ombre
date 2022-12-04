@@ -57,16 +57,16 @@
 <!-- {JSON.stringify(media, null, 2)} -->
 <picture>
   {#if small}
-  <source srcSet="{cdn(media.url)}?width=400{ar ? `&aspect_ratio=400:${Math.round(ar * 400)}` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.url)}?width=600{ar ? `&aspect_ratio=600:${Math.round(ar * 600)}` : ''}" media="(max-width: 1200px)" />
-  <img src="{cdn(media.url)}?width=800{ar ? `&aspect_ratio=800:${Math.round(ar * 800)}` : ''}"
-    style={ar ? `aspect-ratio: 800 / ${Math.round(ar * 800)}` : ''}
+  <source srcSet="{cdn(media.url)}?width=400{ar ? `&aspect_ratio=400:${Math.round(ar * 400) + 2}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.url)}?width=600{ar ? `&aspect_ratio=600:${Math.round(ar * 600) + 2}` : ''}" media="(max-width: 1200px)" />
+  <img src="{cdn(media.url)}?width=800{ar ? `&aspect_ratio=800:${Math.round(ar * 800) + 2}` : ''}"
+    style={ar ? `aspect-ratio: 800 / ${Math.round(ar * 800) + 2}` : ''}
     alt="{media.title}" loading={eager ? "eager" : "lazy"} />
   {:else}
-  <source srcSet="{cdn(media.url)}?width=900{ar ? `&aspect_ratio=900:${Math.round(ar * 900)}` : ''}" media="(max-width: 900px)" />
-  <source srcSet="{cdn(media.url)}?width=1200{ar ? `&aspect_ratio=1200:${Math.round(ar * 1200)}` : ''}" media="(max-width: 1200px)" />
-  <img src="{cdn(media.url)}?width=1800{ar ? `&aspect_ratio=1800:${Math.round(ar * 1800)}` : ''}"
-    style={ar ? `aspect-ratio: 1800 / ${Math.round(ar * 1800)}` : ''}
+  <source srcSet="{cdn(media.url)}?width=900{ar ? `&aspect_ratio=900:${Math.round(ar * 900) + 2}` : ''}" media="(max-width: 900px)" />
+  <source srcSet="{cdn(media.url)}?width=1200{ar ? `&aspect_ratio=1200:${Math.round(ar * 1200) + 2}` : ''}" media="(max-width: 1200px)" />
+  <img src="{cdn(media.url)}?width=1800{ar ? `&aspect_ratio=1800:${Math.round(ar * 1800) + 2}` : ''}"
+    style={ar ? `aspect-ratio: 1800 / ${Math.round(ar * 1800) + 2}` : ''}
     alt="{media.title}" loading={eager ? "eager" : "lazy"} />
   {/if}
 </picture>
