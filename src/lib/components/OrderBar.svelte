@@ -3,7 +3,7 @@
   import { DateTime } from 'luxon'
   import { PUBLIC_API_URL } from '$env/static/public'
   import { crossfade, fade, fly } from 'svelte/transition'
-  import { items, bar, interval } from '$lib/stores'
+  import { items, bar, interval, kiosk } from '$lib/stores'
   import { query } from '$lib/clients/payload'
   import type { Kiosk, Product } from '$lib/payload-types'
 
@@ -32,7 +32,7 @@
       <fieldset>
         <Plans />
       </fieldset>
-      <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{DateTime.now().set({ weekday: 4 }).plus({ days: 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
+      <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{DateTime.now().set({ weekday: 4 }).plus({ days: $kiosk?.minimum_order_days || 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
       <Kiosks />
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>
