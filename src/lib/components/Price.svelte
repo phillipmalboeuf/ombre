@@ -5,14 +5,13 @@
 
   export let product: Product
   export let size: number
+  export let startingQuantity = 0
+  export let hide: boolean = false
 
   export const original = product.price * size * product.sizes.find(s => size === s.size).adjustment
   export let discount: number = undefined
 
   $ : {
-    console.log($perks)
-    // console.log($perk)
-    // console.log(product)
     const _items = $items.flatMap<{
       product: string
       unit: string
@@ -31,7 +30,7 @@
       $perks.filter(perk => (product.seasons as Season[]).find(s => s.id === perk.season) && perk.type === 'order_units' && perk.unit.unit === product.unit).forEach(perk => {
         if (_items.filter(item => item.unit === perk.unit.unit).reduce((total, item) => {
           return total += item.size * item.quantity
-        }, 0) >= perk.unit.unit_number) {
+        }, startingQuantity) >= perk.unit.unit_number) {
           perk.discount.percentage
             ? discount += original * (perk.discount.amount/100)
             : discount += perk.discount.amount
@@ -47,8 +46,10 @@
   }
 </script>
 
+{#if !hide}
 {#if discount}
 <s>{money(original)}</s><strong>{money(original - discount)}</strong>
 {:else}
 <strong>{money(original)}</strong>
+{/if}
 {/if}

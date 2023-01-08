@@ -21,7 +21,7 @@
       {/each}
     </Slider>
     <a href="/products/{product.id}"><h4>{product.title} <small><u>Plus d'info</u></small></h4></a>
-    <AddToOrder {product} />
+    <AddToOrder {product} hideBundleProducts />
   </li>
 {/each}
 </ul>

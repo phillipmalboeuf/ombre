@@ -1,27 +1,21 @@
 <script lang="ts">
   import type Stripe from 'stripe'
   import type { Stripe as StripeJS, StripeElements } from '@stripe/stripe-js'
-  import { onMount } from 'svelte'
   import { DateTime } from 'luxon'
   import { enhance } from '$app/forms'
   import { PUBLIC_API_URL, PUBLIC_STRIPE_PK } from '$env/static/public'
 
-  import { money } from '$lib/formatters'
   import { me, items, kiosk, interval, perk } from '$lib/stores'
   import { crossfade, fade, fly } from 'svelte/transition'
     
   import OrderItems from './OrderItems.svelte'
   import { browser } from '$app/environment'
   import Account from './Account.svelte'
-  
+  import Totals from './Totals.svelte'
 
   export let checkout: boolean = true
 
   export let step: "profile" | "address" | "payment" = "profile"
-
-  let subTotal: number
-  let discountTotal: number
-  let total: number
 
   let intent: Stripe.Invoice | Stripe.Subscription
   let stripe: StripeJS
@@ -29,20 +23,9 @@
 
   let originals: { [id: string]: number } = {}
   let discounts: { [id: string]: number } = {}
+  let total: number
 
   let waiting = false
-
-  $: {
-    subTotal = Object.entries(originals).filter(([id, value]) => value).reduce((t, [id, value], i) => {
-      return t + value
-    }, 0)
-    discountTotal = Object.entries(originals).filter(([id, value]) => value).reduce((t, [id, value], i) => {
-      return t - discounts[id]
-    }, 0)
-    total = Object.entries(originals).filter(([id, value]) => value).reduce((t, [id, value], i) => {
-      return t + value - discounts[id]
-    }, 0)
-  }
 
   $: {
     if (browser && form && total && !intent) {
@@ -118,7 +101,7 @@
   }
 </script>
 
-<section class="grid grid--halves" method="post" transition:fly={{ x: 100 }}>
+<section class="grid grid--halves" transition:fly={{ x: 100 }}>
   <main>
     <button on:click={() => checkout = false} class="button--none"><u>Retour</u></button>
     <OrderItems compact bind:originals bind:discounts />
@@ -158,18 +141,7 @@
     </div>
     
     <div>
-      <h5>Totaux</h5>
-      <ol class="--nostyle">
-        {#if discountTotal}
-        <li><h6>Sous-total</h6> <strong>{money(subTotal)}</strong></li>
-        {#if $perk}
-        <li><h6>Code</h6> <strong>{$perk}</strong></li>
-        {/if}
-        <li><h6>Rabais</h6> <strong>{money(discountTotal)}</strong></li>
-        {/if}
-
-        <li><h6>Total</h6> <strong>{money(total)}</strong></li>
-      </ol>
+      <Totals bind:total={total} {originals} {discounts} />
     </div>
   </aside>
 </section>
@@ -219,9 +191,6 @@
         }
       }
     }
-
-    form {
-    }
   }
 
   aside {
@@ -239,19 +208,6 @@
       &.dark {
         color: var(--light);
         background-color: var(--dark);
-      }
-    }
-
-    ol {
-      li {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: var(--step--1);
-
-        h6 {
-          margin-bottom: 0;
-        }
       }
     }
   }
