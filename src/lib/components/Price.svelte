@@ -10,6 +10,9 @@
   export let discount: number = undefined
 
   $ : {
+    console.log($perks)
+    // console.log($perk)
+    // console.log(product)
     const _items = $items.flatMap<{
       product: string
       unit: string
@@ -20,12 +23,12 @@
     if ($perks) {
       discount = 0
       if ($interval !== 'one-time') {
-        $perks.filter(perk => (product.seasons as Season[]).find(s => s == perk.season) && perk.type === 'subscription').forEach(perk => perk.discount.percentage
+        $perks.filter(perk => (product.seasons as Season[]).find(s => s.id === perk.season) && perk.type === 'subscription').forEach(perk => perk.discount.percentage
         ? discount += original * (perk.discount.amount/100)
         : discount += perk.discount.amount)
       }
 
-      $perks.filter(perk => (product.seasons as Season[]).find(s => s == perk.season) && perk.type === 'order_units' && perk.unit.unit === product.unit).forEach(perk => {
+      $perks.filter(perk => (product.seasons as Season[]).find(s => s.id === perk.season) && perk.type === 'order_units' && perk.unit.unit === product.unit).forEach(perk => {
         if (_items.filter(item => item.unit === perk.unit.unit).reduce((total, item) => {
           return total += item.size * item.quantity
         }, 0) >= perk.unit.unit_number) {

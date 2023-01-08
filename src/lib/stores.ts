@@ -62,7 +62,7 @@ export let kiosk = writable<Kiosk>()
 export let perk = writable<string>(browser && params.get('perk'))
 
 export let perks = readable<Perk[]>(undefined, set => {
-  fetch(`${PUBLIC_API_URL}/perks`).then(async response => {
+  fetch(`${PUBLIC_API_URL}/perks?depth=0`).then(async response => {
     set((await response.json()).docs)
   })
 
