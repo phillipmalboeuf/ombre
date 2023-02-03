@@ -10,7 +10,7 @@
   import Slider from './Slider.svelte'
 </script>
 
-<ul class="--nostyle grid grid--halves">
+<ul class="--nostyle grid grid--thirds">
 {#each products as product}
   <li>
     <Slider particlesToShow={1} arrows={false} thumbnails={[product.thumbnail, ...product.uploads ? product.uploads.map(upload => upload.upload) : []]}>

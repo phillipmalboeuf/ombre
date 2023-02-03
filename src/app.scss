@@ -349,6 +349,10 @@ svg {
 
   &.grid--thirds {
     grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 799px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &.grid--halves {
