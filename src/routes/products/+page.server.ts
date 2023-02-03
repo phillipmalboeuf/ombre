@@ -8,8 +8,8 @@ import { PUBLIC_API_URL } from '$env/static/public'
 export const load: PageServerLoad = async ({ locals, url }) => {
   const [collections, products, bundles] = await Promise.all([
     await (await fetch(`${PUBLIC_API_URL}/collections?depth=0&sort=createdAt`)).json() as { docs: Collection[] },
-    await (await fetch(`${PUBLIC_API_URL}/products`)).json() as { docs: Product[] },
-    await (await fetch(`${PUBLIC_API_URL}/bundles`)).json() as { docs: Bundle[] }
+    await (await fetch(`${PUBLIC_API_URL}/products?limit=100`)).json() as { docs: Product[] },
+    await (await fetch(`${PUBLIC_API_URL}/bundles?limit=100`)).json() as { docs: Bundle[] }
   ])
 
   return {
