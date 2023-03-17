@@ -3,6 +3,7 @@
 	import Products from '$lib/components/Products.svelte'
   import type { PageData } from './$types'
 	import { perk } from '$lib/stores'
+    import Rich from '$lib/components/Rich.svelte';
 
 	export let data: PageData
 </script>
@@ -29,6 +30,7 @@
 	<br>
 	{#each data.collections.docs as collection}
 	<h2>{collection.title}</h2>
+	{#if collection.description}<Rich text={collection.description} />{/if}
   <Products products={collection.products.map(product => typeof product.value === 'string'
 		? (data.products[product.value] || data.bundles[product.value])
 		: product.value)} />
