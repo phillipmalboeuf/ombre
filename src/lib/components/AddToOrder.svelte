@@ -59,7 +59,7 @@
     {#if !hideBundleProducts}
     <li>{#if bundleProduct.quantity > 1} fois {bundleProduct.quantity}{/if} {bundleProduct.product.title} <small>{bundleProduct.size} {bundleProduct.product.unit}</small></li>
     {/if}
-    <Price hide product={bundleProduct.product} size={bundleProduct.size} startingQuantity={4} bind:discount={discounts[bundleProduct.id]} bind:original={originals[bundleProduct.id]} />
+    <Price hide product={bundleProduct.product} size={bundleProduct.size} startingQuantity={4} adjustment={product.adjustment} bind:discount={discounts[bundleProduct.id]} bind:original={originals[bundleProduct.id]} />
     {/if}
   {/each}
   </ul>

@@ -28,14 +28,20 @@
   let waiting = false
 
   $: {
-    if (browser && form && total && !intent) {
+    if (browser && form && total && discounts && !intent) {
+      console.log(discounts)
+      console.log()
       
       fetch('/checkout/intent', {
         method: 'POST',
         body: JSON.stringify({
           customer: $me.payment_provider_id,
           interval: $interval,
-          items: $items.map(item => ({ ...item })),
+          items: $items.map(item => ({ ...item,
+            price: 'products' in item
+              ? item.products.reduce((total, product) =>
+                total + (discounts[product.id] ? originals[product.id] - discounts[product.id] : originals[product.id]), 0)
+              : discounts[item.id] ? originals[item.id] - discounts[item.id] : originals[item.id] })),
           kiosk: $kiosk,
           coupon: $perk
         }),

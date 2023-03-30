@@ -7,6 +7,7 @@
   export let size: number
   export let startingQuantity = 0
   export let hide: boolean = false
+  export let adjustment: number = 1
 
   export const original = product.price * size * product.sizes.find(s => size === s.size).adjustment
   export let discount: number = undefined
@@ -19,8 +20,11 @@
       quantity: number
     }>(item => 'products' in item ? item.products : item)
 
+    discount = 0
+
     if ($perks) {
-      discount = 0
+      discount += original * (1-adjustment)
+
       if ($interval !== 'one-time') {
         $perks.filter(perk => (product.seasons as Season[]).find(s => s.id === perk.season) && perk.type === 'subscription').forEach(perk => perk.discount.percentage
         ? discount += original * (perk.discount.amount/100)

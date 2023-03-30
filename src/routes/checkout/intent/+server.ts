@@ -1,7 +1,7 @@
 import { PUBLIC_API_URL } from '$env/static/public'
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
-import type { Kiosk, Product } from '$lib/payload-types'
+import type { Kiosk, Product, Bundle } from '$lib/payload-types'
 import { json, type Action, type RequestHandler } from '@sveltejs/kit'
 import { DateTime } from 'luxon'
 
@@ -9,9 +9,13 @@ export const POST: RequestHandler = async ({ request, url }) => {
 
   const { customer, items, kiosk, interval, coupon } = await request.json() as { customer: string, kiosk: Kiosk, interval: string, items: {
     product: string
+    bundle: string
+    price: number
     size: number
     quantity: number
   }[], coupon?: string }
+
+  console.log(items)
 
   const today = new Date()
   const id = `${today.getFullYear()}_${today.getMonth()}_${randomPassword(3)}`
@@ -21,17 +25,6 @@ export const POST: RequestHandler = async ({ request, url }) => {
       customer,
       auto_advance: false,
       discounts: coupon ? [{ coupon }] : [],
-      // line_items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
-      //   ({
-      //     product_data: { id: product.id, name: product.title, metadata: {
-      //       size,
-      //       unit: product.unit
-      //     } },
-      //     price_data: { unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100) },
-      //     quantity,
-          
-      //   }),
-      // ),
       metadata: {
         id,
         kiosk: kiosk.id,
@@ -57,17 +50,20 @@ export const POST: RequestHandler = async ({ request, url }) => {
     })
 
     for (let index = 0; index < items.length; index++) {
-      const { product, size, quantity } = items[index]
-      const p = await (await fetch(`${PUBLIC_API_URL}/products/${product}`)).json() as Product
+      const { product, bundle, price, size, quantity } = items[index]
+
       await stripe.invoiceItems.create({
         invoice: invoice.id,
         customer,
         price_data: {
-          product: p.id,
+          product: {'Radis Mauve': 'radis-mauve', 'Découverte': 'decouverte'}[product || bundle] || (product || bundle),
           currency: 'CAD',
-          unit_amount: Math.round(p.price * size * p.sizes.find(s => size === s.size).adjustment * 100)
+          unit_amount: price * 100
         },
         quantity,
+        metadata: {
+          size,
+        },
       }, {
         stripeAccount: 'acct_1LpynD4IazTmFSzT'
       })
@@ -90,11 +86,12 @@ export const POST: RequestHandler = async ({ request, url }) => {
   const subscription = await stripe.subscriptions.create({
     customer,
     coupon,
-    items: (await Promise.all(items.map(async item => ({ ...item, product: await (await fetch(`${PUBLIC_API_URL}/products/${item.product}`)).json() as Product })))).map(({ size, quantity, product }) => 
+    items: items
+      .map(({ size, quantity, product, bundle, price }) => 
       ({
         price_data: {
-          product: product.id,
-          unit_amount: Math.round(product.price * size * product.sizes.find(s => size === s.size).adjustment * 100),
+          product: {'Radis Mauve': 'radis-mauve', 'Découverte': 'decouverte'}[product || bundle] || (product || bundle),
+          unit_amount: price * 100,
           currency: 'CAD',
           recurring: {
             interval: split[0] as 'week',
@@ -103,11 +100,9 @@ export const POST: RequestHandler = async ({ request, url }) => {
         },
         metadata: {
           size,
-          unit: product.unit
         },
         quantity
-      }),
-    ),
+      })),
     metadata: {
       id,
       kiosk: kiosk.id,
