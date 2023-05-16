@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Content from '$lib/components/Content.svelte'
 	import Form from '$lib/components/Form.svelte'
   import Media from '$lib/components/Media.svelte'
   import Rich from '$lib/components/Rich.svelte'
@@ -13,32 +14,7 @@
 </svelte:head>
 
 <section class="padded grid grid--full">
-	{#each data.page.content as section, i}
-	<section id={section.id}>
-		{#if section.title}{#if i === 0}<h1 class="h1">{section.title}</h1>{:else}<h3>{section.title}</h3>{/if}{/if}
-    {#if section.blockType === 'Text'}
-		{#if section.media}
-		<figure>
-			<Media media={section.media} />
-		</figure>
-		{/if}
-    <Rich text={section.text} />
-		{:else if section.blockType === 'Button'}
-		<center>
-			<a href={section.link} class="button button--dark">{section.cta}</a>
-		</center>
-		{:else if section.blockType === 'Slider'}
-		<Slider particlesToShow={1} arrows={false} autoplay>
-      {#each section.slides as slide}
-      <figure>
-				<!-- {JSON.stringify(slide, null, 2)} -->
-        <Media media={slide.upload} ar={0.66} />
-      </figure>
-      {/each}
-    </Slider>
-    {/if}
-  </section>
-	{/each}
+	<Content content={data.page.content} />
 
 	<!-- {#each content.index as section, i}
 	<section id={section.id}>

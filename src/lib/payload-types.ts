@@ -328,6 +328,7 @@ export interface ContentPage {
   id: string;
   index?: boolean;
   seasons?: string[] | Season[];
+  thumbnail?: string | Upload;
   content: (
     | {
         title?: string;
@@ -345,6 +346,49 @@ export interface ContentPage {
         id?: string;
         blockName?: string;
         blockType: 'Button';
+      }
+    | {
+        title?: string;
+        slides: {
+          upload?: string | Upload;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'Slider';
+      }
+    | {
+        title?: string;
+        id?: string;
+        number: number;
+        columns: (
+          | {
+              title?: string;
+              id?: string;
+              media?: string | Upload;
+              text?: {
+                [k: string]: unknown;
+              }[];
+              blockName?: string;
+              blockType: 'Text';
+            }
+          | {
+              cta?: string;
+              link?: string;
+              id?: string;
+              blockName?: string;
+              blockType: 'Button';
+            }
+        )[];
+        blockName?: string;
+        blockType: 'Blocks';
+      }
+      | {
+        title?: string;
+        id?: string;
+        pages?: string[];
+        blockName?: string;
+        blockType: 'PagesList';
       }
   )[];
   producer?: string | Producer;
@@ -371,6 +415,26 @@ export interface Notice {
   producer?: string | Producer;
   logged_at?: string;
   _status?: 'draft' | 'published';
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "signups".
+ */
+export interface Signup {
+  id: string;
+  email: string;
+  name?: string;
+  phone?: string;
+  shipping_address?: string;
+  kiosk?: string | Kiosk;
+  accepts_notices?: 'never' | 'week' | 'month';
+  notes?: {
+    [k: string]: unknown;
+  }[];
+  producer?: string | Producer;
+  logged_at?: string;
   createdAt: string;
   updatedAt: string;
 }
