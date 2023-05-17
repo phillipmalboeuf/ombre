@@ -38,7 +38,7 @@
   {:else if section.blockType === 'PagesList'}
   {#if pages}
   <ul class="--nostyle grid grid--thirds">
-    {#each section.pages.map(p => pages.find(page => p === page.id)) as page, i}
+    {#each section.pages as page, i}
     <li>
       {#if page.thumbnail}
       <a href="/{$_page.params.page}/{page.id}">

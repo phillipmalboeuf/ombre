@@ -386,7 +386,7 @@ export interface ContentPage {
       | {
         title?: string;
         id?: string;
-        pages?: string[];
+        pages?: ContentPage[];
         blockName?: string;
         blockType: 'PagesList';
       }
