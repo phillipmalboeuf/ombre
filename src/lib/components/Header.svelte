@@ -17,7 +17,7 @@
     <div class="grid grid--full">
       <button class="button--none" on:click={() => menu = false}><Icon k='close' /> {content.close}</button>
       {#each content.links as { href, label }, i}
-      <a {href} class="h1"
+      <a {href} class="h2"
         on:click={() => menu = false}
         transition:fly={{ x: -40, delay: 50 * (i+1) }}>{label}</a>
       {/each}
