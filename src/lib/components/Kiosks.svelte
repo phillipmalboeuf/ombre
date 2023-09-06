@@ -8,7 +8,7 @@
   let value: string
 
   onMount(async () => {
-    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks?sort=-name`)).json()
+    kiosks = await (await fetch(`${PUBLIC_API_URL}/kiosks?sort=-name&limit=50`)).json()
     if (!$kiosk) {
       kiosk.set(kiosks.docs[0])
     }
