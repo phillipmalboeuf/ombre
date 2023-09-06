@@ -73,7 +73,7 @@
   {#if 'products' in product ? product.products.reduce((total, product) => {
     return total += (product).inventory
   }, 0) === 0 : product.inventory === 0}
-  Hors de stock
+  Non-disponible
   {:else}
   Ajouter
   {/if}</button>
