@@ -22,3 +22,16 @@ export async function query<T = any>(f: typeof fetch, query: string, variables: 
   // console.log(json)
   return json
 }
+
+export async function api<T>(route: string) {
+  console.log(`${PUBLIC_API_URL}/${route}`)
+  const res = await fetch(`${PUBLIC_API_URL}/${route}`, {
+    headers: {
+      "ngrok-skip-browser-warning": "true"
+    }
+  })
+
+  const json = await res.json()
+  // console.log(json)
+  return json as T
+}

@@ -16,8 +16,8 @@ export const load: PageServerLoad = async ({ url, locals, request }) => {
   }
 
   const [orders, subscriptions] = await Promise.all([
-    (await (await fetch(`${PUBLIC_API_URL}/orders?where[placed_by.value][equals]=${locals.customer.id}`)).json()).docs as Order[],
-    (await (await fetch(`${PUBLIC_API_URL}/subscriptions?where[placed_by.value][equals]=${locals.customer.id}&depth=2`)).json()).docs as Subscription[],
+    (await api<{docs: Order[]}>(`orders?where[placed_by.value][equals]=${locals.customer.id}`)).docs,
+    (await api<{docs: Subscription[]}>(`subscriptions?where[placed_by.value][equals]=${locals.customer.id}&depth=2`)).docs,
   ])
 
   return {

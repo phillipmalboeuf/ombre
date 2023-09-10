@@ -1,9 +1,10 @@
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/[page]/$types'
 import { error } from '@sveltejs/kit'
 import { PUBLIC_API_URL } from '$env/static/public'
+import { api } from '$lib/clients/payload'
 
 export const load: PageServerLoad = async ({ locals, url, params }) => {
-  const page = await (await fetch(`${PUBLIC_API_URL}/content_pages/${params.page}?locale=fr`)).json() as ContentPage
+  const page = await api<ContentPage>(`content_pages/${params.page}?locale=fr`)
   // console.log(JSON.stringify(page, null, 2))
   let pages: ContentPage[] = [] 
 
@@ -11,7 +12,7 @@ export const load: PageServerLoad = async ({ locals, url, params }) => {
   //   const section = page.content[index]
     
   //   if (section.blockType === 'PagesList') {
-  //     pages = [...pages, ...(await (await fetch(`${PUBLIC_API_URL}/content_pages/?depth=0&locale=fr`)).json() as {docs: ContentPage[]}).docs]
+  //     pages = [...pages, ...(await api<{docs: ContentPage[]}>(`content_pages/?depth=0&locale=fr`).docs]
   //     console.log(pages)
   //   }
   // }

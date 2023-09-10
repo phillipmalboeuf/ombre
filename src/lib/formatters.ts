@@ -12,3 +12,7 @@ export const money = (value: any) => {
 export const date = (value: string) => {
   return DateTime.fromISO(value).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })
 }
+
+export const weekday = (value: string) => {
+  return ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].findIndex(v => v === value)
+}

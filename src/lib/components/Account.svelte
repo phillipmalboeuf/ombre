@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { PUBLIC_API_URL } from '$env/static/public'
   import { enhance } from '$app/forms'
   import { fly } from 'svelte/transition'
 

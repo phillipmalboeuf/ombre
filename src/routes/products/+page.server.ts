@@ -4,12 +4,13 @@ import { error } from '@sveltejs/kit'
 import { query } from '$lib/clients/payload'
 import type { Bundle, Collection, Product } from '$lib/payload-types'
 import { PUBLIC_API_URL } from '$env/static/public'
+import { api } from '$lib/clients/payload'
 
 export const load: PageServerLoad = async ({ locals, url }) => {
   const [collections, products, bundles] = await Promise.all([
-    await (await fetch(`${PUBLIC_API_URL}/collections?depth=0&sort=createdAt`)).json() as { docs: Collection[] },
-    await (await fetch(`${PUBLIC_API_URL}/products?limit=100`)).json() as { docs: Product[] },
-    await (await fetch(`${PUBLIC_API_URL}/bundles?limit=100`)).json() as { docs: Bundle[] }
+    await api<{ docs: Collection[] }>(`collections?depth=0&sort=createdAt`),
+    await api<{ docs: Product[] }>(`products?limit=100`),
+    await api<{ docs: Bundle[] }>(`bundles?limit=100`)
   ])
 
   return {

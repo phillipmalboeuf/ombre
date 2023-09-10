@@ -6,10 +6,10 @@ import type { Bundle, Product } from '$lib/payload-types'
 import { PUBLIC_API_URL } from '$env/static/public'
 
 export const load: PageServerLoad = async ({ locals, url, params: { id } }) => {
-  let product: Product | Bundle = await (await fetch(`${PUBLIC_API_URL}/products/${id}`)).json() as Product
+  let product: Product | Bundle = await api<Product>(`products/${id}`)
   
   if (!product?.id) {
-    product = await (await fetch(`${PUBLIC_API_URL}/bundles/${id}`)).json() as Bundle
+    product = await api<Bundle>(`bundles/${id}`)
   }
 
   return {

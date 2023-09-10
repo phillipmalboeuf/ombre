@@ -2,7 +2,7 @@
   import { PUBLIC_API_URL } from '$env/static/public'
   import { crossfade, fade, fly } from 'svelte/transition'
   import { items, bar, interval } from '$lib/stores'
-  import { query } from '$lib/clients/payload'
+  import { api, query } from '$lib/clients/payload'
   import type { Bundle, Product } from '$lib/payload-types'
 
   import Media from './Media.svelte'
@@ -17,14 +17,14 @@
 
   async function product(id: string) {
     if (!products[id]) {
-      products[id] = await (await fetch(`${PUBLIC_API_URL}/products/${id}`)).json()
+      products[id] = await api<Product>(`products/${id}`)
     }
     return products[id]
   }
 
   async function bundle(id: string) {
     if (!bundles[id]) {
-      bundles[id] = await (await fetch(`${PUBLIC_API_URL}/bundles/${id}`)).json()
+      bundles[id] = await api<Bundle>(`bundles/${id}`)
     }
     return bundles[id]
   }
