@@ -6,6 +6,6 @@
 <input type="radio" name="interval" bind:group={$interval} value="one-time" id="one-time">
 <label for="one-time">{#if $interval === "one-time"}<Icon k="hand" />{/if} Commande une fois</label>
 <input type="radio" name="interval" bind:group={$interval} value="week-1" id="week">
-<label for="week">{#if $interval === "week-1"}<Icon k="hand" />{/if} Abonnement hebdomadaire</label>
+<label for="week">{#if $interval === "week-1"}<Icon k="hand" />{/if} Un panier par semaine</label>
 <input type="radio" name="interval" bind:group={$interval} value="week-2" id="week-2">
-<label for="week-2">{#if $interval === "week-2"}<Icon k="hand" />{/if} Abonnement au 2 semaines</label>
+<label for="week-2">{#if $interval === "week-2"}<Icon k="hand" />{/if} Un panier au 2 semaines</label>

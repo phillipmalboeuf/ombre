@@ -41,7 +41,7 @@
   })
 </script>
 
-<h5>{#if $interval === 'one-time'}Votre commande{:else}Votre abonnement{/if}</h5>
+<h5>{#if $interval === 'one-time'}Votre commande{:else}Votre panier{/if}</h5>
 <ul class:compact class="--nostyle grid grid--tight" class:grid--halves={$items.length} class:grid--full={!$items.length}>
   {#each $items as item, i (item.id)}
   <li class="flex flex--middle" class:span__2={'bundle' in item} transition:fly={{ y: 33 }}>
