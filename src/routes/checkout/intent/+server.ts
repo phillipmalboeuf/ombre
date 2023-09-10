@@ -58,7 +58,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
         price_data: {
           product: {'Radis Mauve': 'radis-mauve', 'Découverte': 'decouverte'}[product || bundle] || (product || bundle),
           currency: 'CAD',
-          unit_amount: price * 100
+          unit_amount: Math.round(price * 100)
         },
         quantity,
         metadata: {
@@ -91,7 +91,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
       ({
         price_data: {
           product: {'Radis Mauve': 'radis-mauve', 'Découverte': 'decouverte'}[product || bundle] || (product || bundle),
-          unit_amount: price * 100,
+          unit_amount: Math.round(price * 100),
           currency: 'CAD',
           recurring: {
             interval: split[0] as 'week',

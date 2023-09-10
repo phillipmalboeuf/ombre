@@ -29,8 +29,7 @@
 
   $: {
     if (browser && form && total && discounts && !intent) {
-      console.log(discounts)
-      console.log()
+      // console.log(discounts)
       
       fetch('/checkout/intent', {
         method: 'POST',
