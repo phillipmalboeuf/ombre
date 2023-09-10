@@ -12,6 +12,7 @@
   import { browser } from '$app/environment'
   import Account from './Account.svelte'
   import Totals from './Totals.svelte'
+  import { weekday } from '$lib/formatters'
 
   export let checkout: boolean = true
 
@@ -140,7 +141,7 @@
       <h6>Livraison</h6>
       {#if $kiosk}
       <h5>{$kiosk.name}</h5>
-      <small>{DateTime.now().set({ weekday: 4 }).plus({ days: 14 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small><br>
+      <small>{DateTime.now().set({ weekday: weekday($kiosk.open_hours[0].weekdays[0]) }).plus({ days: 21 }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small><br>
       <small><a href="https://www.google.ca/maps/place/{encodeURIComponent($kiosk.address)}" target="_blank"><u>{$kiosk.address}</u></a></small>
       {/if}
     </div>
