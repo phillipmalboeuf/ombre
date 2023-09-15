@@ -43,7 +43,6 @@
   "links": [
     { "label": "Accueil", "href": "/" },
     { "label": "Produits", "href": "/products" },
-    { "label": "À propos", "href": "/a-propos" },
     { "label": "Contact", "href": "https://www.facebook.com/Poussepoulin-109121921972695" }
   ],
   "locale": { "label": "En", "href": "/" },
