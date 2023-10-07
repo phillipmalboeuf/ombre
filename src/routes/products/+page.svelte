@@ -37,5 +37,11 @@
 	{/each}
 </section>
 
-<style>
+<style lang="scss">
+	aside {
+		@media (max-width: 888px) {
+			padding: var(--step-0);
+			flex-direction: column;
+		}
+	}
 </style>
