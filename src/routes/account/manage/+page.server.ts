@@ -1,6 +1,6 @@
 import { error, redirect, type Action, type Actions } from '@sveltejs/kit'
 
-import { query } from '$lib/clients/payload'
+import { api } from '$lib/clients/payload'
 import type { Customer, Order, Product, Subscription } from '$lib/payload-types'
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/account/$types'
 import { TOKEN_KEY } from '$env/static/private'
