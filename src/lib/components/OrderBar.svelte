@@ -13,7 +13,7 @@
   import OrderItems from './OrderItems.svelte'
   import Checkout from './Checkout.svelte'
   import Kiosks from './Kiosks.svelte'
-  import { weekday } from '$lib/formatters'
+  import { deliverAt, weekday } from '$lib/formatters'
 
   let checkout = false
 </script>
@@ -33,7 +33,7 @@
       <fieldset>
         <Plans />
       </fieldset>
-      <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{$kiosk?.open_hours && DateTime.now().set({ weekday: weekday($kiosk.open_hours[0].weekdays[0]) }).plus({ days: $kiosk.minimum_order_days }).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
+      <label class="flex flex--spaced flex--middle" for="kiosk"><span>Disponible chez</span> <small>{$kiosk?.open_hours && deliverAt($kiosk.open_hours[0].weekdays[0], $kiosk.minimum_order_days).setLocale('fr').toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' })}</small></label>
       <Kiosks />
       <button class="button--full button--dark" type="submit">Procéder au paiement</button>
     </div>

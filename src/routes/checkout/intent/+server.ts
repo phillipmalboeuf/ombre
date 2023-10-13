@@ -1,6 +1,7 @@
 import { PUBLIC_API_URL } from '$env/static/public'
 import { stripe } from '$lib/clients/stripe'
 import { randomPassword } from '$lib/encryption'
+import { deliverAt, weekday } from '$lib/formatters'
 import type { Kiosk, Product, Bundle } from '$lib/payload-types'
 import { json, type Action, type RequestHandler } from '@sveltejs/kit'
 import { DateTime } from 'luxon'
@@ -28,7 +29,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
       metadata: {
         id,
         kiosk: kiosk.id,
-        deliver_at: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toISO()
+        deliver_at: deliverAt(kiosk.open_hours[0].weekdays[0], kiosk.minimum_order_days).toISO()
       },
       expand: ['payment_intent'],
       currency: 'CAD',
@@ -106,9 +107,9 @@ export const POST: RequestHandler = async ({ request, url }) => {
     metadata: {
       id,
       kiosk: kiosk.id,
-      deliver_at: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toISO()
+      deliver_at: deliverAt(kiosk.open_hours[0].weekdays[0], kiosk.minimum_order_days).toISO()
     },
-    // trial_end: DateTime.now().set({ weekday: 4 }).plus({ days: kiosk.minimum_order_days }).toUnixInteger(),
+    // trial_end: deliverAt(kiosk.open_hours[0].weekdays[0], kiosk.minimum_order_days).toUnixInteger(),
     expand: ['latest_invoice.payment_intent'],
     currency: 'CAD',
     payment_behavior: 'default_incomplete',

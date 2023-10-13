@@ -16,3 +16,12 @@ export const date = (value: string) => {
 export const weekday = (value: string) => {
   return ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].findIndex(v => v === value)
 }
+
+export const deliverAt = (week_day: string, minimum_order_days: number, seed_day:number=5) => {
+  let now = DateTime.now()
+  if (now.weekday < seed_day) {
+    return now.set({ weekday: weekday(week_day) }).plus({ days: minimum_order_days })
+  } else {
+    return now.plus({ days: 7 }).set({ weekday: weekday(week_day) }).plus({ days: minimum_order_days })
+  }
+}
