@@ -1,7 +1,7 @@
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/products/[id]/$types'
 import { error } from '@sveltejs/kit'
 
-import { query } from '$lib/clients/payload'
+import { query, api } from '$lib/clients/payload'
 import type { Bundle, Product } from '$lib/payload-types'
 import { PUBLIC_API_URL } from '$env/static/public'
 
