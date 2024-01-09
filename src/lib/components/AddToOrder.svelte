@@ -67,9 +67,16 @@
   <br>
   {/if}
 
-  <button type="submit" disabled={true}>
+  <button type="submit" disabled={'products' in product ? product.products.reduce((total, product) => {
+    return total += (product).inventory
+  }, 0) === 0 : product.inventory === 0}>
+  {#if 'products' in product ? product.products.reduce((total, product) => {
+    return total += (product).inventory
+  }, 0) === 0 : product.inventory === 0}
   Non-disponible
-  </button>
+  {:else}
+  Ajouter
+  {/if}</button>
 </form>
 
 <style lang="scss">
